@@ -1,10 +1,9 @@
-import { StrictMode, type ReactNode } from "react";
+import { StrictMode, useMemo, useState, type ReactNode } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import {
   ChevronDown,
   Crown,
   Gauge,
-  Shield,
   Skull,
   Zap,
 } from "lucide-react";
@@ -15,11 +14,18 @@ type DashboardData = typeof dashboardData;
 type LeaderboardPlayer = DashboardData["leaderboard"][number];
 type RecentGame = DashboardData["recentPartyGames"][number];
 type FeedEvent = DashboardData["feed"][number];
+type GameModeFilter = "all" | "turbo" | "ranked" | "other";
 
 const data = dashboardData as DashboardData;
 const playersById = new Map(data.players.map((player) => [player.accountId, player]));
 
 const navItems = ["Dashboard", "Players", "Matches", "Achievements", "Hall of Fame"];
+const modeFilters: { label: string; value: GameModeFilter }[] = [
+  { label: "All Modes", value: "all" },
+  { label: "Turbo", value: "turbo" },
+  { label: "Ranked", value: "ranked" },
+  { label: "Other", value: "other" },
+];
 const rankNames = ["Unranked", "Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine", "Immortal"];
 const rankStars = ["", "I", "II", "III", "IV", "V"];
 
@@ -30,6 +36,13 @@ function rankLabel(rankTier: number | null | undefined) {
   const name = rankNames[medal] ?? "Unranked";
   if (medal >= 8) return name;
   return `${name} ${rankStars[star] ?? ""}`.trim();
+}
+
+function rankIconSrc(rankTier: number | null | undefined) {
+  if (!rankTier) return null;
+  const medal = Math.floor(rankTier / 10);
+  if (medal < 1 || medal > 8) return null;
+  return `/assets/ranks/rank_icon_${medal}.png`;
 }
 
 function formatTime(value: string | null) {
@@ -93,12 +106,6 @@ function Header() {
           </a>
         ))}
       </nav>
-
-      <button className="season-button" type="button">
-        <Shield aria-hidden="true" />
-        <span>Season 1</span>
-        <ChevronDown aria-hidden="true" />
-      </button>
     </header>
   );
 }
@@ -134,10 +141,15 @@ function Leaderboard() {
           <article className="leaderboard-row" key={player.accountId}>
             <RankBadge rank={player.rank} />
             <div className="player-cell">
-              <img src={player.avatar ?? ""} alt="" />
+              <img className="player-avatar" src={player.avatar ?? ""} alt="" />
               <div>
                 <strong>{player.name}</strong>
-                <span>{rankLabel(playersById.get(player.accountId)?.rankTier)}</span>
+                <span className="rank-line">
+                  {rankIconSrc(playersById.get(player.accountId)?.rankTier) ? (
+                    <img src={rankIconSrc(playersById.get(player.accountId)?.rankTier) ?? ""} alt="" />
+                  ) : null}
+                  {rankLabel(playersById.get(player.accountId)?.rankTier)}
+                </span>
               </div>
             </div>
             <strong className="record">
@@ -185,16 +197,41 @@ function HeroStack({ game }: { game: RecentGame }) {
   );
 }
 
+function isRankedGame(game: RecentGame) {
+  return game.lobbyTypeName.toLowerCase().includes("ranked") || game.modeName.toLowerCase().includes("ranked");
+}
+
+function matchesModeFilter(game: RecentGame, filter: GameModeFilter) {
+  const isTurbo = game.modeName.toLowerCase() === "turbo";
+  const isRanked = isRankedGame(game);
+  if (filter === "turbo") return isTurbo;
+  if (filter === "ranked") return isRanked;
+  if (filter === "other") return !isTurbo && !isRanked;
+  return true;
+}
+
 function RecentGames() {
+  const [modeFilter, setModeFilter] = useState<GameModeFilter>("all");
+  const visibleGames = useMemo(
+    () => data.recentPartyGames.filter((game) => matchesModeFilter(game, modeFilter)).slice(0, 20),
+    [modeFilter],
+  );
+
   return (
     <Panel
-      title="Recent Party Games"
+      title="Recent Games"
       className="games-panel"
       action={
-        <button className="mode-button" type="button">
-          <span>All Modes</span>
+        <label className="mode-select" aria-label="Filter recent games by mode">
+          <select value={modeFilter} onChange={(event) => setModeFilter(event.target.value as GameModeFilter)}>
+            {modeFilters.map((filter) => (
+              <option key={filter.value} value={filter.value}>
+                {filter.label}
+              </option>
+            ))}
+          </select>
           <ChevronDown aria-hidden="true" />
-        </button>
+        </label>
       }
     >
       <div className="games-head">
@@ -206,10 +243,12 @@ function RecentGames() {
         <span>Heroes</span>
       </div>
       <div className="games-list">
-        {data.recentPartyGames.slice(0, 20).map((game: RecentGame) => (
+        {visibleGames.length ? visibleGames.map((game: RecentGame) => (
           <article className="game-row" key={game.matchId}>
             <PartyStack game={game} />
-            <span className={`result-pill ${game.result === "WIN" ? "win" : "loss"}`}>{game.result}</span>
+            <span className={`result-pill ${game.result === "WIN" ? "win" : "loss"}`}>
+              {game.result === "WIN" ? "W" : "L"}
+            </span>
             <span className="mode-cell">{game.modeName}</span>
             <span>{game.durationLabel}</span>
             <span className="date-cell">
@@ -220,7 +259,7 @@ function RecentGames() {
               <HeroStack game={game} />
             </span>
           </article>
-        ))}
+        )) : <div className="games-empty">No games for this mode</div>}
       </div>
     </Panel>
   );
