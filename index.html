@@ -1,0 +1,1355 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DotaFIFA Card Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      id="fontLink"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --card-width: 440px;
+        --preview-scale: 1;
+        --text: #351d10;
+        --muted: rgba(53, 29, 16, 0.62);
+        --panel: #111517;
+        --panel-soft: #171d20;
+        --line: rgba(255, 255, 255, 0.12);
+        --copy: #edf0ed;
+        --copy-soft: #9fa9a6;
+        --accent: #d7a43d;
+        --font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+        --avatar-top: 15.2%;
+        --avatar-left: 12.5%;
+        --avatar-width: 75%;
+        --avatar-height: 44.4%;
+        --avatar-scale: 1;
+        --avatar-x: 50%;
+        --avatar-y: 0%;
+        --avatar-opacity: 0.87;
+        --avatar-saturate: 1.04;
+        --avatar-contrast: 1.02;
+        --avatar-brightness: 1;
+        --rating-top: 18.2%;
+        --rating-left: 16.7%;
+        --rating-width: 17%;
+        --ovr-size: 0.155;
+        --position-size: 0.083;
+        --rank-top: 34.2%;
+        --rank-left: 18%;
+        --rank-width: 14.4%;
+        --name-top: 59%;
+        --name-left: 23%;
+        --name-width: 54%;
+        --name-size: 0.07;
+        --stats-top: 67.7%;
+        --stats-left: 18.8%;
+        --stats-width: 62.4%;
+        --stats-size: 0.078;
+        --stats-gap: 10px;
+        --text-color: #351d10;
+        --rank-scale: 1;
+        --fx-intensity: 0.65;
+        --fx-speed: 1;
+        --fx-color: #ffd76a;
+        --fx-secondary-color: #74d7ff;
+        --fx-spark-opacity: 0.55;
+        --fx-spark-dim: 0.25;
+        --fx-brightness: 1.17;
+        --fx-aura-dim: 0.4;
+        --fx-holo-opacity: 0.45;
+        --fx-holo-bright: 1.3;
+        --fx-holo-peak: 1.5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background:
+          radial-gradient(circle at 34% 12%, rgba(215, 164, 61, 0.2), transparent 26rem),
+          linear-gradient(135deg, #0b0f10, #181713 50%, #081716);
+        color: var(--copy);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .app {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: minmax(320px, 1fr) minmax(340px, 420px);
+      }
+
+      .stage {
+        min-width: 0;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        padding: 22px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 44px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+      }
+
+      .brand strong {
+        font-size: 18px;
+        letter-spacing: 0.02em;
+      }
+
+      .brand span {
+        color: var(--copy-soft);
+        font-size: 13px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .button {
+        min-height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 0 12px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--copy);
+      }
+
+      .button.primary {
+        border-color: rgba(215, 164, 61, 0.72);
+        background: #d7a43d;
+        color: #17120a;
+        font-weight: 750;
+      }
+
+      .button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .button.primary:hover {
+        background: #e0b450;
+      }
+
+      .preview-wrap {
+        min-height: 0;
+        display: grid;
+        place-items: center;
+        overflow: auto;
+        padding: 24px 0;
+      }
+
+      .card-shell {
+        transform: scale(var(--preview-scale));
+        transform-origin: center;
+        transition: transform 180ms ease;
+      }
+
+      .card {
+        position: relative;
+        width: var(--card-width);
+        aspect-ratio: 1024 / 1536;
+        filter: drop-shadow(0 34px 40px rgba(0, 0, 0, 0.46));
+        color: var(--text-color);
+        font-family: var(--font-family);
+        font-weight: 700;
+      }
+
+      .template {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        user-select: none;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .template-overlay {
+        z-index: 4;
+        display: none;
+      }
+
+      .frame-fx {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        z-index: 3;
+        pointer-events: none;
+        opacity: clamp(0, var(--fx-intensity), 1);
+        mix-blend-mode: screen;
+        user-select: none;
+      }
+
+      .frame-aura {
+        filter:
+          brightness(var(--fx-brightness))
+          saturate(1.55)
+          drop-shadow(0 0 calc(var(--card-width) * 0.035) var(--fx-color))
+          drop-shadow(0 0 calc(var(--card-width) * 0.055) var(--fx-secondary-color));
+        transform-origin: 50% 50%;
+        animation: frameAura calc(3.2s / var(--fx-speed)) ease-in-out infinite;
+      }
+
+      .frame-holo {
+        opacity: var(--fx-holo-opacity);
+        filter:
+          hue-rotate(0deg)
+          brightness(var(--fx-holo-bright))
+          saturate(2.15)
+          contrast(1.12);
+        animation: frameHolo calc(2.8s / var(--fx-speed)) linear infinite;
+      }
+
+      .spark-fx {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+        opacity: var(--fx-spark-opacity);
+        mix-blend-mode: screen;
+        background:
+          radial-gradient(circle at 48% 8%, white 0 0.45%, transparent 0.85%),
+          radial-gradient(circle at 30% 18%, var(--fx-color) 0 0.35%, transparent 0.8%),
+          radial-gradient(circle at 72% 20%, var(--fx-secondary-color) 0 0.35%, transparent 0.75%),
+          radial-gradient(circle at 13% 49%, white 0 0.38%, transparent 0.82%),
+          radial-gradient(circle at 88% 51%, var(--fx-color) 0 0.36%, transparent 0.8%),
+          radial-gradient(circle at 36% 90%, white 0 0.4%, transparent 0.86%),
+          radial-gradient(circle at 64% 89%, var(--fx-secondary-color) 0 0.36%, transparent 0.82%);
+        filter:
+          brightness(var(--fx-brightness))
+          drop-shadow(0 0 8px var(--fx-color));
+        animation: mmoSparkle calc(2.6s / var(--fx-speed)) steps(2, end) infinite;
+      }
+
+      @keyframes frameAura {
+        0%,
+        100% {
+          transform: scale(0.997);
+          opacity: var(--fx-aura-dim);
+        }
+
+        50% {
+          transform: scale(1.006);
+          opacity: clamp(0, var(--fx-intensity), 1);
+        }
+      }
+
+      @keyframes frameHolo {
+        0% {
+          filter: hue-rotate(-18deg) brightness(var(--fx-holo-bright)) saturate(1.8);
+        }
+
+        45% {
+          filter: hue-rotate(28deg) brightness(var(--fx-holo-peak)) saturate(2.4);
+        }
+
+        100% {
+          filter: hue-rotate(342deg) brightness(var(--fx-holo-bright)) saturate(1.8);
+        }
+      }
+
+      @keyframes mmoSparkle {
+        0%,
+        100% {
+          opacity: var(--fx-spark-dim);
+          transform: scale(0.98);
+        }
+
+        50% {
+          opacity: var(--fx-spark-opacity);
+          transform: scale(1.015);
+        }
+      }
+
+      .rating {
+        position: absolute;
+        top: var(--rating-top);
+        left: var(--rating-left);
+        width: var(--rating-width);
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 246, 199, 0.55);
+        z-index: 6;
+      }
+
+      .ovr {
+        display: block;
+        font-size: calc(var(--card-width) * var(--ovr-size));
+        line-height: 0.9;
+        font-weight: var(--ovr-weight, 800);
+        letter-spacing: 0;
+      }
+
+      .position {
+        display: block;
+        margin-top: 1%;
+        font-size: calc(var(--card-width) * var(--position-size));
+        line-height: 0.95;
+        font-weight: var(--position-weight, 300);
+        letter-spacing: 0;
+      }
+
+      .rating-rule {
+        position: absolute;
+        top: calc(var(--rating-top) + 15.3%);
+        left: calc(var(--rating-left) + 0.6%);
+        width: calc(var(--rating-width) - 1.2%);
+        height: 1px;
+        background: color-mix(in srgb, var(--text-color) 48%, transparent);
+        z-index: 6;
+      }
+
+      .rank-mark {
+        position: absolute;
+        top: var(--rank-top);
+        left: var(--rank-left);
+        width: var(--rank-width);
+        height: 8.6%;
+        z-index: 6;
+        transform: scale(var(--rank-scale));
+        transform-origin: top center;
+      }
+
+      .rank-mark img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 3px 4px rgba(55, 28, 4, 0.24));
+      }
+
+      .rank-stars {
+        top: 5%;
+        width: 76%;
+        z-index: 5;
+      }
+
+      .rank-icon {
+        top: 14%;
+        z-index: 1;
+      }
+
+      .avatar-frame {
+        position: absolute;
+        top: var(--avatar-top);
+        left: var(--avatar-left);
+        width: var(--avatar-width);
+        height: var(--avatar-height);
+        z-index: 5;
+        overflow: hidden;
+        -webkit-mask-image:
+          linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+          linear-gradient(to bottom, transparent 0, #000 7%, #000 94%, transparent 100%);
+        -webkit-mask-composite: source-in;
+        mask-image:
+          linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+          linear-gradient(to bottom, transparent 0, #000 7%, #000 94%, transparent 100%);
+        mask-composite: intersect;
+      }
+
+      .avatar {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: var(--avatar-x) var(--avatar-y);
+        border-radius: 0;
+        mix-blend-mode: var(--avatar-blend, normal);
+        opacity: var(--avatar-opacity);
+        filter:
+          saturate(var(--avatar-saturate))
+          contrast(var(--avatar-contrast))
+          brightness(var(--avatar-brightness));
+        transform: scale(var(--avatar-scale));
+        transform-origin: var(--avatar-x) var(--avatar-y);
+      }
+
+      .name {
+        position: absolute;
+        top: var(--name-top);
+        left: var(--name-left);
+        width: var(--name-width);
+        margin: 0;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: calc(var(--card-width) * var(--name-size));
+        line-height: 1;
+        font-weight: var(--name-weight, 800);
+        letter-spacing: var(--name-spacing, 0.04em);
+        text-transform: uppercase;
+        text-shadow: 0 1px 0 rgba(255, 246, 199, 0.55);
+        z-index: 6;
+      }
+
+      .stats {
+        position: absolute;
+        top: var(--stats-top);
+        left: var(--stats-left);
+        width: var(--stats-width);
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 5%;
+        z-index: 6;
+      }
+
+      .divider {
+        width: 1px;
+        min-height: calc(var(--card-width) * 0.268);
+        background: linear-gradient(transparent, color-mix(in srgb, var(--text-color) 56%, transparent), transparent);
+      }
+
+      .stat {
+        display: flex;
+        align-items: baseline;
+        gap: var(--stats-gap);
+        height: calc(var(--card-width) * 0.083);
+        line-height: 1;
+      }
+
+      .stat strong,
+      .stat span {
+        min-width: 1.35em;
+        font-size: calc(var(--card-width) * var(--stats-size));
+      }
+
+      .stat strong {
+        text-align: right;
+        font-weight: var(--stats-number-weight, 800);
+      }
+
+      .stat span {
+        min-width: auto;
+        font-weight: var(--stats-label-weight, 300);
+      }
+
+      .panel {
+        max-height: 100vh;
+        overflow: auto;
+        border-left: 1px solid var(--line);
+        background: color-mix(in srgb, var(--panel) 92%, black);
+      }
+
+      .panel-head {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        padding: 18px 18px 14px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(17, 21, 23, 0.94);
+        backdrop-filter: blur(14px);
+      }
+
+      .panel-head h1 {
+        margin: 0 0 4px;
+        font-size: 18px;
+      }
+
+      .panel-head p {
+        margin: 0;
+        color: var(--copy-soft);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .groups {
+        padding: 10px 14px 22px;
+      }
+
+      details {
+        border-bottom: 1px solid var(--line);
+      }
+
+      summary {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--copy);
+        font-weight: 760;
+        list-style: none;
+        cursor: pointer;
+      }
+
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      summary::after {
+        content: "+";
+        color: var(--copy-soft);
+        font-size: 18px;
+      }
+
+      details[open] summary::after {
+        content: "-";
+      }
+
+      .group {
+        display: grid;
+        gap: 12px;
+        padding: 0 0 16px;
+      }
+
+      .row {
+        display: grid;
+        gap: 7px;
+      }
+
+      .row.two {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        color: var(--copy-soft);
+        font-size: 12px;
+      }
+
+      .label output {
+        color: var(--copy);
+        font-variant-numeric: tabular-nums;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: var(--accent);
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        min-height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 0 10px;
+        background: var(--panel-soft);
+        color: var(--copy);
+      }
+
+      input[type="color"] {
+        width: 100%;
+        height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 4px;
+        background: var(--panel-soft);
+      }
+
+      .preset-line {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+
+      .hint {
+        color: var(--copy-soft);
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      @media (max-width: 960px) {
+        .app {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          max-height: none;
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+
+        .stage {
+          min-height: 88vh;
+        }
+      }
+
+      @media (max-width: 520px) {
+        :root {
+          --card-width: min(92vw, 440px);
+        }
+
+        .stage {
+          padding: 14px;
+        }
+
+        .topbar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .actions {
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <section class="stage" aria-label="Card preview">
+        <header class="topbar">
+          <div class="brand">
+            <strong>DotaFIFA Editor</strong>
+            <span id="saveStatus">пресет не сохранен</span>
+          </div>
+          <div class="actions">
+            <button class="button" type="button" id="resetBtn">Сброс</button>
+            <button class="button" type="button" id="exportBtn">Экспорт JSON</button>
+            <button class="button primary" type="button" id="saveBtn">Сохранить пресет</button>
+          </div>
+        </header>
+
+        <div class="preview-wrap">
+          <div class="card-shell">
+            <article class="card" aria-label="DotaFIFA card preview">
+              <img class="template" id="templateImg" src="assets/card-templates/immortal_card_transparent.png" alt="" />
+
+              <div class="avatar-frame">
+                <img class="avatar" id="avatarImg" src="assets/players/1.jpg" alt="Player avatar" />
+              </div>
+
+              <img class="template template-overlay" id="templateOverlay" src="assets/card-templates/immortal_card_transparent.png" alt="" aria-hidden="true" />
+
+              <img
+                class="frame-fx frame-aura"
+                id="frameAura"
+                src="assets/card-templates/immortal_card_transparent.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <img
+                class="frame-fx frame-holo"
+                id="frameHolo"
+                src="assets/card-templates/immortal_card_transparent.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <div class="spark-fx" id="sparkFx" aria-hidden="true"></div>
+
+              <div class="rating">
+                <span class="ovr" id="ratingText">82</span>
+                <span class="position" id="positionText">FLX</span>
+              </div>
+
+              <span class="rating-rule" aria-hidden="true"></span>
+
+              <div class="rank-mark" aria-label="Rank mark">
+                <img class="rank-stars" id="rankStars" src="assets/ranks/rank_star_3.png" alt="" />
+                <img class="rank-icon" id="rankIcon" src="assets/ranks/rank_icon_6.png" alt="" />
+              </div>
+
+              <h1 class="name" id="nameText">АДМИРАЛ</h1>
+
+              <section class="stats" aria-label="Player stats">
+                <div>
+                  <div class="stat"><strong id="statImp">84</strong><span id="labelImp">IMP</span></div>
+                  <div class="stat"><strong id="statFar">78</strong><span id="labelFar">FAR</span></div>
+                  <div class="stat"><strong id="statFgt">86</strong><span id="labelFgt">FGT</span></div>
+                </div>
+                <div class="divider"></div>
+                <div>
+                  <div class="stat"><strong id="statSur">63</strong><span id="labelSur">SUR</span></div>
+                  <div class="stat"><strong id="statObj">74</strong><span id="labelObj">OBJ</span></div>
+                  <div class="stat"><strong id="statUtl">58</strong><span id="labelUtl">UTL</span></div>
+                </div>
+              </section>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel" aria-label="Card controls">
+        <div class="panel-head">
+          <h1>Настройки карточки</h1>
+          <p>Двигай слой, текст, ранги и шрифты. Пресеты сохраняются в этом браузере.</p>
+        </div>
+
+        <div class="groups">
+          <details open>
+            <summary>Пресеты</summary>
+            <div class="group">
+              <div class="preset-line">
+                <select id="presetSelect" aria-label="Saved presets"></select>
+                <button class="button" type="button" id="loadBtn">Загрузить</button>
+              </div>
+              <div class="preset-line">
+                <input id="presetName" type="text" value="immortal-admiral" aria-label="Preset name" />
+                <button class="button" type="button" id="deleteBtn">Удалить</button>
+              </div>
+              <input class="file-input" id="importFile" type="file" accept="application/json,.json" />
+              <button class="button" type="button" id="importBtn">Импорт JSON</button>
+              <p class="hint">Через http://localhost JSON подхватится сам. При открытии двойным кликом используй импорт.</p>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Карточка</summary>
+            <div class="group">
+              <label class="row">
+                <span class="label">Шаблон</span>
+                <select data-bind="template" data-type="value">
+                  <option value="immortal">Immortal</option>
+                  <option value="divine">Divine</option>
+                  <option value="ancient">Ancient</option>
+                  <option value="legend">Legend</option>
+                  <option value="archon">Archon</option>
+                </select>
+              </label>
+              <label class="row">
+                <span class="label">Ширина карточки <output data-output="cardWidth"></output></span>
+                <input data-bind="cardWidth" type="range" min="280" max="620" step="1" />
+              </label>
+              <label class="row">
+                <span class="label">Масштаб превью <output data-output="previewScale"></output></span>
+                <input data-bind="previewScale" type="range" min="0.55" max="1.35" step="0.01" />
+              </label>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Свечение</summary>
+            <div class="group">
+              <label class="row">
+                <span class="label">Сила эффекта <output data-output="fxIntensity"></output></span>
+                <input data-bind="fxIntensity" type="range" min="0" max="1.4" step="0.01" />
+              </label>
+              <label class="row">
+                <span class="label">Скорость перелива <output data-output="fxSpeed"></output></span>
+                <input data-bind="fxSpeed" type="range" min="0.25" max="3" step="0.05" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Золото</span>
+                  <input data-bind="fxColor" type="color" />
+                </label>
+                <label class="row">
+                  <span class="label">Холодный блик</span>
+                  <input data-bind="fxSecondaryColor" type="color" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Искры <output data-output="fxSparkOpacity"></output></span>
+                <input data-bind="fxSparkOpacity" type="range" min="0" max="1" step="0.01" />
+              </label>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Игрок</summary>
+            <div class="group">
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Рейтинг</span>
+                  <input data-bind="rating" type="number" min="1" max="99" />
+                </label>
+                <label class="row">
+                  <span class="label">Позиция</span>
+                  <input data-bind="position" type="text" maxlength="4" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Ник</span>
+                <input data-bind="name" type="text" />
+              </label>
+              <label class="row">
+                <span class="label">Аватар</span>
+                <select data-bind="avatar" data-type="value">
+                  <option value="1">assets/players/1.jpg</option>
+                  <option value="175966938">assets/players/175966938.jpg</option>
+                </select>
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Ранг</span>
+                  <select data-bind="rankIcon" data-type="value">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+                </label>
+                <label class="row">
+                  <span class="label">Звезды</span>
+                  <select data-bind="rankStars" data-type="value">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </details>
+
+          <details open>
+            <summary>Аватарка</summary>
+            <div class="group">
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Верх <output data-output="avatarTop"></output></span>
+                  <input data-bind="avatarTop" type="range" min="8" max="24" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Лево <output data-output="avatarLeft"></output></span>
+                  <input data-bind="avatarLeft" type="range" min="0" max="24" step="0.1" />
+                </label>
+              </div>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Ширина <output data-output="avatarWidth"></output></span>
+                  <input data-bind="avatarWidth" type="range" min="50" max="100" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Высота <output data-output="avatarHeight"></output></span>
+                  <input data-bind="avatarHeight" type="range" min="28" max="56" step="0.1" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Зум <output data-output="avatarScale"></output></span>
+                <input data-bind="avatarScale" type="range" min="0.75" max="2.2" step="0.01" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Фокус X <output data-output="avatarX"></output></span>
+                  <input data-bind="avatarX" type="range" min="0" max="100" step="1" />
+                </label>
+                <label class="row">
+                  <span class="label">Фокус Y <output data-output="avatarY"></output></span>
+                  <input data-bind="avatarY" type="range" min="0" max="100" step="1" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Прозрачность <output data-output="avatarOpacity"></output></span>
+                <input data-bind="avatarOpacity" type="range" min="0.2" max="1" step="0.01" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Насыщенность <output data-output="avatarSaturate"></output></span>
+                  <input data-bind="avatarSaturate" type="range" min="0.4" max="1.8" step="0.01" />
+                </label>
+                <label class="row">
+                  <span class="label">Контраст <output data-output="avatarContrast"></output></span>
+                  <input data-bind="avatarContrast" type="range" min="0.5" max="1.8" step="0.01" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Яркость <output data-output="avatarBrightness"></output></span>
+                <input data-bind="avatarBrightness" type="range" min="0.5" max="1.5" step="0.01" />
+              </label>
+              <label class="row">
+                <span class="label">Blend mode</span>
+                <select data-bind="avatarBlend" data-type="value">
+                  <option value="normal">normal</option>
+                  <option value="multiply">multiply</option>
+                  <option value="screen">screen</option>
+                  <option value="overlay">overlay</option>
+                  <option value="soft-light">soft-light</option>
+                  <option value="luminosity">luminosity</option>
+                </select>
+              </label>
+            </div>
+          </details>
+
+          <details>
+            <summary>Позиции текста</summary>
+            <div class="group">
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Рейтинг top <output data-output="ratingTop"></output></span>
+                  <input data-bind="ratingTop" type="range" min="10" max="30" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Рейтинг left <output data-output="ratingLeft"></output></span>
+                  <input data-bind="ratingLeft" type="range" min="4" max="36" step="0.1" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Рейтинг width <output data-output="ratingWidth"></output></span>
+                <input data-bind="ratingWidth" type="range" min="10" max="30" step="0.1" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Ник top <output data-output="nameTop"></output></span>
+                  <input data-bind="nameTop" type="range" min="52" max="66" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Ник width <output data-output="nameWidth"></output></span>
+                  <input data-bind="nameWidth" type="range" min="36" max="78" step="0.1" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Ник left <output data-output="nameLeft"></output></span>
+                <input data-bind="nameLeft" type="range" min="10" max="36" step="0.1" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Статы top <output data-output="statsTop"></output></span>
+                  <input data-bind="statsTop" type="range" min="62" max="76" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Статы left <output data-output="statsLeft"></output></span>
+                  <input data-bind="statsLeft" type="range" min="10" max="28" step="0.1" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Статы width <output data-output="statsWidth"></output></span>
+                <input data-bind="statsWidth" type="range" min="52" max="78" step="0.1" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Ранг top <output data-output="rankTop"></output></span>
+                  <input data-bind="rankTop" type="range" min="28" max="45" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Ранг left <output data-output="rankLeft"></output></span>
+                  <input data-bind="rankLeft" type="range" min="10" max="30" step="0.1" />
+                </label>
+              </div>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Ранг width <output data-output="rankWidth"></output></span>
+                  <input data-bind="rankWidth" type="range" min="8" max="24" step="0.1" />
+                </label>
+                <label class="row">
+                  <span class="label">Ранг scale <output data-output="rankScale"></output></span>
+                  <input data-bind="rankScale" type="range" min="0.6" max="1.7" step="0.01" />
+                </label>
+              </div>
+            </div>
+          </details>
+
+          <details>
+            <summary>Шрифт и цвет</summary>
+            <div class="group">
+              <label class="row">
+                <span class="label">Google Font</span>
+                <input data-bind="fontFamily" type="text" placeholder="Barlow Condensed" />
+              </label>
+              <button class="button" type="button" id="loadFontBtn">Подгрузить шрифт</button>
+              <label class="row">
+                <span class="label">Цвет текста</span>
+                <input data-bind="textColor" type="color" />
+              </label>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Рейтинг size <output data-output="ovrSize"></output></span>
+                  <input data-bind="ovrSize" type="range" min="0.10" max="0.22" step="0.001" />
+                </label>
+                <label class="row">
+                  <span class="label">Позиция size <output data-output="positionSize"></output></span>
+                  <input data-bind="positionSize" type="range" min="0.05" max="0.12" step="0.001" />
+                </label>
+              </div>
+              <div class="row two">
+                <label class="row">
+                  <span class="label">Ник size <output data-output="nameSize"></output></span>
+                  <input data-bind="nameSize" type="range" min="0.045" max="0.105" step="0.001" />
+                </label>
+                <label class="row">
+                  <span class="label">Статы size <output data-output="statsSize"></output></span>
+                  <input data-bind="statsSize" type="range" min="0.052" max="0.105" step="0.001" />
+                </label>
+              </div>
+              <label class="row">
+                <span class="label">Трекинг ника <output data-output="nameSpacing"></output></span>
+                <input data-bind="nameSpacing" type="range" min="0" max="0.12" step="0.005" />
+              </label>
+            </div>
+          </details>
+
+          <details>
+            <summary>Статы</summary>
+            <div class="group">
+              <div class="row two">
+                <label class="row"><span class="label">IMP</span><input data-bind="statImp" type="number" min="1" max="99" /></label>
+                <label class="row"><span class="label">Label</span><input data-bind="labelImp" type="text" maxlength="4" /></label>
+              </div>
+              <div class="row two">
+                <label class="row"><span class="label">FAR</span><input data-bind="statFar" type="number" min="1" max="99" /></label>
+                <label class="row"><span class="label">Label</span><input data-bind="labelFar" type="text" maxlength="4" /></label>
+              </div>
+              <div class="row two">
+                <label class="row"><span class="label">FGT</span><input data-bind="statFgt" type="number" min="1" max="99" /></label>
+                <label class="row"><span class="label">Label</span><input data-bind="labelFgt" type="text" maxlength="4" /></label>
+              </div>
+              <div class="row two">
+                <label class="row"><span class="label">SUR</span><input data-bind="statSur" type="number" min="1" max="99" /></label>
+                <label class="row"><span class="label">Label</span><input data-bind="labelSur" type="text" maxlength="4" /></label>
+              </div>
+              <div class="row two">
+                <label class="row"><span class="label">OBJ</span><input data-bind="statObj" type="number" min="1" max="99" /></label>
+                <label class="row"><span class="label">Label</span><input data-bind="labelObj" type="text" maxlength="4" /></label>
+              </div>
+              <div class="row two">
+                <label class="row"><span class="label">UTL</span><input data-bind="statUtl" type="number" min="1" max="99" /></label>
+                <label class="row"><span class="label">Label</span><input data-bind="labelUtl" type="text" maxlength="4" /></label>
+              </div>
+              <label class="row">
+                <span class="label">Отступ число/лейбл <output data-output="statsGap"></output></span>
+                <input data-bind="statsGap" type="range" min="0" max="22" step="1" />
+              </label>
+            </div>
+          </details>
+        </div>
+      </aside>
+    </main>
+
+    <script>
+      const defaults = {
+        template: "immortal",
+        cardWidth: 440,
+        previewScale: 1,
+        avatar: "1",
+        rating: 82,
+        position: "FLX",
+        name: "АДМИРАЛ",
+        rankIcon: "6",
+        rankStars: "3",
+        avatarTop: 15.2,
+        avatarLeft: 12.5,
+        avatarWidth: 75,
+        avatarHeight: 44.4,
+        avatarScale: 1,
+        avatarX: 50,
+        avatarY: 0,
+        avatarOpacity: 0.87,
+        avatarSaturate: 1.04,
+        avatarContrast: 1.02,
+        avatarBrightness: 1,
+        avatarBlend: "normal",
+        ratingTop: 18.2,
+        ratingLeft: 16.7,
+        ratingWidth: 17,
+        rankTop: 34.2,
+        rankLeft: 18,
+        rankWidth: 14.4,
+        rankScale: 1,
+        nameTop: 59,
+        nameLeft: 23,
+        nameWidth: 54,
+        statsTop: 67.7,
+        statsLeft: 18.8,
+        statsWidth: 62.4,
+        fontFamily: "Barlow Condensed",
+        textColor: "#351d10",
+        ovrSize: 0.155,
+        positionSize: 0.083,
+        nameSize: 0.07,
+        statsSize: 0.078,
+        nameSpacing: 0.04,
+        statImp: 84,
+        labelImp: "IMP",
+        statFar: 78,
+        labelFar: "FAR",
+        statFgt: 86,
+        labelFgt: "FGT",
+        statSur: 63,
+        labelSur: "SUR",
+        statObj: 74,
+        labelObj: "OBJ",
+        statUtl: 58,
+        labelUtl: "UTL",
+        statsGap: 10,
+        fxIntensity: 0.65,
+        fxSpeed: 1,
+        fxColor: "#ffd76a",
+        fxSecondaryColor: "#74d7ff",
+        fxSparkOpacity: 0.55
+      };
+
+      const state = { ...defaults };
+      const root = document.documentElement;
+      const binds = [...document.querySelectorAll("[data-bind]")];
+      const outputs = Object.fromEntries(
+        [...document.querySelectorAll("[data-output]")].map((node) => [node.dataset.output, node])
+      );
+      const presetKey = "dotafifa-card-presets";
+      const defaultPresetFile = "immortal-admiral.json";
+
+      const els = {
+        templateImg: document.getElementById("templateImg"),
+        templateOverlay: document.getElementById("templateOverlay"),
+        frameAura: document.getElementById("frameAura"),
+        frameHolo: document.getElementById("frameHolo"),
+        avatarImg: document.getElementById("avatarImg"),
+        ratingText: document.getElementById("ratingText"),
+        positionText: document.getElementById("positionText"),
+        nameText: document.getElementById("nameText"),
+        rankIcon: document.getElementById("rankIcon"),
+        rankStars: document.getElementById("rankStars"),
+        presetName: document.getElementById("presetName"),
+        presetSelect: document.getElementById("presetSelect"),
+        saveStatus: document.getElementById("saveStatus"),
+        importFile: document.getElementById("importFile")
+      };
+
+      const statIds = ["Imp", "Far", "Fgt", "Sur", "Obj", "Utl"];
+
+      function pct(value) {
+        return `${Number(value)}%`;
+      }
+
+      function px(value) {
+        return `${Number(value)}px`;
+      }
+
+      function setVar(name, value) {
+        root.style.setProperty(name, value);
+      }
+
+      function getPresets() {
+        try {
+          return JSON.parse(localStorage.getItem(presetKey)) || {};
+        } catch {
+          return {};
+        }
+      }
+
+      function writePresets(presets) {
+        localStorage.setItem(presetKey, JSON.stringify(presets, null, 2));
+        renderPresetSelect();
+      }
+
+      function renderPresetSelect() {
+        const presets = getPresets();
+        const names = Object.keys(presets).sort();
+        els.presetSelect.innerHTML = names.length
+          ? names.map((name) => `<option value="${name}">${name}</option>`).join("")
+          : '<option value="">нет сохраненных</option>';
+      }
+
+      function loadGoogleFont(fontName) {
+        const clean = fontName.trim() || defaults.fontFamily;
+        const family = clean.replace(/\s+/g, "+");
+        document.getElementById("fontLink").href =
+          `https://fonts.googleapis.com/css2?family=${family}:wght@300;400;600;700;800;900&display=swap`;
+      }
+
+      function applyState() {
+        setVar("--card-width", px(state.cardWidth));
+        setVar("--preview-scale", state.previewScale);
+        setVar("--font-family", `"${state.fontFamily}", "Arial Narrow", Arial, sans-serif`);
+        setVar("--text-color", state.textColor);
+        setVar("--avatar-top", pct(state.avatarTop));
+        setVar("--avatar-left", pct(state.avatarLeft));
+        setVar("--avatar-width", pct(state.avatarWidth));
+        setVar("--avatar-height", pct(state.avatarHeight));
+        setVar("--avatar-scale", state.avatarScale);
+        setVar("--avatar-x", pct(state.avatarX));
+        setVar("--avatar-y", pct(state.avatarY));
+        setVar("--avatar-opacity", state.avatarOpacity);
+        setVar("--avatar-saturate", state.avatarSaturate);
+        setVar("--avatar-contrast", state.avatarContrast);
+        setVar("--avatar-brightness", state.avatarBrightness);
+        setVar("--avatar-blend", state.avatarBlend);
+        setVar("--rating-top", pct(state.ratingTop));
+        setVar("--rating-left", pct(state.ratingLeft));
+        setVar("--rating-width", pct(state.ratingWidth));
+        setVar("--rank-top", pct(state.rankTop));
+        setVar("--rank-left", pct(state.rankLeft));
+        setVar("--rank-width", pct(state.rankWidth));
+        setVar("--rank-scale", state.rankScale);
+        setVar("--name-top", pct(state.nameTop));
+        setVar("--name-left", pct(state.nameLeft));
+        setVar("--name-width", pct(state.nameWidth));
+        setVar("--stats-top", pct(state.statsTop));
+        setVar("--stats-left", pct(state.statsLeft));
+        setVar("--stats-width", pct(state.statsWidth));
+        setVar("--ovr-size", state.ovrSize);
+        setVar("--position-size", state.positionSize);
+        setVar("--name-size", state.nameSize);
+        setVar("--stats-size", state.statsSize);
+        setVar("--name-spacing", `${state.nameSpacing}em`);
+        setVar("--stats-gap", px(state.statsGap));
+        setVar("--fx-intensity", state.fxIntensity);
+        setVar("--fx-speed", state.fxSpeed);
+        setVar("--fx-color", state.fxColor);
+        setVar("--fx-secondary-color", state.fxSecondaryColor);
+        setVar("--fx-spark-opacity", state.fxSparkOpacity);
+        setVar("--fx-spark-dim", Number(state.fxSparkOpacity) * 0.45);
+        const fxLevel = Math.min(1, Math.max(0, Number(state.fxIntensity)));
+        const fxBrightness = 0.75 + Number(state.fxIntensity) * 0.65;
+        setVar("--fx-brightness", fxBrightness);
+        setVar("--fx-aura-dim", fxLevel * 0.62);
+        setVar("--fx-holo-opacity", fxLevel * 0.7);
+        setVar("--fx-holo-bright", fxBrightness * 1.12);
+        setVar("--fx-holo-peak", fxBrightness * 1.28);
+
+        const templatePath = `assets/card-templates/${state.template}_card_transparent.png`;
+        els.templateImg.src = templatePath;
+        els.templateOverlay.src = templatePath;
+        els.frameAura.src = templatePath;
+        els.frameHolo.src = templatePath;
+        els.avatarImg.src = `assets/players/${state.avatar}.jpg`;
+        els.ratingText.textContent = state.rating;
+        els.positionText.textContent = state.position;
+        els.nameText.textContent = state.name;
+        els.rankIcon.src = `assets/ranks/rank_icon_${state.rankIcon}.png`;
+        els.rankStars.src = `assets/ranks/rank_star_${state.rankStars}.png`;
+
+        statIds.forEach((id) => {
+          document.getElementById(`stat${id}`).textContent = state[`stat${id}`];
+          document.getElementById(`label${id}`).textContent = state[`label${id}`];
+        });
+
+        binds.forEach((input) => {
+          const key = input.dataset.bind;
+          if (document.activeElement !== input) input.value = state[key];
+        });
+
+        Object.entries(outputs).forEach(([key, output]) => {
+          const value = state[key];
+          output.value = typeof value === "number" ? Number(value).toFixed(key.includes("Size") ? 3 : 2) : value;
+        });
+      }
+
+      function setState(next) {
+        Object.assign(state, next);
+        applyState();
+        els.saveStatus.textContent = "есть несохраненные правки";
+      }
+
+      async function loadPresetFile(path) {
+        const response = await fetch(path, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Cannot load ${path}`);
+        const preset = await response.json();
+        Object.assign(state, defaults, preset);
+        els.presetName.value = path.replace(/\.json$/i, "");
+        loadGoogleFont(state.fontFamily);
+        applyState();
+        els.saveStatus.textContent = `пресет "${path}" загружен`;
+      }
+
+      binds.forEach((input) => {
+        input.value = state[input.dataset.bind];
+        input.addEventListener("input", () => {
+          const key = input.dataset.bind;
+          const value = input.type === "number" || input.type === "range" ? Number(input.value) : input.value;
+          setState({ [key]: value });
+        });
+      });
+
+      document.getElementById("loadFontBtn").addEventListener("click", () => {
+        loadGoogleFont(state.fontFamily);
+        els.saveStatus.textContent = `шрифт ${state.fontFamily} подгружен`;
+      });
+
+      document.getElementById("saveBtn").addEventListener("click", () => {
+        const name = els.presetName.value.trim() || "card-preset";
+        const presets = getPresets();
+        presets[name] = { ...state };
+        writePresets(presets);
+        els.presetSelect.value = name;
+        els.saveStatus.textContent = `пресет "${name}" сохранен`;
+      });
+
+      document.getElementById("loadBtn").addEventListener("click", () => {
+        const presets = getPresets();
+        const preset = presets[els.presetSelect.value];
+        if (!preset) return;
+        Object.assign(state, defaults, preset);
+        els.presetName.value = els.presetSelect.value;
+        loadGoogleFont(state.fontFamily);
+        applyState();
+        els.saveStatus.textContent = `пресет "${els.presetSelect.value}" загружен`;
+      });
+
+      document.getElementById("deleteBtn").addEventListener("click", () => {
+        const name = els.presetSelect.value;
+        const presets = getPresets();
+        delete presets[name];
+        writePresets(presets);
+        els.saveStatus.textContent = name ? `пресет "${name}" удален` : "нечего удалять";
+      });
+
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        Object.assign(state, defaults);
+        loadGoogleFont(state.fontFamily);
+        applyState();
+        els.saveStatus.textContent = "настройки сброшены";
+      });
+
+      document.getElementById("exportBtn").addEventListener("click", () => {
+        const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${(els.presetName.value || "card-preset").trim()}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      document.getElementById("importBtn").addEventListener("click", () => els.importFile.click());
+      els.importFile.addEventListener("change", async () => {
+        const file = els.importFile.files[0];
+        if (!file) return;
+        const imported = JSON.parse(await file.text());
+        Object.assign(state, defaults, imported);
+        loadGoogleFont(state.fontFamily);
+        applyState();
+        els.saveStatus.textContent = `JSON "${file.name}" импортирован`;
+        els.importFile.value = "";
+      });
+
+      renderPresetSelect();
+      applyState();
+      if (window.location.protocol === "file:") {
+        els.saveStatus.textContent = "при file:// импортируй JSON вручную";
+      } else {
+        loadPresetFile(defaultPresetFile).catch(() => {
+          els.saveStatus.textContent = "можно импортировать JSON вручную";
+        });
+      }
+    </script>
+  </body>
+</html>

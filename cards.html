@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DotaFIFA Player Cards</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --surface: #0b0f10;
+        --surface-soft: #111719;
+        --copy: #edf0ed;
+        --copy-soft: #9fa9a6;
+        --line: rgba(255, 255, 255, 0.12);
+        --accent: #d7a43d;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background:
+          radial-gradient(circle at 25% 10%, rgba(215, 164, 61, 0.22), transparent 28rem),
+          radial-gradient(circle at 82% 24%, rgba(116, 215, 255, 0.13), transparent 24rem),
+          linear-gradient(135deg, #080b0c, #181713 54%, #071516);
+        color: var(--copy);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: min(1240px, calc(100% - 40px));
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 34px 0 46px;
+        display: grid;
+        align-content: center;
+        gap: 28px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(30px, 5vw, 62px);
+        line-height: 0.92;
+        letter-spacing: 0;
+        font-weight: 850;
+      }
+
+      .meta {
+        margin: 0;
+        color: var(--copy-soft);
+        font-size: 14px;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(240px, 1fr));
+        gap: clamp(18px, 3vw, 36px);
+        align-items: center;
+        justify-items: center;
+      }
+
+      .card-shell {
+        width: min(100%, var(--card-width));
+        transform: translateY(0) scale(1);
+        transform-origin: center;
+        transition:
+          transform 220ms ease,
+          filter 220ms ease;
+        will-change: transform;
+      }
+
+      .card-shell:hover,
+      .card-shell:focus-within {
+        transform: translateY(-12px) scale(1.08);
+        filter: drop-shadow(0 28px 44px rgba(0, 0, 0, 0.42));
+        z-index: 10;
+      }
+
+      .player-card {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1024 / 1536;
+        color: var(--text-color);
+        font-family: var(--font-family);
+        font-weight: 700;
+        filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.5));
+      }
+
+      .template {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        user-select: none;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .frame-fx {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        z-index: 3;
+        pointer-events: none;
+        opacity: clamp(0, var(--fx-intensity), 1);
+        mix-blend-mode: screen;
+        user-select: none;
+      }
+
+      .frame-aura {
+        filter:
+          brightness(var(--fx-brightness))
+          saturate(1.55)
+          drop-shadow(0 0 calc(var(--card-width) * 0.035) var(--fx-color))
+          drop-shadow(0 0 calc(var(--card-width) * 0.055) var(--fx-secondary-color));
+        transform-origin: 50% 50%;
+        animation: frameAura calc(3.2s / var(--fx-speed)) ease-in-out infinite;
+      }
+
+      .frame-holo {
+        opacity: var(--fx-holo-opacity);
+        filter:
+          hue-rotate(0deg)
+          brightness(var(--fx-holo-bright))
+          saturate(2.15)
+          contrast(1.12);
+        animation: frameHolo calc(2.8s / var(--fx-speed)) linear infinite;
+      }
+
+      .spark-fx {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 3;
+        opacity: var(--fx-spark-opacity);
+        mix-blend-mode: screen;
+        background:
+          radial-gradient(circle at 48% 8%, white 0 0.45%, transparent 0.85%),
+          radial-gradient(circle at 30% 18%, var(--fx-color) 0 0.35%, transparent 0.8%),
+          radial-gradient(circle at 72% 20%, var(--fx-secondary-color) 0 0.35%, transparent 0.75%),
+          radial-gradient(circle at 13% 49%, white 0 0.38%, transparent 0.82%),
+          radial-gradient(circle at 88% 51%, var(--fx-color) 0 0.36%, transparent 0.8%),
+          radial-gradient(circle at 36% 90%, white 0 0.4%, transparent 0.86%),
+          radial-gradient(circle at 64% 89%, var(--fx-secondary-color) 0 0.36%, transparent 0.82%);
+        filter:
+          brightness(var(--fx-brightness))
+          drop-shadow(0 0 8px var(--fx-color));
+        animation: mmoSparkle calc(2.6s / var(--fx-speed)) steps(2, end) infinite;
+      }
+
+      .avatar-frame {
+        position: absolute;
+        top: var(--avatar-top);
+        left: var(--avatar-left);
+        width: var(--avatar-width);
+        height: var(--avatar-height);
+        z-index: 5;
+        overflow: hidden;
+        -webkit-mask-image:
+          linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+          linear-gradient(to bottom, transparent 0, #000 7%, #000 94%, transparent 100%);
+        -webkit-mask-composite: source-in;
+        mask-image:
+          linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+          linear-gradient(to bottom, transparent 0, #000 7%, #000 94%, transparent 100%);
+        mask-composite: intersect;
+      }
+
+      .avatar {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: var(--avatar-x) var(--avatar-y);
+        mix-blend-mode: var(--avatar-blend, normal);
+        opacity: var(--avatar-opacity);
+        filter:
+          saturate(var(--avatar-saturate))
+          contrast(var(--avatar-contrast))
+          brightness(var(--avatar-brightness));
+        transform: scale(var(--avatar-scale));
+        transform-origin: var(--avatar-x) var(--avatar-y);
+      }
+
+      .rating {
+        position: absolute;
+        top: var(--rating-top);
+        left: var(--rating-left);
+        width: var(--rating-width);
+        text-align: center;
+        text-shadow: 0 1px 0 rgba(255, 246, 199, 0.55);
+        z-index: 6;
+      }
+
+      .ovr {
+        display: block;
+        font-size: calc(var(--card-width) * var(--ovr-size));
+        line-height: 0.9;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .position {
+        display: block;
+        margin-top: 1%;
+        font-size: calc(var(--card-width) * var(--position-size));
+        line-height: 0.95;
+        font-weight: 300;
+        letter-spacing: 0;
+      }
+
+      .rating-rule {
+        position: absolute;
+        top: calc(var(--rating-top) + 15.3%);
+        left: calc(var(--rating-left) + 0.6%);
+        width: calc(var(--rating-width) - 1.2%);
+        height: 1px;
+        background: color-mix(in srgb, var(--text-color) 48%, transparent);
+        z-index: 6;
+      }
+
+      .rank-mark {
+        position: absolute;
+        top: var(--rank-top);
+        left: var(--rank-left);
+        width: var(--rank-width);
+        height: 8.6%;
+        z-index: 6;
+        transform: scale(var(--rank-scale));
+        transform-origin: top center;
+      }
+
+      .rank-mark img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        filter: drop-shadow(0 3px 4px rgba(55, 28, 4, 0.24));
+      }
+
+      .rank-stars {
+        top: 5%;
+        width: 76%;
+        z-index: 5;
+      }
+
+      .rank-icon {
+        top: 14%;
+        z-index: 1;
+      }
+
+      .name {
+        position: absolute;
+        top: var(--name-top);
+        left: var(--name-left);
+        width: var(--name-width);
+        margin: 0;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: calc(var(--card-width) * var(--name-size));
+        line-height: 1;
+        font-weight: 800;
+        letter-spacing: var(--name-spacing);
+        text-transform: uppercase;
+        text-shadow: 0 1px 0 rgba(255, 246, 199, 0.55);
+        z-index: 6;
+      }
+
+      .stats {
+        position: absolute;
+        top: var(--stats-top);
+        left: var(--stats-left);
+        width: var(--stats-width);
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 5%;
+        z-index: 6;
+      }
+
+      .divider {
+        width: 1px;
+        min-height: calc(var(--card-width) * 0.268);
+        background: linear-gradient(transparent, color-mix(in srgb, var(--text-color) 56%, transparent), transparent);
+      }
+
+      .stat {
+        display: flex;
+        align-items: baseline;
+        gap: var(--stats-gap);
+        height: calc(var(--card-width) * 0.083);
+        line-height: 1;
+      }
+
+      .stat strong,
+      .stat span {
+        min-width: 1.35em;
+        font-size: calc(var(--card-width) * var(--stats-size));
+      }
+
+      .stat strong {
+        text-align: right;
+        font-weight: 800;
+      }
+
+      .stat span {
+        min-width: auto;
+        font-weight: 300;
+      }
+
+      .empty {
+        min-height: 240px;
+        display: grid;
+        place-items: center;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        color: var(--copy-soft);
+      }
+
+      @keyframes frameAura {
+        0%,
+        100% {
+          transform: scale(0.997);
+          opacity: var(--fx-aura-dim);
+        }
+
+        50% {
+          transform: scale(1.006);
+          opacity: clamp(0, var(--fx-intensity), 1);
+        }
+      }
+
+      @keyframes frameHolo {
+        0% {
+          filter: hue-rotate(-18deg) brightness(var(--fx-holo-bright)) saturate(1.8);
+        }
+
+        45% {
+          filter: hue-rotate(28deg) brightness(var(--fx-holo-peak)) saturate(2.4);
+        }
+
+        100% {
+          filter: hue-rotate(342deg) brightness(var(--fx-holo-bright)) saturate(1.8);
+        }
+      }
+
+      @keyframes mmoSparkle {
+        0%,
+        100% {
+          opacity: var(--fx-spark-dim);
+          transform: scale(0.98);
+        }
+
+        50% {
+          opacity: var(--fx-spark-opacity);
+          transform: scale(1.015);
+        }
+      }
+
+      @media (max-width: 920px) {
+        main {
+          align-content: start;
+        }
+
+        .topbar {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .cards-grid {
+          grid-template-columns: repeat(2, minmax(220px, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        main {
+          width: min(100% - 24px, 420px);
+          padding-top: 22px;
+        }
+
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card-shell:hover,
+        .card-shell:focus-within {
+          transform: translateY(-8px) scale(1.04);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="topbar">
+        <h1>DotaFIFA Cards</h1>
+        <p class="meta" id="meta">Загрузка игроков...</p>
+      </header>
+      <section class="cards-grid" id="cardsGrid" aria-label="Player cards"></section>
+    </main>
+
+    <script>
+      const grid = document.getElementById("cardsGrid");
+      const meta = document.getElementById("meta");
+      const statKeys = ["Imp", "Far", "Fgt", "Sur", "Obj", "Utl"];
+      const fallbackPreset = {
+        template: "divine",
+        cardWidth: 424,
+        previewScale: 1.02,
+        avatar: "1",
+        rating: 82,
+        position: "FLX",
+        name: "АДМИРАЛ",
+        rankIcon: "7",
+        rankStars: "4",
+        avatarTop: 21.5,
+        avatarLeft: 24,
+        avatarWidth: 63.5,
+        avatarHeight: 42.6,
+        avatarScale: 0.75,
+        avatarX: 71,
+        avatarY: 11,
+        avatarOpacity: 0.91,
+        avatarSaturate: 1.4,
+        avatarContrast: 1.02,
+        avatarBrightness: 1.26,
+        avatarBlend: "normal",
+        ratingTop: 22,
+        ratingLeft: 17.2,
+        ratingWidth: 17.1,
+        rankTop: 37.7,
+        rankLeft: 18,
+        rankWidth: 14.4,
+        rankScale: 1.3,
+        nameTop: 58.8,
+        nameLeft: 22.9,
+        nameWidth: 54.2,
+        statsTop: 66.4,
+        statsLeft: 18.8,
+        statsWidth: 61.2,
+        fontFamily: "Barlow Condensed",
+        textColor: "#4c2a2a",
+        ovrSize: 0.137,
+        positionSize: 0.083,
+        nameSize: 0.078,
+        statsSize: 0.083,
+        nameSpacing: 0.06,
+        statImp: 10,
+        labelImp: "IMP",
+        statFar: 78,
+        labelFar: "FRM",
+        statFgt: 86,
+        labelFgt: "FGT",
+        statSur: 63,
+        labelSur: "SUR",
+        statObj: 74,
+        labelObj: "OBJ",
+        statUtl: 58,
+        labelUtl: "UTL",
+        statsGap: 14,
+        fxIntensity: 0.3,
+        fxSpeed: 1.45,
+        fxColor: "#ffd76a",
+        fxSecondaryColor: "#74d7ff",
+        fxSparkOpacity: 0
+      };
+      const fallbackPlayers = [
+        {
+          accountId: 175966938,
+          profile: {
+            personaname: "АДМИРАЛ",
+            avatar: "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9.jpg",
+            avatarmedium: "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_medium.jpg",
+            avatarfull: "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg"
+          },
+          medal: { medal: 6, stars: 3, template: "ancient" },
+          card: {
+            overall: 77,
+            position: "MID",
+            rows: [
+              { label: "IMP", value: 77 },
+              { label: "FRM", value: 99 },
+              { label: "FGT", value: 85 },
+              { label: "SUR", value: 72 },
+              { label: "OBJ", value: 60 },
+              { label: "UTL", value: 67 }
+            ]
+          }
+        },
+        {
+          accountId: 192250912,
+          profile: {
+            personaname: "Thomas Shelby (SIGMA)",
+            avatar: "https://avatars.steamstatic.com/e263fd5ce2936efe8ab98653dd6ee8cf5ddb5520.jpg",
+            avatarmedium: "https://avatars.steamstatic.com/e263fd5ce2936efe8ab98653dd6ee8cf5ddb5520_medium.jpg",
+            avatarfull: "https://avatars.steamstatic.com/e263fd5ce2936efe8ab98653dd6ee8cf5ddb5520_full.jpg"
+          },
+          medal: { medal: 8, stars: 1, template: "immortal" },
+          card: {
+            overall: 78,
+            position: "MID",
+            rows: [
+              { label: "IMP", value: 77 },
+              { label: "FRM", value: 99 },
+              { label: "FGT", value: 99 },
+              { label: "SUR", value: 76 },
+              { label: "OBJ", value: 49 },
+              { label: "UTL", value: 67 }
+            ]
+          }
+        },
+        {
+          accountId: 244200929,
+          profile: {
+            personaname: "КирюхаПодПлюхой",
+            avatar: "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37.jpg",
+            avatarmedium: "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_medium.jpg",
+            avatarfull: "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_full.jpg"
+          },
+          medal: { medal: 7, stars: 1, template: "divine" },
+          card: {
+            overall: 79,
+            position: "MID",
+            rows: [
+              { label: "IMP", value: 76 },
+              { label: "FRM", value: 99 },
+              { label: "FGT", value: 91 },
+              { label: "SUR", value: 69 },
+              { label: "OBJ", value: 66 },
+              { label: "UTL", value: 70 }
+            ]
+          }
+        }
+      ];
+      const cssMap = {
+        cardWidth: "--card-width",
+        fontFamily: "--font-family",
+        textColor: "--text-color",
+        avatarTop: "--avatar-top",
+        avatarLeft: "--avatar-left",
+        avatarWidth: "--avatar-width",
+        avatarHeight: "--avatar-height",
+        avatarScale: "--avatar-scale",
+        avatarX: "--avatar-x",
+        avatarY: "--avatar-y",
+        avatarOpacity: "--avatar-opacity",
+        avatarSaturate: "--avatar-saturate",
+        avatarContrast: "--avatar-contrast",
+        avatarBrightness: "--avatar-brightness",
+        avatarBlend: "--avatar-blend",
+        ratingTop: "--rating-top",
+        ratingLeft: "--rating-left",
+        ratingWidth: "--rating-width",
+        rankTop: "--rank-top",
+        rankLeft: "--rank-left",
+        rankWidth: "--rank-width",
+        rankScale: "--rank-scale",
+        nameTop: "--name-top",
+        nameLeft: "--name-left",
+        nameWidth: "--name-width",
+        statsTop: "--stats-top",
+        statsLeft: "--stats-left",
+        statsWidth: "--stats-width",
+        ovrSize: "--ovr-size",
+        positionSize: "--position-size",
+        nameSize: "--name-size",
+        nameSpacing: "--name-spacing",
+        statsSize: "--stats-size",
+        statsGap: "--stats-gap",
+        fxIntensity: "--fx-intensity",
+        fxSpeed: "--fx-speed",
+        fxColor: "--fx-color",
+        fxSecondaryColor: "--fx-secondary-color",
+        fxSparkOpacity: "--fx-spark-opacity"
+      };
+
+      function escapeHtml(value) {
+        return String(value ?? "").replace(/[&<>"']/g, (char) => {
+          const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+          return entities[char];
+        });
+      }
+
+      function pct(value) {
+        return `${Number(value)}%`;
+      }
+
+      function px(value) {
+        return `${Number(value)}px`;
+      }
+
+      function setCardVars(card, preset) {
+        Object.entries(cssMap).forEach(([key, cssName]) => {
+          let value = preset[key];
+          if (value === undefined) return;
+          if (key === "cardWidth") value = `min(${px(value)}, 82vw, 31rem)`;
+          if (["avatarTop", "avatarLeft", "avatarWidth", "avatarHeight", "avatarX", "avatarY", "ratingTop", "ratingLeft", "ratingWidth", "rankTop", "rankLeft", "rankWidth", "nameTop", "nameLeft", "nameWidth", "statsTop", "statsLeft", "statsWidth"].includes(key)) value = pct(value);
+          if (key === "fontFamily") value = `"${value}", "Arial Narrow", Arial, sans-serif`;
+          if (key === "nameSpacing") value = `${value}em`;
+          if (key === "statsGap") value = px(value);
+          card.style.setProperty(cssName, value);
+        });
+
+        const fxLevel = Math.min(1, Math.max(0, Number(preset.fxIntensity ?? 0)));
+        const fxBrightness = 0.75 + Number(preset.fxIntensity ?? 0) * 0.65;
+        card.style.setProperty("--fx-brightness", fxBrightness);
+        card.style.setProperty("--fx-aura-dim", fxLevel * 0.62);
+        card.style.setProperty("--fx-holo-opacity", fxLevel * 0.7);
+        card.style.setProperty("--fx-holo-bright", fxBrightness * 1.12);
+        card.style.setProperty("--fx-holo-peak", fxBrightness * 1.28);
+        card.style.setProperty("--fx-spark-dim", Number(preset.fxSparkOpacity ?? 0) * 0.45);
+      }
+
+      function normalizePlayer(preset, player) {
+        const rows = player.card?.rows ?? [];
+        const medal = player.medal ?? {};
+        const next = {
+          ...preset,
+          template: medal.template || preset.template,
+          avatar: String(player.accountId),
+          rating: player.card?.overall ?? preset.rating,
+          position: player.card?.position ?? preset.position,
+          name: player.profile?.personaname || preset.name,
+          rankIcon: String(medal.medal || preset.rankIcon),
+          rankStars: String(medal.stars || preset.rankStars)
+        };
+
+        statKeys.forEach((key, index) => {
+          const row = rows[index];
+          if (!row) return;
+          next[`stat${key}`] = row.value;
+          next[`label${key}`] = row.label;
+        });
+
+        return next;
+      }
+
+      function renderCard(player, preset) {
+        const state = normalizePlayer(preset, player);
+        const templatePath = `assets/card-templates/${state.template}_card_transparent.png`;
+        const localAvatar = `assets/players/${state.avatar}.jpg`;
+        const remoteAvatar = player.profile?.avatarfull || player.profile?.avatarmedium || player.profile?.avatar || "assets/players/1.jpg";
+        const stats = statKeys.map((key) => ({
+          label: state[`label${key}`],
+          value: state[`stat${key}`]
+        }));
+
+        const shell = document.createElement("article");
+        shell.className = "card-shell";
+        shell.setAttribute("aria-label", `${state.name} card`);
+        shell.innerHTML = `
+          <div class="player-card">
+            <img class="template" src="${templatePath}" alt="" />
+            <div class="avatar-frame">
+              <img class="avatar" src="${localAvatar}" alt="${escapeHtml(state.name)}" data-fallback="${escapeHtml(remoteAvatar)}" />
+            </div>
+            <img class="frame-fx frame-aura" src="${templatePath}" alt="" aria-hidden="true" />
+            <img class="frame-fx frame-holo" src="${templatePath}" alt="" aria-hidden="true" />
+            <div class="spark-fx" aria-hidden="true"></div>
+            <div class="rating">
+              <span class="ovr">${escapeHtml(state.rating)}</span>
+              <span class="position">${escapeHtml(state.position)}</span>
+            </div>
+            <span class="rating-rule" aria-hidden="true"></span>
+            <div class="rank-mark" aria-label="Rank mark">
+              <img class="rank-stars" src="assets/ranks/rank_star_${escapeHtml(state.rankStars)}.png" alt="" />
+              <img class="rank-icon" src="assets/ranks/rank_icon_${escapeHtml(state.rankIcon)}.png" alt="" />
+            </div>
+            <h2 class="name">${escapeHtml(state.name)}</h2>
+            <section class="stats" aria-label="Player stats">
+              <div>
+                ${stats.slice(0, 3).map((stat) => `<div class="stat"><strong>${escapeHtml(stat.value)}</strong><span>${escapeHtml(stat.label)}</span></div>`).join("")}
+              </div>
+              <div class="divider"></div>
+              <div>
+                ${stats.slice(3).map((stat) => `<div class="stat"><strong>${escapeHtml(stat.value)}</strong><span>${escapeHtml(stat.label)}</span></div>`).join("")}
+              </div>
+            </section>
+          </div>
+        `;
+
+        setCardVars(shell, state);
+
+        shell.querySelector(".avatar").addEventListener("error", (event) => {
+          const img = event.currentTarget;
+          const fallback = img.dataset.fallback;
+          if (fallback && img.src !== fallback) {
+            img.src = fallback;
+            img.dataset.fallback = "assets/players/1.jpg";
+          }
+        });
+
+        return shell;
+      }
+
+      async function init() {
+        try {
+          let preset = fallbackPreset;
+          let players = fallbackPlayers;
+
+          if (location.protocol !== "file:") {
+            const [presetResponse, playersResponse] = await Promise.all([
+              fetch("card_example.json", { cache: "no-store" }),
+              fetch("data/player-stats.json", { cache: "no-store" })
+            ]);
+            if (!presetResponse.ok || !playersResponse.ok) throw new Error("Не удалось загрузить JSON");
+            preset = await presetResponse.json();
+            players = (await playersResponse.json()).players || [];
+          }
+
+          players = players.slice(0, 3);
+
+          grid.replaceChildren(...players.map((player) => renderCard(player, preset)));
+          meta.textContent = location.protocol === "file:"
+            ? `${players.length} игрока, встроенные данные`
+            : `${players.length} игрока из data/player-stats.json`;
+        } catch (error) {
+          grid.replaceChildren(...fallbackPlayers.map((player) => renderCard(player, fallbackPreset)));
+          meta.textContent = "3 игрока, встроенный fallback";
+        }
+      }
+
+      init();
+    </script>
+  </body>
+</html>
