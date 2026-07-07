@@ -1,19 +1,11 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { StrictMode, type ReactNode } from "react";
+import { createRoot, type Root } from "react-dom/client";
 import {
-  Activity,
   ChevronDown,
-  ChevronRight,
   Crown,
-  Eye,
-  Flame,
   Gauge,
-  HeartPulse,
   Shield,
-  ShieldAlert,
   Skull,
-  Swords,
-  Trophy,
   Zap,
 } from "lucide-react";
 import dashboardData from "../../data/dashboard.json";
@@ -25,8 +17,20 @@ type RecentGame = DashboardData["recentPartyGames"][number];
 type FeedEvent = DashboardData["feed"][number];
 
 const data = dashboardData as DashboardData;
+const playersById = new Map(data.players.map((player) => [player.accountId, player]));
 
 const navItems = ["Dashboard", "Players", "Matches", "Achievements", "Hall of Fame"];
+const rankNames = ["Unranked", "Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine", "Immortal"];
+const rankStars = ["", "I", "II", "III", "IV", "V"];
+
+function rankLabel(rankTier: number | null | undefined) {
+  if (!rankTier) return "Unranked";
+  const medal = Math.floor(rankTier / 10);
+  const star = rankTier % 10;
+  const name = rankNames[medal] ?? "Unranked";
+  if (medal >= 8) return name;
+  return `${name} ${rankStars[star] ?? ""}`.trim();
+}
 
 function formatTime(value: string | null) {
   if (!value) return "Unknown";
@@ -47,12 +51,6 @@ function relativeTime(value: string | null) {
   return `${Math.round(hours / 24)}d ago`;
 }
 
-function eventIcon(event: FeedEvent) {
-  if (event.icon === "skull") return <Skull aria-hidden="true" />;
-  if (event.icon === "crown") return <Crown aria-hidden="true" />;
-  return <Eye aria-hidden="true" />;
-}
-
 function Panel({
   title,
   action,
@@ -60,8 +58,8 @@ function Panel({
   className = "",
 }: {
   title: string;
-  action?: React.ReactNode;
-  children: React.ReactNode;
+  action?: ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
@@ -79,8 +77,11 @@ function Header() {
   return (
     <header className="site-header">
       <a className="brand" href="/dashboard/">
-        <span className="brand-mark">
-          <Swords aria-hidden="true" />
+        <span className="brand-mark" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
         </span>
         <span>KASTEMS HUB</span>
       </a>
@@ -99,38 +100,6 @@ function Header() {
         <ChevronDown aria-hidden="true" />
       </button>
     </header>
-  );
-}
-
-function SquadPulse() {
-  const { squadPulse } = data;
-  return (
-    <section className="pulse-strip" aria-label="Squad pulse">
-      <div className="pulse-label">
-        <HeartPulse aria-hidden="true" />
-        <span>Squad Pulse</span>
-      </div>
-      <div className="pulse-item win">
-        <Activity aria-hidden="true" />
-        <strong>{squadPulse.record.label}</strong>
-        <span>last {squadPulse.trackedPlayerMatches} player games</span>
-      </div>
-      <div className="pulse-item">
-        <Zap aria-hidden="true" />
-        <strong>{squadPulse.turboMatches}</strong>
-        <span>turbo entries</span>
-      </div>
-      <div className="pulse-item">
-        <Trophy aria-hidden="true" />
-        <span>Best form:</span>
-        <strong>{squadPulse.bestPerformer?.name ?? "Unknown"}</strong>
-      </div>
-      <div className="pulse-item danger">
-        <ShieldAlert aria-hidden="true" />
-        <span>Cursed pick:</span>
-        <strong>{squadPulse.cursedPick.heroName}</strong>
-      </div>
-    </section>
   );
 }
 
@@ -168,21 +137,19 @@ function Leaderboard() {
               <img src={player.avatar ?? ""} alt="" />
               <div>
                 <strong>{player.name}</strong>
-                <span>KDA {player.kda} · {player.matches} games</span>
+                <span>{rankLabel(playersById.get(player.accountId)?.rankTier)}</span>
               </div>
             </div>
             <strong className="record">
-              {player.wins}-{player.losses}
+              <span className="record-wins">{player.wins}</span>
+              <span className="record-separator">-</span>
+              <span className="record-losses">{player.losses}</span>
             </strong>
-            <strong className={player.winRate >= 55 ? "good" : "bad"}>{player.winRate}%</strong>
+            <strong className="win-rate">{player.winRate}%</strong>
             <FormDots form={player.form} />
           </article>
         ))}
       </div>
-      <button className="panel-link" type="button">
-        <span>View all players</span>
-        <ChevronRight aria-hidden="true" />
-      </button>
     </Panel>
   );
 }
@@ -196,6 +163,21 @@ function PartyStack({ game }: { game: RecentGame }) {
           key={`${game.matchId}-${player.accountId}-${index}`}
           src={player.avatar ?? ""}
           alt={player.name}
+          title={`${player.name} · ${player.heroName}`}
+        />
+      ))}
+    </div>
+  );
+}
+
+function HeroStack({ game }: { game: RecentGame }) {
+  return (
+    <div className="hero-stack">
+      {game.trackedPlayers.slice(0, 5).map((player, index) => (
+        <img
+          key={`${game.matchId}-${player.accountId}-${player.heroId}-${index}`}
+          src={player.heroImage ?? ""}
+          alt={player.heroName}
           title={`${player.name} · ${player.heroName}`}
         />
       ))}
@@ -221,10 +203,10 @@ function RecentGames() {
         <span>Mode</span>
         <span>Duration</span>
         <span>Date / Time</span>
-        <span>Highlight</span>
+        <span>Heroes</span>
       </div>
       <div className="games-list">
-        {data.recentPartyGames.slice(0, 6).map((game: RecentGame) => (
+        {data.recentPartyGames.slice(0, 20).map((game: RecentGame) => (
           <article className="game-row" key={game.matchId}>
             <PartyStack game={game} />
             <span className={`result-pill ${game.result === "WIN" ? "win" : "loss"}`}>{game.result}</span>
@@ -234,21 +216,12 @@ function RecentGames() {
               <strong>{relativeTime(game.startedAt)}</strong>
               <small>{formatTime(game.startedAt)}</small>
             </span>
-            <span className="highlight-cell">
-              <strong>{game.highlight?.name ?? "Unknown"}</strong>
-              <small>
-                {game.highlight
-                  ? `${game.highlight.kills}/${game.highlight.deaths}/${game.highlight.assists}`
-                  : "No stats"}
-              </small>
+            <span className="heroes-cell">
+              <HeroStack game={game} />
             </span>
           </article>
         ))}
       </div>
-      <button className="panel-link" type="button">
-        <span>View all party games</span>
-        <ChevronRight aria-hidden="true" />
-      </button>
     </Panel>
   );
 }
@@ -261,7 +234,7 @@ function MetaRow({
   value,
   tone = "neutral",
 }: {
-  icon: React.ReactNode;
+  icon: ReactNode;
   label: string;
   heroName: string | null;
   heroImage?: string | null;
@@ -281,6 +254,10 @@ function MetaRow({
   );
 }
 
+function formatHeroMetaValue(hero: { winRate: number; games: number }) {
+  return `${hero.winRate}% / ${hero.games} games`;
+}
+
 function SquadMeta() {
   const { squadMeta } = data;
   return (
@@ -291,14 +268,14 @@ function SquadMeta() {
           label="Most Picked Hero"
           heroName={squadMeta.mostPickedHero.heroName}
           heroImage={squadMeta.mostPickedHero.heroImage}
-          value={`${squadMeta.mostPickedHero.games} picks`}
+          value={formatHeroMetaValue(squadMeta.mostPickedHero)}
         />
         <MetaRow
           icon={<Crown aria-hidden="true" />}
           label="Best Hero"
           heroName={squadMeta.bestHero.heroName}
           heroImage={squadMeta.bestHero.heroImage}
-          value={`${squadMeta.bestHero.winRate}%`}
+          value={formatHeroMetaValue(squadMeta.bestHero)}
           tone="good"
         />
         <MetaRow
@@ -306,15 +283,8 @@ function SquadMeta() {
           label="Cursed Hero"
           heroName={squadMeta.cursedHero.heroName}
           heroImage={squadMeta.cursedHero.heroImage}
-          value={`${squadMeta.cursedHero.winRate}%`}
+          value={formatHeroMetaValue(squadMeta.cursedHero)}
           tone="bad"
-        />
-        <MetaRow
-          icon={<Zap aria-hidden="true" />}
-          label="Fastest Win"
-          heroName={squadMeta.fastestWin.heroName}
-          value={squadMeta.fastestWin.durationLabel}
-          tone="good"
         />
       </div>
     </Panel>
@@ -328,9 +298,11 @@ function SquadFeed() {
         {data.feed.map((event: FeedEvent) => (
           <article className={`feed-item ${event.type}`} key={`${event.matchId}-${event.accountId}-${event.type}`}>
             <img src={event.avatar ?? ""} alt="" />
-            <p>{event.message}</p>
+            <p>
+              <strong>{event.player}</strong>
+              <span>{event.message.replace(event.player, "").trim()}</span>
+            </p>
             <span className="feed-time">{relativeTime(event.createdAt)}</span>
-            <span className="feed-icon">{eventIcon(event)}</span>
           </article>
         ))}
       </div>
@@ -342,7 +314,6 @@ function App() {
   return (
     <main className="dashboard-shell">
       <Header />
-      <SquadPulse />
       <div className="dashboard-grid">
         <Leaderboard />
         <RecentGames />
@@ -355,7 +326,11 @@ function App() {
   );
 }
 
-createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root") as HTMLElement & { dashboardRoot?: Root };
+const root = rootElement.dashboardRoot ?? createRoot(rootElement);
+rootElement.dashboardRoot = root;
+
+root.render(
   <StrictMode>
     <App />
   </StrictMode>,

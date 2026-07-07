@@ -302,7 +302,7 @@ def build_recent_games(conn: sqlite3.Connection, constants: dict[str, Any]) -> l
         SELECT *
         FROM raw_matches
         ORDER BY start_time DESC
-        LIMIT 8
+        LIMIT 20
         """
     ).fetchall()
     games = []
@@ -464,7 +464,7 @@ def main() -> int:
         "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "source": {
             "api": SOURCE_URL,
-            "database": str(DB_PATH.relative_to(ROOT)),
+            "database": DB_PATH.relative_to(ROOT).as_posix(),
         },
         "summary": {
             "trackedPlayers": len(players),
