@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-07T17:32:55.927301Z",
+  "generatedAt": "2026-07-07T22:12:10.733422Z",
   "source": {
     "api": "https://api.opendota.com/api",
     "database": "data/opendota.sqlite"
@@ -29,7 +29,56 @@
       "kills": 94,
       "deaths": 106,
       "assists": 195,
-      "kda": 2.73
+      "kda": 2.73,
+      "medal": {
+        "medal": 6,
+        "stars": 3,
+        "template": "ancient"
+      },
+      "card": {
+        "overall": 78,
+        "position": "OFF",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 77
+          },
+          {
+            "label": "FRM",
+            "value": 91
+          },
+          {
+            "label": "FGT",
+            "value": 82
+          },
+          {
+            "label": "SUR",
+            "value": 66
+          },
+          {
+            "label": "OBJ",
+            "value": 79
+          },
+          {
+            "label": "UTL",
+            "value": 77
+          }
+        ],
+        "source": {
+          "winrate": 60.0,
+          "recentWinrate": 60.0,
+          "avgKills": 6.3,
+          "avgDeaths": 7.1,
+          "avgAssists": 13.0,
+          "avgGpm": 1064.7,
+          "avgXpm": 1940.6,
+          "avgHeroDamage": 27100,
+          "avgTowerDamage": 3414,
+          "avgHealing": 419,
+          "avgLastHits": 135.3,
+          "roleWeights": "OFF"
+        }
+      }
     },
     {
       "accountId": 818003286,
@@ -45,7 +94,56 @@
       "kills": 98,
       "deaths": 91,
       "assists": 215,
-      "kda": 3.44
+      "kda": 3.44,
+      "medal": {
+        "medal": 5,
+        "stars": 1,
+        "template": "legend"
+      },
+      "card": {
+        "overall": 80,
+        "position": "SUP",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 81
+          },
+          {
+            "label": "FRM",
+            "value": 89
+          },
+          {
+            "label": "FGT",
+            "value": 88
+          },
+          {
+            "label": "SUR",
+            "value": 68
+          },
+          {
+            "label": "OBJ",
+            "value": 69
+          },
+          {
+            "label": "UTL",
+            "value": 85
+          }
+        ],
+        "source": {
+          "winrate": 58.3,
+          "recentWinrate": 60.0,
+          "avgKills": 8.2,
+          "avgDeaths": 7.6,
+          "avgAssists": 17.9,
+          "avgGpm": 862.6,
+          "avgXpm": 1502.4,
+          "avgHeroDamage": 26181,
+          "avgTowerDamage": 2374,
+          "avgHealing": 690,
+          "avgLastHits": 116.0,
+          "roleWeights": "SUP"
+        }
+      }
     },
     {
       "accountId": 826136695,
@@ -61,7 +159,56 @@
       "kills": 113,
       "deaths": 47,
       "assists": 106,
-      "kda": 4.66
+      "kda": 4.66,
+      "medal": {
+        "medal": 4,
+        "stars": 5,
+        "template": "archon"
+      },
+      "card": {
+        "overall": 89,
+        "position": "CRY",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 79
+          },
+          {
+            "label": "FRM",
+            "value": 91
+          },
+          {
+            "label": "FGT",
+            "value": 96
+          },
+          {
+            "label": "SUR",
+            "value": 79
+          },
+          {
+            "label": "OBJ",
+            "value": 99
+          },
+          {
+            "label": "UTL",
+            "value": 75
+          }
+        ],
+        "source": {
+          "winrate": 50.0,
+          "recentWinrate": 50.0,
+          "avgKills": 14.1,
+          "avgDeaths": 5.9,
+          "avgAssists": 13.2,
+          "avgGpm": 616.1,
+          "avgXpm": 838.2,
+          "avgHeroDamage": 38532,
+          "avgTowerDamage": 6805,
+          "avgHealing": 638,
+          "avgLastHits": 248.8,
+          "roleWeights": "CRY"
+        }
+      }
     }
   ],
   "squadPulse": {

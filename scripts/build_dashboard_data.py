@@ -186,6 +186,176 @@ def is_win(row: sqlite3.Row) -> bool:
     return (slot < 128 and radiant_win == 1) or (slot >= 128 and radiant_win == 0)
 
 
+def clamp_score(value: float, low: int = 35, high: int = 99) -> int:
+    return max(low, min(high, round(value)))
+
+
+def metric_score(value: float, target: float, low: int = 40, high: int = 99) -> int:
+    if target <= 0:
+        return low
+    return clamp_score(low + (high - low) * min(max(value, 0) / target, 1), low, high)
+
+
+def rank_medal(rank_tier: int | None) -> dict[str, Any]:
+    medal = 1
+    stars = 1
+    if rank_tier:
+        medal = max(1, min(8, int(rank_tier) // 10))
+        stars = int(rank_tier) % 10
+        if medal >= 8:
+            stars = 1
+        else:
+            stars = max(1, min(5, stars or 1))
+    template_by_medal = {
+        1: "archon",
+        2: "archon",
+        3: "archon",
+        4: "archon",
+        5: "legend",
+        6: "ancient",
+        7: "divine",
+        8: "immortal",
+    }
+    return {"medal": medal, "stars": stars, "template": template_by_medal.get(medal, "archon")}
+
+
+def detailed_match_stats(conn: sqlite3.Connection, account_id: int, matches: list[sqlite3.Row]) -> list[dict[str, Any]]:
+    details = {
+        int(row["match_id"]): row
+        for row in conn.execute(
+            """
+            SELECT *
+            FROM match_players
+            WHERE account_id = ?
+            """,
+            (account_id,),
+        ).fetchall()
+    }
+    stats = []
+    for match in matches:
+        detail = details.get(int(match["match_id"]))
+        raw = load_json(match["raw_json"], {})
+        stats.append(
+            {
+                "matchId": match["match_id"],
+                "win": is_win(match),
+                "kills": (detail["kills"] if detail else match["kills"]) or 0,
+                "deaths": (detail["deaths"] if detail else match["deaths"]) or 0,
+                "assists": (detail["assists"] if detail else match["assists"]) or 0,
+                "gpm": (detail["gold_per_min"] if detail else raw.get("gold_per_min")) or 0,
+                "xpm": (detail["xp_per_min"] if detail else raw.get("xp_per_min")) or 0,
+                "heroDamage": (detail["hero_damage"] if detail else raw.get("hero_damage")) or 0,
+                "towerDamage": (detail["tower_damage"] if detail else raw.get("tower_damage")) or 0,
+                "healing": (detail["hero_healing"] if detail else raw.get("hero_healing")) or 0,
+                "lastHits": (detail["last_hits"] if detail else raw.get("last_hits")) or 0,
+                "laneRole": raw.get("lane_role"),
+            }
+        )
+    return stats
+
+
+def infer_position(stats: list[dict[str, Any]]) -> str:
+    lane_roles = [item["laneRole"] for item in stats if item.get("laneRole")]
+    if lane_roles:
+        role = Counter(lane_roles).most_common(1)[0][0]
+        return {1: "CAR", 2: "MID", 3: "OFF", 4: "SUP"}.get(role, "FLX")
+
+    games = max(1, len(stats))
+    avg_kills = sum(item["kills"] for item in stats) / games
+    avg_assists = sum(item["assists"] for item in stats) / games
+    avg_gpm = sum(item["gpm"] for item in stats) / games
+    avg_xpm = sum(item["xpm"] for item in stats) / games
+    avg_hero_damage = sum(item["heroDamage"] for item in stats) / games
+    avg_tower_damage = sum(item["towerDamage"] for item in stats) / games
+    avg_healing = sum(item["healing"] for item in stats) / games
+    avg_last_hits = sum(item["lastHits"] for item in stats) / games
+
+    if avg_last_hits >= 200 and avg_tower_damage >= 4500:
+        return "CRY"
+    if avg_assists >= 16 and avg_last_hits <= 130 and avg_tower_damage < 3200:
+        return "SUP"
+
+    scores = {
+        "CRY": 0.34 * min(avg_last_hits / 260, 1) + 0.26 * min(avg_tower_damage / 7000, 1) + 0.25 * min(avg_gpm / 760, 1) + 0.15 * min(avg_kills / 12, 1),
+        "MID": 0.32 * min(avg_kills / 13, 1) + 0.26 * min(avg_xpm / 950, 1) + 0.25 * min(avg_hero_damage / 36000, 1) + 0.17 * min(avg_last_hits / 220, 1),
+        "OFF": 0.27 * min(avg_assists / 18, 1) + 0.25 * min(avg_hero_damage / 30000, 1) + 0.23 * min(avg_tower_damage / 5200, 1) + 0.25 * min((avg_kills + avg_assists) / 24, 1),
+        "SUP": 0.42 * min(avg_assists / 22, 1) + 0.22 * min(avg_healing / 3500, 1) + 0.2 * max(0, 1 - avg_last_hits / 180) + 0.16 * max(0, 1 - avg_gpm / 620),
+    }
+    return max(scores, key=scores.get)
+
+
+def weighted_overall(position: str, rows: list[dict[str, Any]]) -> int:
+    values = {row["label"]: row["value"] for row in rows}
+    weights = {
+        "CRY": {"IMP": 0.2, "FRM": 0.25, "FGT": 0.2, "SUR": 0.1, "OBJ": 0.2, "UTL": 0.05},
+        "MID": {"IMP": 0.25, "FRM": 0.18, "FGT": 0.25, "SUR": 0.12, "OBJ": 0.1, "UTL": 0.1},
+        "OFF": {"IMP": 0.25, "FRM": 0.1, "FGT": 0.2, "SUR": 0.2, "OBJ": 0.15, "UTL": 0.1},
+        "SUP": {"IMP": 0.25, "FRM": 0.05, "FGT": 0.1, "SUR": 0.15, "OBJ": 0.1, "UTL": 0.35},
+        "FLX": {"IMP": 0.2, "FRM": 0.16, "FGT": 0.18, "SUR": 0.16, "OBJ": 0.14, "UTL": 0.16},
+    }
+    role_weights = weights.get(position, weights["FLX"])
+    return clamp_score(sum(values[key] * weight for key, weight in role_weights.items()))
+
+
+def build_card(conn: sqlite3.Connection, player: dict[str, Any], matches: list[sqlite3.Row]) -> dict[str, Any]:
+    stats = detailed_match_stats(conn, int(player["accountId"]), matches)
+    games = max(1, len(matches))
+    wins = sum(1 for row in matches if is_win(row))
+    kills = sum(item["kills"] for item in stats)
+    deaths = sum(item["deaths"] for item in stats)
+    assists = sum(item["assists"] for item in stats)
+
+    avg_kills = kills / games
+    avg_deaths = deaths / games
+    avg_assists = assists / games
+    avg_gpm = sum(item["gpm"] for item in stats) / games
+    avg_xpm = sum(item["xpm"] for item in stats) / games
+    avg_hero_damage = sum(item["heroDamage"] for item in stats) / games
+    avg_tower_damage = sum(item["towerDamage"] for item in stats) / games
+    avg_healing = sum(item["healing"] for item in stats) / games
+    avg_last_hits = sum(item["lastHits"] for item in stats) / games
+    winrate = wins / games * 100
+    recent = matches[:10]
+    recent_winrate = sum(1 for row in recent if is_win(row)) / max(1, len(recent)) * 100
+    kda = (kills + assists) / max(1, deaths)
+    position = infer_position(stats)
+
+    impact = 0.34 * winrate + 0.24 * metric_score(kda, 4.6) + 0.18 * metric_score(avg_assists, 18) + 0.24 * metric_score(avg_hero_damage, 28000)
+    farm = 0.5 * metric_score(avg_gpm, 760) + 0.3 * metric_score(avg_last_hits, 260) + 0.2 * metric_score(avg_xpm, 950)
+    fighting = 0.42 * metric_score(avg_kills, 12) + 0.38 * metric_score(avg_hero_damage, 30000) + 0.2 * metric_score(avg_assists, 18)
+    survival = 0.58 * (99 - metric_score(avg_deaths, 12, 0, 64)) + 0.42 * metric_score(kda, 5.0)
+    objective = 0.68 * metric_score(avg_tower_damage, 5200) + 0.32 * metric_score(avg_last_hits, 210)
+    utility = 0.45 * metric_score(avg_assists, 20) + 0.25 * metric_score(avg_healing, 3500) + 0.3 * metric_score((avg_gpm + avg_xpm) / 2, 900)
+    rows = [
+        {"label": "IMP", "value": clamp_score(impact)},
+        {"label": "FRM", "value": clamp_score(farm)},
+        {"label": "FGT", "value": clamp_score(fighting)},
+        {"label": "SUR", "value": clamp_score(survival)},
+        {"label": "OBJ", "value": clamp_score(objective)},
+        {"label": "UTL", "value": clamp_score(utility)},
+    ]
+    overall = weighted_overall(position, rows)
+    return {
+        "overall": overall,
+        "position": position,
+        "rows": rows,
+        "source": {
+            "winrate": round(winrate, 1),
+            "recentWinrate": round(recent_winrate, 1),
+            "avgKills": round(avg_kills, 1),
+            "avgDeaths": round(avg_deaths, 1),
+            "avgAssists": round(avg_assists, 1),
+            "avgGpm": round(avg_gpm, 1),
+            "avgXpm": round(avg_xpm, 1),
+            "avgHeroDamage": round(avg_hero_damage),
+            "avgTowerDamage": round(avg_tower_damage),
+            "avgHealing": round(avg_healing),
+            "avgLastHits": round(avg_last_hits, 1),
+            "roleWeights": position,
+        },
+    }
+
+
 def profile_for(conn: sqlite3.Connection, account_id: int) -> dict[str, Any]:
     row = conn.execute(
         """
@@ -242,6 +412,8 @@ def build_players(conn: sqlite3.Connection, rows: list[sqlite3.Row]) -> list[dic
                 "kda": round((kills + assists) / max(1, deaths), 2),
             }
         )
+        profile["medal"] = rank_medal(profile.get("rankTier"))
+        profile["card"] = build_card(conn, profile, matches)
         players.append(profile)
     return players
 

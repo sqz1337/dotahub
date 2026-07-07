@@ -7,6 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         dashboard: "dashboard/index.html",
+        players: "players/index.html",
       },
     },
   },

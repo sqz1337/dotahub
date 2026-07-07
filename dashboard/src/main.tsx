@@ -1,4 +1,4 @@
-import { StrictMode, useMemo, useState, type ReactNode } from "react";
+import { StrictMode, useMemo, useState, type CSSProperties, type ReactNode, type SyntheticEvent } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import {
   ChevronDown,
@@ -7,10 +7,13 @@ import {
   Skull,
   Zap,
 } from "lucide-react";
+import cardPreset from "../../card_example.json";
 import dashboardData from "../../data/dashboard.json";
 import "./styles.css";
 
 type DashboardData = typeof dashboardData;
+type CardPreset = typeof cardPreset;
+type CardPlayer = DashboardData["players"][number];
 type LeaderboardPlayer = DashboardData["leaderboard"][number];
 type RecentGame = DashboardData["recentPartyGames"][number];
 type FeedEvent = DashboardData["feed"][number];
@@ -19,7 +22,15 @@ type GameModeFilter = "all" | "turbo" | "ranked" | "other";
 const data = dashboardData as DashboardData;
 const playersById = new Map(data.players.map((player) => [player.accountId, player]));
 
-const navItems = ["Dashboard", "Players", "Matches", "Achievements", "Hall of Fame"];
+type Page = "dashboard" | "players";
+
+const navItems: { label: string; href: string; page?: Page }[] = [
+  { label: "Dashboard", href: "/dashboard/", page: "dashboard" },
+  { label: "Players", href: "/players/", page: "players" },
+  { label: "Matches", href: "/dashboard/" },
+  { label: "Achievements", href: "/dashboard/" },
+  { label: "Hall of Fame", href: "/dashboard/" },
+];
 const modeFilters: { label: string; value: GameModeFilter }[] = [
   { label: "All Modes", value: "all" },
   { label: "Turbo", value: "turbo" },
@@ -28,6 +39,48 @@ const modeFilters: { label: string; value: GameModeFilter }[] = [
 ];
 const rankNames = ["Unranked", "Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancient", "Divine", "Immortal"];
 const rankStars = ["", "I", "II", "III", "IV", "V"];
+const statKeys = ["Imp", "Far", "Fgt", "Sur", "Obj", "Utl"] as const;
+const cardCssMap = {
+  cardWidth: "--card-width",
+  fontFamily: "--font-family",
+  textColor: "--text-color",
+  avatarTop: "--avatar-top",
+  avatarLeft: "--avatar-left",
+  avatarWidth: "--avatar-width",
+  avatarHeight: "--avatar-height",
+  avatarScale: "--avatar-scale",
+  avatarX: "--avatar-x",
+  avatarY: "--avatar-y",
+  avatarOpacity: "--avatar-opacity",
+  avatarSaturate: "--avatar-saturate",
+  avatarContrast: "--avatar-contrast",
+  avatarBrightness: "--avatar-brightness",
+  avatarBlend: "--avatar-blend",
+  ratingTop: "--rating-top",
+  ratingLeft: "--rating-left",
+  ratingWidth: "--rating-width",
+  rankTop: "--rank-top",
+  rankLeft: "--rank-left",
+  rankWidth: "--rank-width",
+  rankScale: "--rank-scale",
+  nameTop: "--name-top",
+  nameLeft: "--name-left",
+  nameWidth: "--name-width",
+  statsTop: "--stats-top",
+  statsLeft: "--stats-left",
+  statsWidth: "--stats-width",
+  ovrSize: "--ovr-size",
+  positionSize: "--position-size",
+  nameSize: "--name-size",
+  nameSpacing: "--name-spacing",
+  statsSize: "--stats-size",
+  statsGap: "--stats-gap",
+  fxIntensity: "--fx-intensity",
+  fxSpeed: "--fx-speed",
+  fxColor: "--fx-color",
+  fxSecondaryColor: "--fx-secondary-color",
+  fxSparkOpacity: "--fx-spark-opacity",
+} as const;
 
 function rankLabel(rankTier: number | null | undefined) {
   if (!rankTier) return "Unranked";
@@ -43,6 +96,94 @@ function rankIconSrc(rankTier: number | null | undefined) {
   const medal = Math.floor(rankTier / 10);
   if (medal < 1 || medal > 8) return null;
   return `/assets/ranks/rank_icon_${medal}.png`;
+}
+
+function pct(value: number | string) {
+  return `${Number(value)}%`;
+}
+
+function px(value: number | string) {
+  return `${Number(value)}px`;
+}
+
+function cardStyle(preset: Record<string, string | number>): CSSProperties {
+  const style: Record<string, string | number> = {};
+  Object.entries(cardCssMap).forEach(([key, cssName]) => {
+    let value = preset[key as keyof CardPreset];
+    if (value === undefined) return;
+    if (key === "cardWidth") value = "clamp(150px, min(calc((100vw - 180px) / 5), calc((100svh - 152px) / 3.12)), 250px)";
+    if (
+      [
+        "avatarTop",
+        "avatarLeft",
+        "avatarWidth",
+        "avatarHeight",
+        "avatarX",
+        "avatarY",
+        "ratingTop",
+        "ratingLeft",
+        "ratingWidth",
+        "rankTop",
+        "rankLeft",
+        "rankWidth",
+        "nameTop",
+        "nameLeft",
+        "nameWidth",
+        "statsTop",
+        "statsLeft",
+        "statsWidth",
+      ].includes(key)
+    ) {
+      value = pct(value as number);
+    }
+    if (key === "fontFamily") value = `"${value}", "Arial Narrow", Arial, sans-serif`;
+    if (key === "nameSpacing") value = `${value}em`;
+    if (key === "statsGap") value = px(value as number);
+    style[cssName] = value as string | number;
+  });
+
+  const fxIntensity = Number(preset.fxIntensity ?? 0);
+  const fxLevel = Math.min(1, Math.max(0, fxIntensity));
+  const fxBrightness = 0.75 + fxIntensity * 0.65;
+  style["--fx-brightness"] = fxBrightness;
+  style["--fx-aura-dim"] = fxLevel * 0.62;
+  style["--fx-holo-opacity"] = fxLevel * 0.7;
+  style["--fx-holo-bright"] = fxBrightness * 1.12;
+  style["--fx-holo-peak"] = fxBrightness * 1.28;
+  style["--fx-spark-dim"] = Number(preset.fxSparkOpacity ?? 0) * 0.45;
+  return style as CSSProperties;
+}
+
+function normalizeCardPlayer(player: CardPlayer) {
+  const rows = player.card.rows;
+  const state: Record<string, string | number> = {
+    ...cardPreset,
+    template: player.medal.template || cardPreset.template,
+    avatar: String(player.accountId),
+    rating: player.card.overall,
+    position: player.card.position,
+    name: player.name,
+    rankIcon: String(player.medal.medal || cardPreset.rankIcon),
+    rankStars: String(player.medal.stars || cardPreset.rankStars),
+  };
+
+  statKeys.forEach((key, index) => {
+    const row = rows[index];
+    if (!row) return;
+    state[`stat${key}`] = row.value;
+    state[`label${key}`] = row.label;
+  });
+
+  return state;
+}
+
+function handleAvatarError(event: SyntheticEvent<HTMLImageElement>) {
+  const img = event.currentTarget;
+  const fallback = img.dataset.fallback;
+  if (fallback && img.src !== fallback) {
+    img.src = fallback;
+    img.dataset.fallback = "/assets/players/1.jpg";
+  }
 }
 
 function formatTime(value: string | null) {
@@ -86,7 +227,7 @@ function Panel({
   );
 }
 
-function Header() {
+function Header({ activePage }: { activePage: Page }) {
   return (
     <header className="site-header">
       <a className="brand" href="/dashboard/">
@@ -101,8 +242,8 @@ function Header() {
 
       <nav className="nav-links" aria-label="Primary navigation">
         {navItems.map((item) => (
-          <a key={item} aria-current={item === "Dashboard" ? "page" : undefined} href="/dashboard/">
-            {item}
+          <a key={item.label} aria-current={item.page === activePage ? "page" : undefined} href={item.href}>
+            {item.label}
           </a>
         ))}
       </nav>
@@ -349,10 +490,10 @@ function SquadFeed() {
   );
 }
 
-function App() {
+function DashboardPage() {
   return (
-    <main className="dashboard-shell">
-      <Header />
+    <>
+      <Header activePage="dashboard" />
       <div className="dashboard-grid">
         <Leaderboard />
         <RecentGames />
@@ -361,6 +502,111 @@ function App() {
           <SquadFeed />
         </aside>
       </div>
+    </>
+  );
+}
+
+function PlayersPage() {
+  const visiblePlayers = data.players.slice(0, 10);
+
+  return (
+    <>
+      <Header activePage="players" />
+      <section className="players-page" aria-label="Players">
+        <div className="players-stage">
+          <header className="players-hero">
+            <div className="players-title-lines" aria-hidden="true">
+              <span />
+              <span />
+            </div>
+            <div className="players-title-copy">
+              <h1>PLAYERS</h1>
+              <p>LOW-PRIORITY ULTIMATE COLLECTION</p>
+            </div>
+            <div className="period-toggle" aria-label="Players period">
+              <button type="button" aria-pressed="true">This season</button>
+              <button type="button" aria-pressed="false">All time</button>
+            </div>
+          </header>
+          <div className="players-roster-frame">
+            <div className="players-cards-grid">
+              {visiblePlayers.map((player) => (
+                <PlayerCard player={player} key={player.accountId} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function PlayerCard({ player }: { player: CardPlayer }) {
+  const state = normalizeCardPlayer(player);
+  const templatePath = `/assets/card-templates/${state.template}_card_transparent.png`;
+  const localAvatar = `/assets/players/${state.avatar}.jpg`;
+  const remoteAvatar = player.avatar || "/assets/players/1.jpg";
+  const stats = statKeys.map((key) => ({
+    label: state[`label${key}`],
+    value: state[`stat${key}`],
+  }));
+
+  return (
+    <article className="card-shell" style={cardStyle(state)} aria-label={`${state.name} card`}>
+      <div className="player-card">
+        <img className="template" src={templatePath} alt="" />
+        <div className="avatar-frame">
+          <img
+            className="avatar"
+            src={localAvatar}
+            alt={String(state.name)}
+            data-fallback={remoteAvatar}
+            onError={handleAvatarError}
+          />
+        </div>
+        <img className="frame-fx frame-aura" src={templatePath} alt="" aria-hidden="true" />
+        <img className="frame-fx frame-holo" src={templatePath} alt="" aria-hidden="true" />
+        <div className="spark-fx" aria-hidden="true" />
+        <div className="rating">
+          <span className="ovr">{state.rating}</span>
+          <span className="position">{state.position}</span>
+        </div>
+        <span className="rating-rule" aria-hidden="true" />
+        <div className="rank-mark" aria-label="Rank mark">
+          <img className="rank-stars" src={`/assets/ranks/rank_star_${state.rankStars}.png`} alt="" />
+          <img className="rank-icon" src={`/assets/ranks/rank_icon_${state.rankIcon}.png`} alt="" />
+        </div>
+        <h2 className="name">{state.name}</h2>
+        <section className="stats" aria-label="Player stats">
+          <div>
+            {stats.slice(0, 3).map((stat) => (
+              <div className="stat" key={String(stat.label)}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="divider" />
+          <div>
+            {stats.slice(3).map((stat) => (
+              <div className="stat" key={String(stat.label)}>
+                <strong>{stat.value}</strong>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </article>
+  );
+}
+
+function App() {
+  const page: Page = window.location.pathname.startsWith("/players") ? "players" : "dashboard";
+
+  return (
+    <main className={`dashboard-shell ${page === "players" ? "players-shell" : ""}`}>
+      {page === "players" ? <PlayersPage /> : <DashboardPage />}
     </main>
   );
 }
