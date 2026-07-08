@@ -1,10 +1,26 @@
-import { StrictMode, useMemo, useState, type CSSProperties, type ReactNode, type SyntheticEvent } from "react";
+import {
+  StrictMode,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+  type ReactNode,
+  type SyntheticEvent,
+} from "react";
 import { createRoot, type Root } from "react-dom/client";
 import {
+  Activity,
   ChevronDown,
+  ChevronRight,
   Crown,
+  Eye,
+  Frown,
   Gauge,
+  Shield,
   Skull,
+  TrendingUp,
+  Users,
   Zap,
 } from "lucide-react";
 import cardPreset from "../../card_example.json";
@@ -138,7 +154,9 @@ function cardStyle(preset: Record<string, string | number>): CSSProperties {
     }
     if (key === "fontFamily") value = `"${value}", "Arial Narrow", Arial, sans-serif`;
     if (key === "nameSpacing") value = `${value}em`;
-    if (key === "statsGap") value = px(value as number);
+    // statsGap in the preset is px for the 424px reference card from cards.html;
+    // scale it with the actual card width so number/label spacing stays true.
+    if (key === "statsGap") value = `calc(var(--card-width) * ${(Number(value) / 424).toFixed(4)})`;
     style[cssName] = value as string | number;
   });
 
@@ -205,6 +223,106 @@ function relativeTime(value: string | null) {
   return `${Math.round(hours / 24)}d ago`;
 }
 
+type TrackedGamePlayer = RecentGame["trackedPlayers"][number];
+
+type DuoEntry = { a: TrackedGamePlayer; b: TrackedGamePlayer; games: number; wins: number };
+
+function computeBestDuo() {
+  const pairs = new Map<string, DuoEntry>();
+  data.recentPartyGames.forEach((game) => {
+    const players = game.trackedPlayers;
+    for (let i = 0; i < players.length; i += 1) {
+      for (let j = i + 1; j < players.length; j += 1) {
+        const [a, b] = [players[i], players[j]].sort((x, y) => x.accountId - y.accountId);
+        const key = `${a.accountId}-${b.accountId}`;
+        const entry = pairs.get(key) ?? { a, b, games: 0, wins: 0 };
+        entry.games += 1;
+        if (game.result === "WIN") entry.wins += 1;
+        pairs.set(key, entry);
+      }
+    }
+  });
+  let best: DuoEntry | null = null;
+  for (const entry of Array.from(pairs.values())) {
+    if (entry.games < 2) continue;
+    const rate = entry.wins / entry.games;
+    const bestRate = best ? best.wins / best.games : -1;
+    if (!best || rate > bestRate || (rate === bestRate && entry.games > best.games)) best = entry;
+  }
+  return best;
+}
+
+const bestDuo = computeBestDuo();
+
+function heroPortrait(url: string | null | undefined) {
+  if (!url) return null;
+  return url.replace("/heroes/icons/", "/heroes/");
+}
+
+function findHeroImage(heroName: string | null) {
+  if (!heroName) return null;
+  for (const game of data.recentPartyGames) {
+    const hero = game.heroes.find((item) => item.heroName === heroName);
+    if (hero) return hero.heroImage;
+  }
+  return null;
+}
+
+function SquadPulse() {
+  const { squadPulse } = data;
+  return (
+    <section className="pulse-bar" aria-label="Squad pulse">
+      <div className="pulse-item pulse-label">
+        <Activity aria-hidden="true" />
+        <span>Squad Pulse</span>
+      </div>
+      <div className="pulse-item">
+        <TrendingUp className={squadPulse.record.wins >= squadPulse.record.losses ? "pulse-good" : "pulse-bad"} aria-hidden="true" />
+        <strong>{squadPulse.record.label}</strong>
+        <span>this season</span>
+      </div>
+      <div className="pulse-item">
+        <Zap className="pulse-gold" aria-hidden="true" />
+        <strong>
+          {squadPulse.turboMatches}/{squadPulse.trackedPlayerMatches}
+        </strong>
+        <span>turbo games</span>
+      </div>
+      {bestDuo ? (
+        <div className="pulse-item">
+          <Users className="pulse-good" aria-hidden="true" />
+          <span>Best duo:</span>
+          <span className="pulse-duo">
+            <img src={bestDuo.a.avatar ?? ""} alt="" />
+            <img src={bestDuo.b.avatar ?? ""} alt="" />
+          </span>
+          <strong>
+            {bestDuo.a.name} + {bestDuo.b.name}
+          </strong>
+          <span>
+            {Math.round((bestDuo.wins / bestDuo.games) * 100)}% of {bestDuo.games}
+          </span>
+        </div>
+      ) : (
+        <div className="pulse-item">
+          <Crown className="pulse-gold" aria-hidden="true" />
+          <span>On fire:</span>
+          <strong>{squadPulse.bestPerformer.name}</strong>
+          <span>{squadPulse.bestPerformer.winRate}% WR</span>
+        </div>
+      )}
+      <div className="pulse-item">
+        <Frown className="pulse-bad" aria-hidden="true" />
+        <span>Cursed pick:</span>
+        {squadPulse.cursedPick.heroImage ? (
+          <img className="pulse-hero" src={heroPortrait(squadPulse.cursedPick.heroImage) ?? ""} alt="" />
+        ) : null}
+        <strong>{squadPulse.cursedPick.heroName}</strong>
+      </div>
+    </section>
+  );
+}
+
 function Panel({
   title,
   action,
@@ -247,6 +365,12 @@ function Header({ activePage }: { activePage: Page }) {
           </a>
         ))}
       </nav>
+
+      <div className="season-pill" aria-label="Season selector" aria-disabled="true">
+        <Shield aria-hidden="true" />
+        <span>Season 1</span>
+        <ChevronDown aria-hidden="true" />
+      </div>
     </header>
   );
 }
@@ -290,6 +414,7 @@ function Leaderboard() {
                     <img src={rankIconSrc(playersById.get(player.accountId)?.rankTier) ?? ""} alt="" />
                   ) : null}
                   {rankLabel(playersById.get(player.accountId)?.rankTier)}
+                  <span className="rank-kda">· KDA {player.kda}</span>
                 </span>
               </div>
             </div>
@@ -303,6 +428,10 @@ function Leaderboard() {
           </article>
         ))}
       </div>
+      <a className="panel-footer" href="/players/">
+        View all players
+        <ChevronRight aria-hidden="true" />
+      </a>
     </Panel>
   );
 }
@@ -323,18 +452,21 @@ function PartyStack({ game }: { game: RecentGame }) {
   );
 }
 
-function HeroStack({ game }: { game: RecentGame }) {
+function GameHighlight({ game }: { game: RecentGame }) {
+  const highlight = game.highlight;
+  if (!highlight) return <span className="highlight-cell highlight-empty">—</span>;
+  const won = highlight.won;
   return (
-    <div className="hero-stack">
-      {game.trackedPlayers.slice(0, 5).map((player, index) => (
-        <img
-          key={`${game.matchId}-${player.accountId}-${player.heroId}-${index}`}
-          src={player.heroImage ?? ""}
-          alt={player.heroName}
-          title={`${player.name} · ${player.heroName}`}
-        />
-      ))}
-    </div>
+    <span className="highlight-cell">
+      <img className="highlight-hero" src={heroPortrait(highlight.heroImage) ?? ""} alt={highlight.heroName} />
+      <span className="highlight-copy">
+        <strong>{highlight.name}</strong>
+        <small>
+          {highlight.kills}/{highlight.deaths}/{highlight.assists} · {highlight.heroName}
+        </small>
+      </span>
+      {won ? <Crown className="highlight-badge" aria-label="MVP" /> : null}
+    </span>
   );
 }
 
@@ -381,7 +513,7 @@ function RecentGames() {
         <span>Mode</span>
         <span>Duration</span>
         <span>Date / Time</span>
-        <span>Heroes</span>
+        <span>Highlight</span>
       </div>
       <div className="games-list">
         {visibleGames.length ? visibleGames.map((game: RecentGame) => (
@@ -391,17 +523,19 @@ function RecentGames() {
               {game.result === "WIN" ? "W" : "L"}
             </span>
             <span className="mode-cell">{game.modeName}</span>
-            <span>{game.durationLabel}</span>
+            <span className="duration-cell">{game.durationLabel}</span>
             <span className="date-cell">
               <strong>{relativeTime(game.startedAt)}</strong>
               <small>{formatTime(game.startedAt)}</small>
             </span>
-            <span className="heroes-cell">
-              <HeroStack game={game} />
-            </span>
+            <GameHighlight game={game} />
           </article>
         )) : <div className="games-empty">No games for this mode</div>}
       </div>
+      <a className="panel-footer" href="/dashboard/">
+        View all party games
+        <ChevronRight aria-hidden="true" />
+      </a>
     </Panel>
   );
 }
@@ -419,14 +553,14 @@ function MetaRow({
   heroName: string | null;
   heroImage?: string | null;
   value: string;
-  tone?: "good" | "bad" | "neutral";
+  tone?: "good" | "bad" | "gold" | "neutral";
 }) {
   return (
     <div className="meta-row">
       <span className={`meta-icon ${tone}`}>{icon}</span>
       <span>{label}</span>
       <span className="meta-hero">
-        {heroImage ? <img src={heroImage} alt="" /> : null}
+        {heroImage ? <img src={heroPortrait(heroImage) ?? ""} alt="" /> : null}
         <strong>{heroName ?? "Unknown"}</strong>
       </span>
       <strong className={tone}>{value}</strong>
@@ -445,7 +579,7 @@ function SquadMeta() {
       <div className="meta-list">
         <MetaRow
           icon={<Gauge aria-hidden="true" />}
-          label="Most Picked Hero"
+          label="Most Picked"
           heroName={squadMeta.mostPickedHero.heroName}
           heroImage={squadMeta.mostPickedHero.heroImage}
           value={formatHeroMetaValue(squadMeta.mostPickedHero)}
@@ -466,25 +600,45 @@ function SquadMeta() {
           value={formatHeroMetaValue(squadMeta.cursedHero)}
           tone="bad"
         />
+        <MetaRow
+          icon={<Zap aria-hidden="true" />}
+          label="Fastest Win"
+          heroName={squadMeta.fastestWin.heroName}
+          heroImage={findHeroImage(squadMeta.fastestWin.heroName)}
+          value={squadMeta.fastestWin.durationLabel}
+          tone="gold"
+        />
       </div>
     </Panel>
   );
 }
 
+const feedIcons: Record<string, { icon: ReactNode; tone: string }> = {
+  crown: { icon: <Crown aria-hidden="true" />, tone: "gold" },
+  skull: { icon: <Skull aria-hidden="true" />, tone: "bad" },
+  eye: { icon: <Eye aria-hidden="true" />, tone: "good" },
+};
+
 function SquadFeed() {
   return (
     <Panel title="Squad Feed" className="feed-panel">
       <div className="feed-list">
-        {data.feed.map((event: FeedEvent) => (
-          <article className={`feed-item ${event.type}`} key={`${event.matchId}-${event.accountId}-${event.type}`}>
-            <img src={event.avatar ?? ""} alt="" />
-            <p>
-              <strong>{event.player}</strong>
-              <span>{event.message.replace(event.player, "").trim()}</span>
-            </p>
-            <span className="feed-time">{relativeTime(event.createdAt)}</span>
-          </article>
-        ))}
+        {data.feed.map((event: FeedEvent) => {
+          const feedIcon = feedIcons[event.icon] ?? feedIcons.eye;
+          return (
+            <article className={`feed-item ${event.type}`} key={`${event.matchId}-${event.accountId}-${event.type}`}>
+              <img src={event.avatar ?? ""} alt="" />
+              <p>
+                <strong>{event.player}</strong>
+                <span>{event.message.replace(event.player, "").trim()}</span>
+              </p>
+              <span className="feed-meta">
+                <span className="feed-time">{relativeTime(event.createdAt)}</span>
+                <span className={`feed-icon ${feedIcon.tone}`}>{feedIcon.icon}</span>
+              </span>
+            </article>
+          );
+        })}
       </div>
     </Panel>
   );
@@ -494,6 +648,7 @@ function DashboardPage() {
   return (
     <>
       <Header activePage="dashboard" />
+      <SquadPulse />
       <div className="dashboard-grid">
         <Leaderboard />
         <RecentGames />
@@ -507,7 +662,12 @@ function DashboardPage() {
 }
 
 function PlayersPage() {
-  const visiblePlayers = data.players.slice(0, 10);
+  const visiblePlayers = [...data.players]
+    .sort((a, b) => b.card.overall - a.card.overall)
+    .slice(0, 10);
+  const rows = Math.max(1, Math.ceil(visiblePlayers.length / 5));
+  const perRow = Math.ceil(visiblePlayers.length / rows);
+  const gridStyle = { "--per-row": perRow } as CSSProperties;
 
   return (
     <>
@@ -515,23 +675,22 @@ function PlayersPage() {
       <section className="players-page" aria-label="Players">
         <div className="players-stage">
           <header className="players-hero">
-            <div className="players-title-lines" aria-hidden="true">
-              <span />
-              <span />
-            </div>
             <div className="players-title-copy">
-              <h1>PLAYERS</h1>
-              <p>LOW-PRIORITY ULTIMATE COLLECTION</p>
+              <p className="players-kicker">Kastems Hub · Season 1</p>
+              <h1>Low-Priority Ultimate Collection</h1>
             </div>
             <div className="period-toggle" aria-label="Players period">
               <button type="button" aria-pressed="true">This season</button>
-              <button type="button" aria-pressed="false">All time</button>
+              <button type="button" aria-pressed="false" disabled>
+                All time
+                <span className="soon-badge">soon</span>
+              </button>
             </div>
           </header>
           <div className="players-roster-frame">
-            <div className="players-cards-grid">
-              {visiblePlayers.map((player) => (
-                <PlayerCard player={player} key={player.accountId} />
+            <div className="players-cards-grid" style={gridStyle}>
+              {visiblePlayers.map((player, index) => (
+                <PlayerCard player={player} index={index} key={player.accountId} />
               ))}
             </div>
           </div>
@@ -541,7 +700,8 @@ function PlayersPage() {
   );
 }
 
-function PlayerCard({ player }: { player: CardPlayer }) {
+function PlayerCard({ player, index }: { player: CardPlayer; index: number }) {
+  const shellRef = useRef<HTMLElement | null>(null);
   const state = normalizeCardPlayer(player);
   const templatePath = `/assets/card-templates/${state.template}_card_transparent.png`;
   const localAvatar = `/assets/players/${state.avatar}.jpg`;
@@ -550,9 +710,42 @@ function PlayerCard({ player }: { player: CardPlayer }) {
     label: state[`label${key}`],
     value: state[`stat${key}`],
   }));
+  const style = {
+    ...cardStyle(state),
+    "--i": index,
+    "--template-url": `url("${templatePath}")`,
+  } as CSSProperties;
+
+  const handleTilt = (event: MouseEvent<HTMLElement>) => {
+    const shell = shellRef.current;
+    if (!shell) return;
+    const rect = shell.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    shell.style.setProperty("--tilt-y", `${((x - 0.5) * 16).toFixed(2)}deg`);
+    shell.style.setProperty("--tilt-x", `${((0.5 - y) * 12).toFixed(2)}deg`);
+    shell.style.setProperty("--glare-x", `${(x * 100).toFixed(1)}%`);
+    shell.style.setProperty("--glare-y", `${(y * 100).toFixed(1)}%`);
+  };
+
+  const resetTilt = () => {
+    const shell = shellRef.current;
+    if (!shell) return;
+    shell.style.setProperty("--tilt-x", "0deg");
+    shell.style.setProperty("--tilt-y", "0deg");
+  };
 
   return (
-    <article className="card-shell" style={cardStyle(state)} aria-label={`${state.name} card`}>
+    <article
+      ref={shellRef}
+      className="card-shell"
+      style={style}
+      role="button"
+      tabIndex={0}
+      onMouseMove={handleTilt}
+      onMouseLeave={resetTilt}
+      aria-label={`${state.name} card`}
+    >
       <div className="player-card">
         <img className="template" src={templatePath} alt="" />
         <div className="avatar-frame">
@@ -567,6 +760,7 @@ function PlayerCard({ player }: { player: CardPlayer }) {
         <img className="frame-fx frame-aura" src={templatePath} alt="" aria-hidden="true" />
         <img className="frame-fx frame-holo" src={templatePath} alt="" aria-hidden="true" />
         <div className="spark-fx" aria-hidden="true" />
+        <div className="glare-fx" aria-hidden="true" />
         <div className="rating">
           <span className="ovr">{state.rating}</span>
           <span className="position">{state.position}</span>

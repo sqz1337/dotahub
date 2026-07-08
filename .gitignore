@@ -5,3 +5,4 @@ dist/
 *.tsbuildinfo
 data/*.sqlite-wal
 data/*.sqlite-shm
+.claude/settings.local.json
