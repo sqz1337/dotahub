@@ -1,5 +1,7 @@
 import {
   StrictMode,
+  useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -17,9 +19,9 @@ import {
   Eye,
   Frown,
   Gauge,
-  Shield,
   Skull,
   TrendingUp,
+  UserRound,
   Users,
   Zap,
 } from "lucide-react";
@@ -30,10 +32,16 @@ import "./styles.css";
 type DashboardData = typeof dashboardData;
 type CardPreset = typeof cardPreset;
 type CardPlayer = DashboardData["players"][number];
+type PlayerCardStats = {
+  overall: number;
+  position: string;
+  rows: { label: string; value: number }[];
+};
 type LeaderboardPlayer = DashboardData["leaderboard"][number];
 type RecentGame = DashboardData["recentPartyGames"][number];
 type FeedEvent = DashboardData["feed"][number];
 type GameModeFilter = "all" | "turbo" | "ranked" | "other";
+type AuthUser = { authenticated: true; accountId: string; name: string; avatar: string | null };
 
 const data = dashboardData as DashboardData;
 const playersById = new Map(data.players.map((player) => [player.accountId, player]));
@@ -172,14 +180,14 @@ function cardStyle(preset: Record<string, string | number>): CSSProperties {
   return style as CSSProperties;
 }
 
-function normalizeCardPlayer(player: CardPlayer) {
-  const rows = player.card.rows;
+function normalizeCardPlayer(player: CardPlayer, card: PlayerCardStats = player.card) {
+  const rows = card.rows;
   const state: Record<string, string | number> = {
     ...cardPreset,
     template: player.medal.template || cardPreset.template,
     avatar: String(player.accountId),
-    rating: player.card.overall,
-    position: player.card.position,
+    rating: card.overall,
+    position: card.position,
     name: player.name,
     rankIcon: String(player.medal.medal || cardPreset.rankIcon),
     rankStars: String(player.medal.stars || cardPreset.rankStars),
@@ -346,6 +354,28 @@ function Panel({
 }
 
 function Header({ activePage }: { activePage: Page }) {
+  const [authUser, setAuthUser] = useState<AuthUser | null>(null);
+  const authResult = new URLSearchParams(window.location.search).get("auth");
+
+  useEffect(() => {
+    let disposed = false;
+    fetch("/api/auth/me")
+      .then(async (response) => response.ok ? response.json() : null)
+      .then((payload) => {
+        if (!disposed && payload?.authenticated) setAuthUser(payload as AuthUser);
+      })
+      .catch(() => undefined);
+    return () => {
+      disposed = true;
+    };
+  }, []);
+
+  const authNotice = authResult === "not_registered"
+    ? "Вашего профиля пока нет на сайте — вход недоступен."
+    : authResult === "failed"
+      ? "Не удалось подтвердить вход через Steam. Попробуйте ещё раз."
+      : null;
+
   return (
     <header className="site-header">
       <a className="brand" href="/dashboard/">
@@ -365,12 +395,19 @@ function Header({ activePage }: { activePage: Page }) {
           </a>
         ))}
       </nav>
-
-      <div className="season-pill" aria-label="Season selector" aria-disabled="true">
-        <Shield aria-hidden="true" />
-        <span>Season 1</span>
-        <ChevronDown aria-hidden="true" />
+      <div className="header-auth">
+        {authUser ? (
+          <a className="profile-link" href="/dashboard/" aria-label={`Open ${authUser.name}'s dashboard`} title={authUser.name}>
+            {authUser.avatar ? <img src={authUser.avatar} alt="" /> : <UserRound aria-hidden="true" />}
+          </a>
+        ) : (
+          <a className="steam-login" href="/auth/steam">
+            <UserRound aria-hidden="true" />
+            Sign in through Steam
+          </a>
+        )}
       </div>
+      {authNotice ? <p className="auth-notice" role="alert">{authNotice}</p> : null}
     </header>
   );
 }
@@ -662,12 +699,66 @@ function DashboardPage() {
 }
 
 function PlayersPage() {
+  const [period, setPeriod] = useState<"season" | "allTime">("season");
+  const [sortMode, setSortMode] = useState<"ovr" | "rank">("ovr");
+  const cardMotionRefs = useRef(new Map<number, HTMLDivElement>());
+  const previousCardPositions = useRef(new Map<number, DOMRect>());
+  const cardForPeriod = (player: CardPlayer) => period === "allTime" ? player.allTimeCard : player.card;
   const visiblePlayers = [...data.players]
-    .sort((a, b) => b.card.overall - a.card.overall)
+    .sort((a, b) => {
+      const ovrDifference = cardForPeriod(b).overall - cardForPeriod(a).overall;
+      if (sortMode === "ovr") return ovrDifference || a.accountId - b.accountId;
+      // Stars do not create a separate rank group: Legend I and Legend V are
+      // both Legend, so OVR decides their order within the medal.
+      const rankDifference = Math.floor((b.rankTier ?? 0) / 10) - Math.floor((a.rankTier ?? 0) / 10);
+      return rankDifference || ovrDifference || a.accountId - b.accountId;
+    })
     .slice(0, 10);
   const rows = Math.max(1, Math.ceil(visiblePlayers.length / 5));
   const perRow = Math.ceil(visiblePlayers.length / rows);
   const gridStyle = { "--per-row": perRow } as CSSProperties;
+
+  const captureCardPositions = () => {
+    previousCardPositions.current = new Map(
+      [...cardMotionRefs.current].map(([accountId, element]) => [accountId, element.getBoundingClientRect()]),
+    );
+  };
+
+  const changePeriod = (nextPeriod: "season" | "allTime") => {
+    if (nextPeriod === period) return;
+    captureCardPositions();
+    setPeriod(nextPeriod);
+  };
+
+  const changeSortMode = (nextSortMode: "ovr" | "rank") => {
+    if (nextSortMode === sortMode) return;
+    captureCardPositions();
+    setSortMode(nextSortMode);
+  };
+
+  useLayoutEffect(() => {
+    if (!previousCardPositions.current.size) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    for (const [accountId, element] of cardMotionRefs.current) {
+      const previous = previousCardPositions.current.get(accountId);
+      if (!previous) continue;
+      const next = element.getBoundingClientRect();
+      const deltaX = previous.left - next.left;
+      const deltaY = previous.top - next.top;
+      if (!deltaX && !deltaY) continue;
+      element.getAnimations().forEach((animation) => animation.cancel());
+      if (!reduceMotion) {
+        element.animate(
+          [
+            { transform: `translate(${deltaX}px, ${deltaY}px) scale(0.96)`, filter: "brightness(1.25)" },
+            { transform: "translate(0, 0) scale(1)", filter: "brightness(1)" },
+          ],
+          { duration: 620, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+        );
+      }
+    }
+    previousCardPositions.current.clear();
+  }, [period, sortMode]);
 
   return (
     <>
@@ -676,21 +767,32 @@ function PlayersPage() {
         <div className="players-stage">
           <header className="players-hero">
             <div className="players-title-copy">
-              <p className="players-kicker">Kastems Hub · Season 1</p>
               <h1>Low-Priority Ultimate Collection</h1>
             </div>
-            <div className="period-toggle" aria-label="Players period">
-              <button type="button" aria-pressed="true">This season</button>
-              <button type="button" aria-pressed="false" disabled>
-                All time
-                <span className="soon-badge">soon</span>
-              </button>
+            <div className="players-controls">
+              <div className="period-toggle" aria-label="Players period">
+                <button type="button" aria-pressed={period === "season"} onClick={() => changePeriod("season")}>This season</button>
+                <button type="button" aria-pressed={period === "allTime"} onClick={() => changePeriod("allTime")}>All time</button>
+              </div>
+              <div className="period-toggle" aria-label="Players sort order">
+                <button type="button" aria-pressed={sortMode === "ovr"} onClick={() => changeSortMode("ovr")}>OVR</button>
+                <button type="button" aria-pressed={sortMode === "rank"} onClick={() => changeSortMode("rank")}>Rank</button>
+              </div>
             </div>
           </header>
           <div className="players-roster-frame">
             <div className="players-cards-grid" style={gridStyle}>
               {visiblePlayers.map((player, index) => (
-                <PlayerCard player={player} index={index} key={player.accountId} />
+                <div
+                  className="card-motion"
+                  key={player.accountId}
+                  ref={(element) => {
+                    if (element) cardMotionRefs.current.set(player.accountId, element);
+                    else cardMotionRefs.current.delete(player.accountId);
+                  }}
+                >
+                  <PlayerCard player={player} index={index} period={period} />
+                </div>
               ))}
             </div>
           </div>
@@ -700,9 +802,41 @@ function PlayersPage() {
   );
 }
 
-function PlayerCard({ player, index }: { player: CardPlayer; index: number }) {
+function PlayerCard({ player, index, period }: { player: CardPlayer; index: number; period: "season" | "allTime" }) {
   const shellRef = useRef<HTMLElement | null>(null);
-  const state = normalizeCardPlayer(player);
+  const nameRef = useRef<HTMLHeadingElement | null>(null);
+  const state = normalizeCardPlayer(player, period === "allTime" ? player.allTimeCard : player.card);
+
+  const fullName = String(state.name);
+  useLayoutEffect(() => {
+    const el = nameRef.current;
+    if (!el) return;
+    // Keep one uniform font size; if the name is too long even at full width
+    // (up to the wreaths), trim it and finish with "..".
+    const fit = () => {
+      el.textContent = fullName;
+      if (el.scrollWidth <= el.clientWidth) return;
+      let lo = 1;
+      let hi = fullName.length;
+      while (lo < hi) {
+        const mid = Math.ceil((lo + hi) / 2);
+        el.textContent = `${fullName.slice(0, mid)}..`;
+        if (el.scrollWidth <= el.clientWidth) lo = mid;
+        else hi = mid - 1;
+      }
+      el.textContent = `${fullName.slice(0, lo)}..`;
+    };
+    fit();
+    let cancelled = false;
+    document.fonts?.ready.then(() => {
+      if (!cancelled) fit();
+    });
+    window.addEventListener("resize", fit);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("resize", fit);
+    };
+  }, [fullName]);
   const templatePath = `/assets/card-templates/${state.template}_card_transparent.png`;
   const localAvatar = `/assets/players/${state.avatar}.jpg`;
   const remoteAvatar = player.avatar || "/assets/players/1.jpg";
@@ -770,7 +904,7 @@ function PlayerCard({ player, index }: { player: CardPlayer; index: number }) {
           <img className="rank-stars" src={`/assets/ranks/rank_star_${state.rankStars}.png`} alt="" />
           <img className="rank-icon" src={`/assets/ranks/rank_icon_${state.rankIcon}.png`} alt="" />
         </div>
-        <h2 className="name">{state.name}</h2>
+        <h2 className="name" ref={nameRef}>{state.name}</h2>
         <section className="stats" aria-label="Player stats">
           <div>
             {stats.slice(0, 3).map((stat) => (

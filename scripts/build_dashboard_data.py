@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "opendota.sqlite"
 OUTPUT_PATH = ROOT / "data" / "dashboard.json"
 CONSTANTS_DIR = ROOT / "data" / "constants"
+ROLE_OVERRIDES_PATH = ROOT / "data" / "player-role-overrides.json"
 SOURCE_URL = "https://api.opendota.com/api"
 STEAM_CDN = "https://cdn.cloudflare.steamstatic.com"
 SSL_CONTEXT = ssl.create_default_context()
@@ -63,6 +64,46 @@ HERO_FALLBACKS = {
 }
 
 CONSTANT_RESOURCES = ("heroes", "game_mode", "lobby_type")
+
+# The existing card targets are the Legend/normal-game baseline. Higher medals
+# use tougher targets; Turbo uses its own targets instead of inflating farm
+# stats against the normal-game scale. Keep these multipliers here so tuning
+# the balance does not require changing the card formulas below.
+RANK_TARGET_MULTIPLIERS = {
+    1: 0.72,  # Herald
+    2: 0.78,  # Guardian
+    3: 0.85,  # Crusader
+    4: 0.92,  # Archon
+    5: 1.00,  # Legend
+    6: 1.07,  # Ancient
+    7: 1.14,  # Divine
+    8: 1.21,  # Immortal
+}
+
+TURBO_TARGET_MULTIPLIERS = {
+    "kda": 1.04,
+    "kills": 1.18,
+    "deaths": 1.16,
+    "assists": 1.16,
+    "gpm": 1.42,
+    "xpm": 1.48,
+    "heroDamage": 1.14,
+    "towerDamage": 1.22,
+    "healing": 1.12,
+    "lastHits": 1.12,
+    "economy": 1.45,
+}
+
+# These describe the expected shape of a role, not an OVR bonus. A lower farm
+# target for supports/offlaners prevents core farming benchmarks from dragging
+# down their card, while their OVR role weights still reward utility and impact.
+ROLE_TARGET_MULTIPLIERS = {
+    "CRY": {"gpm": 1.12, "xpm": 1.04, "lastHits": 1.15, "kills": 1.03, "deaths": 0.96, "assists": 0.85, "heroDamage": 1.03, "towerDamage": 1.12, "healing": 0.70, "economy": 1.08, "kda": 1.00},
+    "MID": {"gpm": 1.02, "xpm": 1.10, "lastHits": 1.00, "kills": 1.10, "deaths": 0.98, "assists": 0.90, "heroDamage": 1.10, "towerDamage": 1.00, "healing": 0.75, "economy": 1.06, "kda": 1.05},
+    "OFF": {"gpm": 0.88, "xpm": 0.95, "lastHits": 0.78, "kills": 0.98, "deaths": 1.08, "assists": 1.04, "heroDamage": 1.00, "towerDamage": 0.92, "healing": 1.10, "economy": 0.91, "kda": 0.97},
+    "SUP": {"gpm": 0.72, "xpm": 0.84, "lastHits": 0.52, "kills": 0.80, "deaths": 1.12, "assists": 1.20, "heroDamage": 0.88, "towerDamage": 0.72, "healing": 1.25, "economy": 0.78, "kda": 0.92},
+    "FLX": {},
+}
 
 
 def connect() -> sqlite3.Connection:
@@ -196,6 +237,24 @@ def metric_score(value: float, target: float, low: int = 40, high: int = 99) -> 
     return clamp_score(low + (high - low) * min(max(value, 0) / target, 1), low, high)
 
 
+def contextual_metric_score(
+    value: float,
+    target: float,
+    metric: str,
+    rank_tier: int | None,
+    mode: str,
+    position: str,
+    low: int = 40,
+    high: int = 99,
+) -> int:
+    medal = rank_medal(rank_tier)["medal"]
+    multiplier = RANK_TARGET_MULTIPLIERS.get(medal, RANK_TARGET_MULTIPLIERS[5])
+    if mode == "turbo":
+        multiplier *= TURBO_TARGET_MULTIPLIERS.get(metric, 1.0)
+    multiplier *= ROLE_TARGET_MULTIPLIERS.get(position, ROLE_TARGET_MULTIPLIERS["FLX"]).get(metric, 1.0)
+    return metric_score(value, target * multiplier, low, high)
+
+
 def rank_medal(rank_tier: int | None) -> dict[str, Any]:
     medal = 1
     stars = 1
@@ -235,9 +294,17 @@ def detailed_match_stats(conn: sqlite3.Connection, account_id: int, matches: lis
     for match in matches:
         detail = details.get(int(match["match_id"]))
         raw = load_json(match["raw_json"], {})
+        # Parsed match details (match_players) carry the reliable lane_role; the
+        # aggregated matches list only has it for a fraction of games, so prefer
+        # the detail payload and fall back to the list value.
+        detail_raw = load_json(detail["raw_json"], {}) if detail else {}
+        lane_role = detail_raw.get("lane_role")
+        if lane_role is None:
+            lane_role = raw.get("lane_role")
         stats.append(
             {
                 "matchId": match["match_id"],
+                "gameMode": match["game_mode"],
                 "win": is_win(match),
                 "kills": (detail["kills"] if detail else match["kills"]) or 0,
                 "deaths": (detail["deaths"] if detail else match["deaths"]) or 0,
@@ -248,27 +315,46 @@ def detailed_match_stats(conn: sqlite3.Connection, account_id: int, matches: lis
                 "towerDamage": (detail["tower_damage"] if detail else raw.get("tower_damage")) or 0,
                 "healing": (detail["hero_healing"] if detail else raw.get("hero_healing")) or 0,
                 "lastHits": (detail["last_hits"] if detail else raw.get("last_hits")) or 0,
-                "laneRole": raw.get("lane_role"),
+                "laneRole": lane_role,
             }
         )
     return stats
 
 
 def infer_position(stats: list[dict[str, Any]]) -> str:
+    """Resolve the player's role from the parsed OpenDota lane_role.
+
+    lane_role is Dota's real lane indicator (1=safelane, 2=mid, 3=offlane,
+    4=jungle). It maps directly to MID/OFF, while safelane and offlane still
+    hold two roles each (core vs support), so those two are split by farm
+    priority (last hits / GPM) rather than guessed from scratch.
+    """
+    games = max(1, len(stats))
+    avg_last_hits = sum(item["lastHits"] for item in stats) / games
+
     lane_roles = [item["laneRole"] for item in stats if item.get("laneRole")]
     if lane_roles:
         role = Counter(lane_roles).most_common(1)[0][0]
-        return {1: "CAR", 2: "MID", 3: "OFF", 4: "SUP"}.get(role, "FLX")
+        if role == 2:
+            return "MID"
+        if role == 4:
+            return "SUP"
+        # Safelane and offlane each hold a core and a support. Split by last
+        # hits, the clearest farm signal — GPM is unreliable here because a
+        # support's GPM is inflated by kill gold despite barely farming creeps.
+        if role == 3:
+            return "OFF" if avg_last_hits >= 100 else "SUP"
+        # role == 1 (safelane): position 1 carry vs position 5 hard support.
+        return "CRY" if avg_last_hits >= 130 else "SUP"
 
-    games = max(1, len(stats))
-    avg_kills = sum(item["kills"] for item in stats) / games
-    avg_assists = sum(item["assists"] for item in stats) / games
+    # No parsed lane data for any game — fall back to a farm/impact heuristic.
     avg_gpm = sum(item["gpm"] for item in stats) / games
+    avg_kills = sum(item["kills"] for item in stats) / games
     avg_xpm = sum(item["xpm"] for item in stats) / games
     avg_hero_damage = sum(item["heroDamage"] for item in stats) / games
     avg_tower_damage = sum(item["towerDamage"] for item in stats) / games
+    avg_assists = sum(item["assists"] for item in stats) / games
     avg_healing = sum(item["healing"] for item in stats) / games
-    avg_last_hits = sum(item["lastHits"] for item in stats) / games
 
     if avg_last_hits >= 200 and avg_tower_damage >= 4500:
         return "CRY"
@@ -287,7 +373,7 @@ def infer_position(stats: list[dict[str, Any]]) -> str:
 def weighted_overall(position: str, rows: list[dict[str, Any]]) -> int:
     values = {row["label"]: row["value"] for row in rows}
     weights = {
-        "CRY": {"IMP": 0.2, "FRM": 0.25, "FGT": 0.2, "SUR": 0.1, "OBJ": 0.2, "UTL": 0.05},
+        "CRY": {"IMP": 0.2, "FRM": 0.25, "FGT": 0.2, "SUR": 0.1, "OBJ": 0.24, "UTL": 0.01},
         "MID": {"IMP": 0.25, "FRM": 0.18, "FGT": 0.25, "SUR": 0.12, "OBJ": 0.1, "UTL": 0.1},
         "OFF": {"IMP": 0.25, "FRM": 0.1, "FGT": 0.2, "SUR": 0.2, "OBJ": 0.15, "UTL": 0.1},
         "SUP": {"IMP": 0.25, "FRM": 0.05, "FGT": 0.1, "SUR": 0.15, "OBJ": 0.1, "UTL": 0.35},
@@ -297,35 +383,35 @@ def weighted_overall(position: str, rows: list[dict[str, Any]]) -> int:
     return clamp_score(sum(values[key] * weight for key, weight in role_weights.items()))
 
 
-def build_card(conn: sqlite3.Connection, player: dict[str, Any], matches: list[sqlite3.Row]) -> dict[str, Any]:
-    stats = detailed_match_stats(conn, int(player["accountId"]), matches)
-    games = max(1, len(matches))
-    wins = sum(1 for row in matches if is_win(row))
-    kills = sum(item["kills"] for item in stats)
-    deaths = sum(item["deaths"] for item in stats)
-    assists = sum(item["assists"] for item in stats)
-
-    avg_kills = kills / games
-    avg_deaths = deaths / games
-    avg_assists = assists / games
-    avg_gpm = sum(item["gpm"] for item in stats) / games
-    avg_xpm = sum(item["xpm"] for item in stats) / games
-    avg_hero_damage = sum(item["heroDamage"] for item in stats) / games
-    avg_tower_damage = sum(item["towerDamage"] for item in stats) / games
-    avg_healing = sum(item["healing"] for item in stats) / games
-    avg_last_hits = sum(item["lastHits"] for item in stats) / games
+def build_card_from_averages(
+    *,
+    position: str,
+    rank_tier: int | None,
+    mode: str,
+    games: int,
+    wins: int,
+    recent_winrate: float | None,
+    avg_kills: float,
+    avg_deaths: float,
+    avg_assists: float,
+    avg_gpm: float,
+    avg_xpm: float,
+    avg_hero_damage: float,
+    avg_tower_damage: float,
+    avg_healing: float,
+    avg_last_hits: float,
+) -> dict[str, Any]:
+    games = max(1, games)
     winrate = wins / games * 100
-    recent = matches[:10]
-    recent_winrate = sum(1 for row in recent if is_win(row)) / max(1, len(recent)) * 100
-    kda = (kills + assists) / max(1, deaths)
-    position = infer_position(stats)
+    kda = (avg_kills + avg_assists) / max(1, avg_deaths)
 
-    impact = 0.34 * winrate + 0.24 * metric_score(kda, 4.6) + 0.18 * metric_score(avg_assists, 18) + 0.24 * metric_score(avg_hero_damage, 28000)
-    farm = 0.5 * metric_score(avg_gpm, 760) + 0.3 * metric_score(avg_last_hits, 260) + 0.2 * metric_score(avg_xpm, 950)
-    fighting = 0.42 * metric_score(avg_kills, 12) + 0.38 * metric_score(avg_hero_damage, 30000) + 0.2 * metric_score(avg_assists, 18)
-    survival = 0.58 * (99 - metric_score(avg_deaths, 12, 0, 64)) + 0.42 * metric_score(kda, 5.0)
-    objective = 0.68 * metric_score(avg_tower_damage, 5200) + 0.32 * metric_score(avg_last_hits, 210)
-    utility = 0.45 * metric_score(avg_assists, 20) + 0.25 * metric_score(avg_healing, 3500) + 0.3 * metric_score((avg_gpm + avg_xpm) / 2, 900)
+    score = lambda value, target, metric, low=40, high=99: contextual_metric_score(value, target, metric, rank_tier, mode, position, low, high)
+    impact = 0.28 * winrate + 0.28 * score(kda, 4, "kda") + 0.20 * score(avg_assists, 18, "assists") + 0.24 * score(avg_hero_damage, 28000, "heroDamage")
+    farm = 0.5 * score(avg_gpm, 760, "gpm") + 0.3 * score(avg_last_hits, 260, "lastHits") + 0.2 * score(avg_xpm, 950, "xpm")
+    fighting = 0.42 * score(avg_kills, 15, "kills") + 0.38 * score(avg_hero_damage, 40000, "heroDamage") + 0.2 * score(avg_assists, 20, "assists")
+    survival = 0.58 * (99 - score(avg_deaths, 12, "deaths", 0, 64)) + 0.42 * score(kda, 5.0, "kda")
+    objective = 0.68 * score(avg_tower_damage, 7000, "towerDamage") + 0.32 * score(avg_last_hits, 250, "lastHits")
+    utility = 0.4 * score(avg_assists, 20, "assists") + 0.35 * score(avg_healing, 3500, "healing") + 0.25 * score((avg_gpm + avg_xpm) / 2, 900, "economy")
     rows = [
         {"label": "IMP", "value": clamp_score(impact)},
         {"label": "FRM", "value": clamp_score(farm)},
@@ -340,8 +426,12 @@ def build_card(conn: sqlite3.Connection, player: dict[str, Any], matches: list[s
         "position": position,
         "rows": rows,
         "source": {
+            "games": games,
+            "mode": mode,
+            "benchmarkMedal": rank_medal(rank_tier)["medal"],
+            "benchmarkRole": position,
             "winrate": round(winrate, 1),
-            "recentWinrate": round(recent_winrate, 1),
+            "recentWinrate": round(recent_winrate, 1) if recent_winrate is not None else None,
             "avgKills": round(avg_kills, 1),
             "avgDeaths": round(avg_deaths, 1),
             "avgAssists": round(avg_assists, 1),
@@ -354,6 +444,242 @@ def build_card(conn: sqlite3.Connection, player: dict[str, Any], matches: list[s
             "roleWeights": position,
         },
     }
+
+
+def build_card_for_stat_rows(
+    stats: list[dict[str, Any]],
+    *,
+    position: str,
+    rank_tier: int | None,
+    mode: str,
+    recent_winrate: float | None = None,
+) -> dict[str, Any]:
+    games = max(1, len(stats))
+    return build_card_from_averages(
+        position=position,
+        rank_tier=rank_tier,
+        mode=mode,
+        games=games,
+        wins=sum(1 for item in stats if item["win"]),
+        recent_winrate=recent_winrate,
+        avg_kills=sum(item["kills"] for item in stats) / games,
+        avg_deaths=sum(item["deaths"] for item in stats) / games,
+        avg_assists=sum(item["assists"] for item in stats) / games,
+        avg_gpm=sum(item["gpm"] for item in stats) / games,
+        avg_xpm=sum(item["xpm"] for item in stats) / games,
+        avg_hero_damage=sum(item["heroDamage"] for item in stats) / games,
+        avg_tower_damage=sum(item["towerDamage"] for item in stats) / games,
+        avg_healing=sum(item["healing"] for item in stats) / games,
+        avg_last_hits=sum(item["lastHits"] for item in stats) / games,
+    )
+
+
+def merge_mode_cards(position: str, cards: list[dict[str, Any]], source: dict[str, Any]) -> dict[str, Any]:
+    total_games = sum(card["source"]["games"] for card in cards)
+    rows = []
+    for label in ("IMP", "FRM", "FGT", "SUR", "OBJ", "UTL"):
+        value = sum(
+            next(row["value"] for row in card["rows"] if row["label"] == label) * card["source"]["games"]
+            for card in cards
+        ) / max(1, total_games)
+        rows.append({"label": label, "value": clamp_score(value)})
+    source = {
+        **source,
+        "mode": "mixed" if len(cards) > 1 else cards[0]["source"]["mode"],
+        "modeBreakdown": [
+            {"mode": card["source"]["mode"], "games": card["source"]["games"]}
+            for card in cards
+        ],
+    }
+    return {"overall": weighted_overall(position, rows), "position": position, "rows": rows, "source": source}
+
+
+def build_card(
+    conn: sqlite3.Connection,
+    player: dict[str, Any],
+    matches: list[sqlite3.Row],
+    position_override: str | None = None,
+) -> dict[str, Any]:
+    stats = detailed_match_stats(conn, int(player["accountId"]), matches)
+    position = position_override or infer_position(stats)
+    recent = matches[:10]
+    source_card = build_card_for_stat_rows(
+        stats,
+        position=position,
+        rank_tier=player.get("rankTier"),
+        mode="normal",
+        recent_winrate=sum(1 for row in recent if is_win(row)) / max(1, len(recent)) * 100,
+    )
+    by_mode: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for item in stats:
+        by_mode["turbo" if item["gameMode"] == 23 else "normal"].append(item)
+    mode_cards = [
+        build_card_for_stat_rows(group, position=position, rank_tier=player.get("rankTier"), mode=mode)
+        for mode, group in by_mode.items()
+    ]
+    return merge_mode_cards(position, mode_cards, source_card["source"])
+
+
+def endpoint_payload(conn: sqlite3.Connection, account_id: int, endpoint: str, default: Any) -> Any:
+    row = conn.execute(
+        "SELECT raw_json FROM raw_player_endpoints WHERE account_id = ? AND endpoint = ?",
+        (account_id, endpoint),
+    ).fetchone()
+    return load_json(row["raw_json"], default) if row else default
+
+
+def load_role_overrides() -> dict[int, str]:
+    if not ROLE_OVERRIDES_PATH.exists():
+        return {}
+    payload = load_json(ROLE_OVERRIDES_PATH.read_text(encoding="utf-8"), {})
+    valid_roles = {"CRY", "MID", "OFF", "SUP", "FLX"}
+    return {
+        int(account_id): role
+        for account_id, role in payload.items()
+        if str(account_id).isdigit() and role in valid_roles
+    }
+
+
+def infer_all_time_position(lane_counts: dict[str, Any], avg_last_hits: float, stats: dict[str, float]) -> str:
+    lanes = [
+        (int(lane), int(values.get("games") or 0))
+        for lane, values in lane_counts.items()
+        if lane in {"1", "2", "3", "4"} and isinstance(values, dict)
+    ]
+    if lanes:
+        lane = max(lanes, key=lambda entry: entry[1])[0]
+        if lane == 2:
+            return "MID"
+        if lane == 4:
+            return "SUP"
+        if lane == 3:
+            return "OFF" if avg_last_hits >= 100 else "SUP"
+        return "CRY" if avg_last_hits >= 130 else "SUP"
+
+    return infer_position(
+        [{
+            "laneRole": None,
+            "lastHits": avg_last_hits,
+            "gpm": stats["gpm"],
+            "kills": stats["kills"],
+            "xpm": stats["xpm"],
+            "heroDamage": stats["heroDamage"],
+            "towerDamage": stats["towerDamage"],
+            "assists": stats["assists"],
+            "healing": stats["healing"],
+        }]
+    )
+
+
+CARD_TOTAL_FIELDS = {
+    "kills": "kills",
+    "deaths": "deaths",
+    "assists": "assists",
+    "gpm": "gold_per_min",
+    "xpm": "xp_per_min",
+    "heroDamage": "hero_damage",
+    "towerDamage": "tower_damage",
+    "healing": "hero_healing",
+    "lastHits": "last_hits",
+}
+
+
+def average_total_stats(totals: list[dict[str, Any]]) -> dict[str, float]:
+    by_field = {item.get("field"): item for item in totals if isinstance(item, dict)}
+    result = {}
+    for stat, field in CARD_TOTAL_FIELDS.items():
+        item = by_field.get(field, {})
+        count = item.get("n") or 0
+        result[stat] = float(item.get("sum") or 0) / count if count else 0.0
+    return result
+
+
+def subtract_totals(all_totals: list[dict[str, Any]], turbo_totals: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    all_by_field = {item.get("field"): item for item in all_totals if isinstance(item, dict)}
+    turbo_by_field = {item.get("field"): item for item in turbo_totals if isinstance(item, dict)}
+    return [
+        {
+            "field": field,
+            "n": max(0, int((item or {}).get("n") or 0) - int(turbo_by_field.get(field, {}).get("n") or 0)),
+            "sum": float((item or {}).get("sum") or 0) - float(turbo_by_field.get(field, {}).get("sum") or 0),
+        }
+        for field, item in all_by_field.items()
+    ]
+
+
+def build_all_time_card(
+    conn: sqlite3.Connection,
+    account_id: int,
+    rank_tier: int | None,
+    position_override: str | None = None,
+) -> dict[str, Any]:
+    """Build a card from OpenDota's all-time normal/Turbo aggregates."""
+    totals = endpoint_payload(conn, account_id, "totals", [])
+    wl = endpoint_payload(conn, account_id, "wl", {})
+    counts = endpoint_payload(conn, account_id, "counts", {})
+    turbo_totals = endpoint_payload(conn, account_id, "totalsTurbo", [])
+    turbo_wl = endpoint_payload(conn, account_id, "wlTurbo", {})
+    stats = average_total_stats(totals)
+    position = position_override or infer_all_time_position(counts.get("lane_role", {}), stats["lastHits"], stats)
+    wins = int(wl.get("win") or 0)
+    losses = int(wl.get("lose") or 0)
+
+    source_card = build_card_from_averages(
+        position=position,
+        rank_tier=rank_tier,
+        mode="normal",
+        games=wins + losses,
+        wins=wins,
+        recent_winrate=None,
+        avg_kills=stats["kills"],
+        avg_deaths=stats["deaths"],
+        avg_assists=stats["assists"],
+        avg_gpm=stats["gpm"],
+        avg_xpm=stats["xpm"],
+        avg_hero_damage=stats["heroDamage"],
+        avg_tower_damage=stats["towerDamage"],
+        avg_healing=stats["healing"],
+        avg_last_hits=stats["lastHits"],
+    )
+
+    turbo_games = int(turbo_wl.get("win") or 0) + int(turbo_wl.get("lose") or 0)
+    if not turbo_totals or turbo_games <= 0:
+        return merge_mode_cards(position, [source_card], source_card["source"])
+
+    normal_totals = subtract_totals(totals, turbo_totals)
+    normal_stats = average_total_stats(normal_totals)
+    normal_wins = max(0, wins - int(turbo_wl.get("win") or 0))
+    normal_losses = max(0, losses - int(turbo_wl.get("lose") or 0))
+    turbo_stats = average_total_stats(turbo_totals)
+    mode_cards = []
+    if normal_wins + normal_losses:
+        mode_cards.append(
+            build_card_from_averages(
+                position=position,
+                rank_tier=rank_tier,
+                mode="normal",
+                games=normal_wins + normal_losses,
+                wins=normal_wins,
+                recent_winrate=None,
+                avg_kills=normal_stats["kills"], avg_deaths=normal_stats["deaths"], avg_assists=normal_stats["assists"],
+                avg_gpm=normal_stats["gpm"], avg_xpm=normal_stats["xpm"], avg_hero_damage=normal_stats["heroDamage"],
+                avg_tower_damage=normal_stats["towerDamage"], avg_healing=normal_stats["healing"], avg_last_hits=normal_stats["lastHits"],
+            )
+        )
+    mode_cards.append(
+        build_card_from_averages(
+            position=position,
+            rank_tier=rank_tier,
+            mode="turbo",
+            games=turbo_games,
+            wins=int(turbo_wl.get("win") or 0),
+            recent_winrate=None,
+            avg_kills=turbo_stats["kills"], avg_deaths=turbo_stats["deaths"], avg_assists=turbo_stats["assists"],
+            avg_gpm=turbo_stats["gpm"], avg_xpm=turbo_stats["xpm"], avg_hero_damage=turbo_stats["heroDamage"],
+            avg_tower_damage=turbo_stats["towerDamage"], avg_healing=turbo_stats["healing"], avg_last_hits=turbo_stats["lastHits"],
+        )
+    )
+    return merge_mode_cards(position, mode_cards, source_card["source"])
 
 
 def profile_for(conn: sqlite3.Connection, account_id: int) -> dict[str, Any]:
@@ -392,6 +718,7 @@ def build_players(conn: sqlite3.Connection, rows: list[sqlite3.Row]) -> list[dic
     for row in rows:
         by_player[int(row["account_id"])].append(row)
 
+    role_overrides = load_role_overrides()
     players = []
     for account_id in sorted(by_player):
         matches = by_player[account_id]
@@ -413,7 +740,10 @@ def build_players(conn: sqlite3.Connection, rows: list[sqlite3.Row]) -> list[dic
             }
         )
         profile["medal"] = rank_medal(profile.get("rankTier"))
-        profile["card"] = build_card(conn, profile, matches)
+        role_override = role_overrides.get(account_id)
+        profile["roleOverride"] = role_override
+        profile["card"] = build_card(conn, profile, matches, role_override)
+        profile["allTimeCard"] = build_all_time_card(conn, account_id, profile.get("rankTier"), role_override)
         players.append(profile)
     return players
 

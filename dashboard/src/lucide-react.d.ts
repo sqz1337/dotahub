@@ -13,6 +13,7 @@ declare module "lucide-react" {
   export const Shield: LucideIcon;
   export const Skull: LucideIcon;
   export const TrendingUp: LucideIcon;
+  export const UserRound: LucideIcon;
   export const Users: LucideIcon;
   export const Zap: LucideIcon;
 }

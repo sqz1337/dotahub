@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-08T13:42:48.958369Z",
+  "generatedAt": "2026-07-09T20:28:43.079757Z",
   "source": {
     "api": "https://api.opendota.com/api",
     "database": "data/opendota.sqlite"
   },
   "summary": {
-    "trackedPlayers": 6,
-    "playerMatches": 76,
-    "rawMatches": 54,
+    "trackedPlayers": 8,
+    "playerMatches": 109,
+    "rawMatches": 63,
     "constants": [
       "game_mode",
       "heroes",
@@ -16,67 +16,270 @@
   },
   "players": [
     {
+      "accountId": 167745528,
+      "name": "Пьер да Нул",
+      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+      "rankTier": 63,
+      "leaderboardRank": null,
+      "computedMmr": 4108.3,
+      "matches": 18,
+      "wins": 11,
+      "losses": 7,
+      "winRate": 61.1,
+      "kills": 96,
+      "deaths": 156,
+      "assists": 315,
+      "kda": 2.63,
+      "medal": {
+        "medal": 6,
+        "stars": 3,
+        "template": "ancient"
+      },
+      "roleOverride": null,
+      "card": {
+        "overall": 72,
+        "position": "SUP",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 76
+          },
+          {
+            "label": "FRM",
+            "value": 84
+          },
+          {
+            "label": "FGT",
+            "value": 68
+          },
+          {
+            "label": "SUR",
+            "value": 66
+          },
+          {
+            "label": "OBJ",
+            "value": 61
+          },
+          {
+            "label": "UTL",
+            "value": 73
+          }
+        ],
+        "source": {
+          "games": 18,
+          "mode": "mixed",
+          "benchmarkMedal": 6,
+          "benchmarkRole": "SUP",
+          "winrate": 61.1,
+          "recentWinrate": 60.0,
+          "avgKills": 5.3,
+          "avgDeaths": 8.7,
+          "avgAssists": 17.5,
+          "avgGpm": 667.2,
+          "avgXpm": 1371.6,
+          "avgHeroDamage": 21176,
+          "avgTowerDamage": 1666,
+          "avgHealing": 1217,
+          "avgLastHits": 78.8,
+          "roleWeights": "SUP",
+          "modeBreakdown": [
+            {
+              "mode": "turbo",
+              "games": 10
+            },
+            {
+              "mode": "normal",
+              "games": 8
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 66,
+        "position": "SUP",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 68
+          },
+          {
+            "label": "FRM",
+            "value": 74
+          },
+          {
+            "label": "FGT",
+            "value": 65
+          },
+          {
+            "label": "SUR",
+            "value": 71
+          },
+          {
+            "label": "OBJ",
+            "value": 61
+          },
+          {
+            "label": "UTL",
+            "value": 63
+          }
+        ],
+        "source": {
+          "games": 917,
+          "mode": "normal",
+          "benchmarkMedal": 6,
+          "benchmarkRole": "SUP",
+          "winrate": 52.8,
+          "recentWinrate": null,
+          "avgKills": 6.3,
+          "avgDeaths": 6.9,
+          "avgAssists": 13.1,
+          "avgGpm": 349.7,
+          "avgXpm": 413.6,
+          "avgHeroDamage": 11827,
+          "avgTowerDamage": 1186,
+          "avgHealing": 786,
+          "avgLastHits": 87.8,
+          "roleWeights": "SUP",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 917
+            }
+          ]
+        }
+      }
+    },
+    {
       "accountId": 175966938,
       "name": "АДМИРАЛ",
       "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
       "rankTier": 63,
       "leaderboardRank": null,
       "computedMmr": 4072.36,
-      "matches": 22,
+      "matches": 24,
       "wins": 15,
-      "losses": 7,
-      "winRate": 68.2,
-      "kills": 149,
-      "deaths": 166,
-      "assists": 280,
-      "kda": 2.58,
+      "losses": 9,
+      "winRate": 62.5,
+      "kills": 155,
+      "deaths": 181,
+      "assists": 292,
+      "kda": 2.47,
       "medal": {
         "medal": 6,
         "stars": 3,
         "template": "ancient"
       },
+      "roleOverride": "OFF",
       "card": {
-        "overall": 81,
-        "position": "CAR",
+        "overall": 72,
+        "position": "OFF",
         "rows": [
           {
             "label": "IMP",
-            "value": 79
+            "value": 74
           },
           {
             "label": "FRM",
-            "value": 92
+            "value": 90
           },
           {
             "label": "FGT",
-            "value": 85
+            "value": 68
           },
           {
             "label": "SUR",
-            "value": 64
+            "value": 68
           },
           {
             "label": "OBJ",
-            "value": 86
+            "value": 71
           },
           {
             "label": "UTL",
-            "value": 79
+            "value": 69
           }
         ],
         "source": {
-          "winrate": 68.2,
-          "recentWinrate": 70.0,
-          "avgKills": 6.8,
+          "games": 24,
+          "mode": "mixed",
+          "benchmarkMedal": 6,
+          "benchmarkRole": "OFF",
+          "winrate": 62.5,
+          "recentWinrate": 60.0,
+          "avgKills": 6.5,
           "avgDeaths": 7.5,
-          "avgAssists": 12.7,
-          "avgGpm": 1104.2,
-          "avgXpm": 1912.0,
-          "avgHeroDamage": 30111,
-          "avgTowerDamage": 4188,
-          "avgHealing": 876,
-          "avgLastHits": 150.1,
-          "roleWeights": "CAR"
+          "avgAssists": 12.2,
+          "avgGpm": 1068.0,
+          "avgXpm": 1871.1,
+          "avgHeroDamage": 28602,
+          "avgTowerDamage": 3853,
+          "avgHealing": 803,
+          "avgLastHits": 142.5,
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "turbo",
+              "games": 20
+            },
+            {
+              "mode": "normal",
+              "games": 4
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 71,
+        "position": "OFF",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 72
+          },
+          {
+            "label": "FRM",
+            "value": 79
+          },
+          {
+            "label": "FGT",
+            "value": 70
+          },
+          {
+            "label": "SUR",
+            "value": 65
+          },
+          {
+            "label": "OBJ",
+            "value": 72
+          },
+          {
+            "label": "UTL",
+            "value": 73
+          }
+        ],
+        "source": {
+          "games": 2870,
+          "mode": "normal",
+          "benchmarkMedal": 6,
+          "benchmarkRole": "OFF",
+          "winrate": 51.5,
+          "recentWinrate": null,
+          "avgKills": 7.0,
+          "avgDeaths": 8.1,
+          "avgAssists": 13.0,
+          "avgGpm": 442.0,
+          "avgXpm": 592.9,
+          "avgHeroDamage": 23193,
+          "avgTowerDamage": 2941,
+          "avgHealing": 2083,
+          "avgLastHits": 163.9,
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 2870
+            }
+          ]
         }
       }
     },
@@ -100,36 +303,41 @@
         "stars": 1,
         "template": "immortal"
       },
+      "roleOverride": null,
       "card": {
-        "overall": 75,
+        "overall": 70,
         "position": "MID",
         "rows": [
           {
             "label": "IMP",
-            "value": 57
-          },
-          {
-            "label": "FRM",
-            "value": 91
-          },
-          {
-            "label": "FGT",
-            "value": 96
-          },
-          {
-            "label": "SUR",
-            "value": 61
-          },
-          {
-            "label": "OBJ",
             "value": 60
           },
           {
+            "label": "FRM",
+            "value": 82
+          },
+          {
+            "label": "FGT",
+            "value": 80
+          },
+          {
+            "label": "SUR",
+            "value": 62
+          },
+          {
+            "label": "OBJ",
+            "value": 57
+          },
+          {
             "label": "UTL",
-            "value": 75
+            "value": 69
           }
         ],
         "source": {
+          "games": 1,
+          "mode": "normal",
+          "benchmarkMedal": 8,
+          "benchmarkRole": "MID",
           "winrate": 0.0,
           "recentWinrate": 0.0,
           "avgKills": 13.0,
@@ -141,14 +349,74 @@
           "avgTowerDamage": 179,
           "avgHealing": 870,
           "avgLastHits": 269.0,
-          "roleWeights": "MID"
+          "roleWeights": "MID",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 1
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 67,
+        "position": "OFF",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 70
+          },
+          {
+            "label": "FRM",
+            "value": 70
+          },
+          {
+            "label": "FGT",
+            "value": 68
+          },
+          {
+            "label": "SUR",
+            "value": 64
+          },
+          {
+            "label": "OBJ",
+            "value": 61
+          },
+          {
+            "label": "UTL",
+            "value": 66
+          }
+        ],
+        "source": {
+          "games": 4038,
+          "mode": "normal",
+          "benchmarkMedal": 8,
+          "benchmarkRole": "OFF",
+          "winrate": 51.8,
+          "recentWinrate": null,
+          "avgKills": 6.9,
+          "avgDeaths": 8.8,
+          "avgAssists": 15.3,
+          "avgGpm": 414.9,
+          "avgXpm": 574.8,
+          "avgHeroDamage": 23075,
+          "avgTowerDamage": 2105,
+          "avgHealing": 866,
+          "avgLastHits": 127.8,
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 4038
+            }
+          ]
         }
       }
     },
     {
       "accountId": 244200929,
       "name": "КирюхаПодПлюхой",
-      "avatar": "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_full.jpg",
+      "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
       "rankTier": 71,
       "leaderboardRank": null,
       "computedMmr": 3713.87,
@@ -165,36 +433,41 @@
         "stars": 1,
         "template": "divine"
       },
+      "roleOverride": null,
       "card": {
-        "overall": 75,
+        "overall": 69,
         "position": "OFF",
         "rows": [
           {
             "label": "IMP",
-            "value": 75
+            "value": 71
           },
           {
             "label": "FRM",
-            "value": 88
+            "value": 86
           },
           {
             "label": "FGT",
-            "value": 80
+            "value": 64
           },
           {
             "label": "SUR",
-            "value": 61
+            "value": 67
           },
           {
             "label": "OBJ",
-            "value": 76
+            "value": 63
           },
           {
             "label": "UTL",
-            "value": 82
+            "value": 70
           }
         ],
         "source": {
+          "games": 7,
+          "mode": "mixed",
+          "benchmarkMedal": 7,
+          "benchmarkRole": "OFF",
           "winrate": 57.1,
           "recentWinrate": 57.1,
           "avgKills": 6.3,
@@ -206,7 +479,71 @@
           "avgTowerDamage": 3410,
           "avgHealing": 506,
           "avgLastHits": 105.3,
-          "roleWeights": "OFF"
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "turbo",
+              "games": 6
+            },
+            {
+              "mode": "normal",
+              "games": 1
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 68,
+        "position": "OFF",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 69
+          },
+          {
+            "label": "FRM",
+            "value": 76
+          },
+          {
+            "label": "FGT",
+            "value": 68
+          },
+          {
+            "label": "SUR",
+            "value": 62
+          },
+          {
+            "label": "OBJ",
+            "value": 68
+          },
+          {
+            "label": "UTL",
+            "value": 65
+          }
+        ],
+        "source": {
+          "games": 4524,
+          "mode": "normal",
+          "benchmarkMedal": 7,
+          "benchmarkRole": "OFF",
+          "winrate": 50.4,
+          "recentWinrate": null,
+          "avgKills": 7.1,
+          "avgDeaths": 9.2,
+          "avgAssists": 14.1,
+          "avgGpm": 446.4,
+          "avgXpm": 550.1,
+          "avgHeroDamage": 20868,
+          "avgTowerDamage": 2601,
+          "avgHealing": 714,
+          "avgLastHits": 164.4,
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 4524
+            }
+          ]
         }
       }
     },
@@ -217,61 +554,130 @@
       "rankTier": 51,
       "leaderboardRank": null,
       "computedMmr": 4052.83,
-      "matches": 18,
-      "wins": 12,
-      "losses": 6,
-      "winRate": 66.7,
-      "kills": 149,
-      "deaths": 128,
-      "assists": 317,
-      "kda": 3.64,
+      "matches": 24,
+      "wins": 13,
+      "losses": 11,
+      "winRate": 54.2,
+      "kills": 194,
+      "deaths": 175,
+      "assists": 377,
+      "kda": 3.26,
       "medal": {
         "medal": 5,
         "stars": 1,
         "template": "legend"
       },
+      "roleOverride": null,
       "card": {
-        "overall": 83,
-        "position": "CAR",
+        "overall": 75,
+        "position": "OFF",
         "rows": [
           {
             "label": "IMP",
-            "value": 85
+            "value": 79
           },
           {
             "label": "FRM",
-            "value": 90
-          },
-          {
-            "label": "FGT",
             "value": 89
           },
           {
+            "label": "FGT",
+            "value": 75
+          },
+          {
             "label": "SUR",
-            "value": 70
+            "value": 72
           },
           {
             "label": "OBJ",
-            "value": 77
+            "value": 64
           },
           {
             "label": "UTL",
-            "value": 83
+            "value": 72
           }
         ],
         "source": {
-          "winrate": 66.7,
-          "recentWinrate": 60.0,
-          "avgKills": 8.3,
-          "avgDeaths": 7.1,
-          "avgAssists": 17.6,
-          "avgGpm": 918.4,
-          "avgXpm": 1656.3,
-          "avgHeroDamage": 27709,
-          "avgTowerDamage": 3253,
-          "avgHealing": 460,
-          "avgLastHits": 132.2,
-          "roleWeights": "CAR"
+          "games": 24,
+          "mode": "mixed",
+          "benchmarkMedal": 5,
+          "benchmarkRole": "OFF",
+          "winrate": 54.2,
+          "recentWinrate": 40.0,
+          "avgKills": 8.1,
+          "avgDeaths": 7.3,
+          "avgAssists": 15.7,
+          "avgGpm": 905.9,
+          "avgXpm": 1712.4,
+          "avgHeroDamage": 27433,
+          "avgTowerDamage": 2483,
+          "avgHealing": 353,
+          "avgLastHits": 119.1,
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "turbo",
+              "games": 17
+            },
+            {
+              "mode": "normal",
+              "games": 7
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 73,
+        "position": "OFF",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 81
+          },
+          {
+            "label": "FRM",
+            "value": 77
+          },
+          {
+            "label": "FGT",
+            "value": 78
+          },
+          {
+            "label": "SUR",
+            "value": 62
+          },
+          {
+            "label": "OBJ",
+            "value": 62
+          },
+          {
+            "label": "UTL",
+            "value": 79
+          }
+        ],
+        "source": {
+          "games": 162,
+          "mode": "normal",
+          "benchmarkMedal": 5,
+          "benchmarkRole": "OFF",
+          "winrate": 53.7,
+          "recentWinrate": null,
+          "avgKills": 7.4,
+          "avgDeaths": 9.7,
+          "avgAssists": 21.2,
+          "avgGpm": 424.6,
+          "avgXpm": 638.1,
+          "avgHeroDamage": 25023,
+          "avgTowerDamage": 1709,
+          "avgHealing": 1083,
+          "avgLastHits": 120.2,
+          "roleWeights": "OFF",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 162
+            }
+          ]
         }
       }
     },
@@ -282,61 +688,260 @@
       "rankTier": 45,
       "leaderboardRank": null,
       "computedMmr": 4224.49,
-      "matches": 8,
+      "matches": 9,
       "wins": 4,
-      "losses": 4,
-      "winRate": 50.0,
-      "kills": 113,
-      "deaths": 47,
-      "assists": 106,
-      "kda": 4.66,
+      "losses": 5,
+      "winRate": 44.4,
+      "kills": 125,
+      "deaths": 57,
+      "assists": 118,
+      "kda": 4.26,
       "medal": {
         "medal": 4,
         "stars": 5,
         "template": "archon"
       },
+      "roleOverride": null,
       "card": {
-        "overall": 89,
+        "overall": 91,
         "position": "CRY",
         "rows": [
           {
             "label": "IMP",
-            "value": 79
+            "value": 83
           },
           {
             "label": "FRM",
-            "value": 91
+            "value": 93
           },
           {
             "label": "FGT",
-            "value": 96
+            "value": 97
           },
           {
             "label": "SUR",
-            "value": 79
+            "value": 75
           },
           {
             "label": "OBJ",
-            "value": 99
+            "value": 98
           },
           {
             "label": "UTL",
-            "value": 75
+            "value": 77
           }
         ],
         "source": {
-          "winrate": 50.0,
-          "recentWinrate": 50.0,
+          "games": 9,
+          "mode": "normal",
+          "benchmarkMedal": 4,
+          "benchmarkRole": "CRY",
+          "winrate": 44.4,
+          "recentWinrate": 44.4,
+          "avgKills": 13.9,
+          "avgDeaths": 6.3,
+          "avgAssists": 13.1,
+          "avgGpm": 628.9,
+          "avgXpm": 877.1,
+          "avgHeroDamage": 39454,
+          "avgTowerDamage": 7107,
+          "avgHealing": 567,
+          "avgLastHits": 279.9,
+          "roleWeights": "CRY",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 9
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 90,
+        "position": "CRY",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 86
+          },
+          {
+            "label": "FRM",
+            "value": 93
+          },
+          {
+            "label": "FGT",
+            "value": 97
+          },
+          {
+            "label": "SUR",
+            "value": 75
+          },
+          {
+            "label": "OBJ",
+            "value": 92
+          },
+          {
+            "label": "UTL",
+            "value": 78
+          }
+        ],
+        "source": {
+          "games": 135,
+          "mode": "normal",
+          "benchmarkMedal": 4,
+          "benchmarkRole": "CRY",
+          "winrate": 53.3,
+          "recentWinrate": null,
           "avgKills": 14.1,
-          "avgDeaths": 5.9,
-          "avgAssists": 13.2,
-          "avgGpm": 616.1,
-          "avgXpm": 838.2,
-          "avgHeroDamage": 38532,
-          "avgTowerDamage": 6805,
-          "avgHealing": 638,
-          "avgLastHits": 248.8,
-          "roleWeights": "CRY"
+          "avgDeaths": 6.5,
+          "avgAssists": 14.1,
+          "avgGpm": 626.0,
+          "avgXpm": 878.7,
+          "avgHeroDamage": 38866,
+          "avgTowerDamage": 5931,
+          "avgHealing": 460,
+          "avgLastHits": 292.0,
+          "roleWeights": "CRY",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 135
+            }
+          ]
+        }
+      }
+    },
+    {
+      "accountId": 970583237,
+      "name": "КАЛОПРИЕМНИК",
+      "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+      "rankTier": 53,
+      "leaderboardRank": null,
+      "computedMmr": 4071.17,
+      "matches": 6,
+      "wins": 2,
+      "losses": 4,
+      "winRate": 33.3,
+      "kills": 24,
+      "deaths": 56,
+      "assists": 75,
+      "kda": 1.77,
+      "medal": {
+        "medal": 5,
+        "stars": 3,
+        "template": "legend"
+      },
+      "roleOverride": null,
+      "card": {
+        "overall": 60,
+        "position": "SUP",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 60
+          },
+          {
+            "label": "FRM",
+            "value": 72
+          },
+          {
+            "label": "FGT",
+            "value": 62
+          },
+          {
+            "label": "SUR",
+            "value": 59
+          },
+          {
+            "label": "OBJ",
+            "value": 44
+          },
+          {
+            "label": "UTL",
+            "value": 63
+          }
+        ],
+        "source": {
+          "games": 6,
+          "mode": "mixed",
+          "benchmarkMedal": 5,
+          "benchmarkRole": "SUP",
+          "winrate": 33.3,
+          "recentWinrate": 33.3,
+          "avgKills": 4.0,
+          "avgDeaths": 9.3,
+          "avgAssists": 12.5,
+          "avgGpm": 461.7,
+          "avgXpm": 939.5,
+          "avgHeroDamage": 14211,
+          "avgTowerDamage": 72,
+          "avgHealing": 21,
+          "avgLastHits": 22.0,
+          "roleWeights": "SUP",
+          "modeBreakdown": [
+            {
+              "mode": "turbo",
+              "games": 3
+            },
+            {
+              "mode": "normal",
+              "games": 3
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 66,
+        "position": "SUP",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 74
+          },
+          {
+            "label": "FRM",
+            "value": 69
+          },
+          {
+            "label": "FGT",
+            "value": 70
+          },
+          {
+            "label": "SUR",
+            "value": 54
+          },
+          {
+            "label": "OBJ",
+            "value": 52
+          },
+          {
+            "label": "UTL",
+            "value": 67
+          }
+        ],
+        "source": {
+          "games": 33,
+          "mode": "normal",
+          "benchmarkMedal": 5,
+          "benchmarkRole": "SUP",
+          "winrate": 51.5,
+          "recentWinrate": null,
+          "avgKills": 4.2,
+          "avgDeaths": 11.3,
+          "avgAssists": 19.2,
+          "avgGpm": 304.8,
+          "avgXpm": 475.6,
+          "avgHeroDamage": 19313,
+          "avgTowerDamage": 692,
+          "avgHealing": 70,
+          "avgLastHits": 43.7,
+          "roleWeights": "SUP",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 33
+            }
+          ]
         }
       }
     },
@@ -360,36 +965,41 @@
         "stars": 2,
         "template": "legend"
       },
+      "roleOverride": null,
       "card": {
-        "overall": 81,
+        "overall": 75,
         "position": "MID",
         "rows": [
           {
             "label": "IMP",
-            "value": 71
+            "value": 72
           },
           {
             "label": "FRM",
-            "value": 96
+            "value": 93
           },
           {
             "label": "FGT",
-            "value": 87
+            "value": 72
           },
           {
             "label": "SUR",
-            "value": 59
+            "value": 62
           },
           {
             "label": "OBJ",
-            "value": 99
+            "value": 84
           },
           {
             "label": "UTL",
-            "value": 69
+            "value": 65
           }
         ],
         "source": {
+          "games": 20,
+          "mode": "mixed",
+          "benchmarkMedal": 5,
+          "benchmarkRole": "MID",
           "winrate": 55.0,
           "recentWinrate": 60.0,
           "avgKills": 9.2,
@@ -401,33 +1011,97 @@
           "avgTowerDamage": 6278,
           "avgHealing": 28,
           "avgLastHits": 214.2,
-          "roleWeights": "MID"
+          "roleWeights": "MID",
+          "modeBreakdown": [
+            {
+              "mode": "turbo",
+              "games": 19
+            },
+            {
+              "mode": "normal",
+              "games": 1
+            }
+          ]
+        }
+      },
+      "allTimeCard": {
+        "overall": 78,
+        "position": "CRY",
+        "rows": [
+          {
+            "label": "IMP",
+            "value": 75
+          },
+          {
+            "label": "FRM",
+            "value": 84
+          },
+          {
+            "label": "FGT",
+            "value": 77
+          },
+          {
+            "label": "SUR",
+            "value": 59
+          },
+          {
+            "label": "OBJ",
+            "value": 85
+          },
+          {
+            "label": "UTL",
+            "value": 69
+          }
+        ],
+        "source": {
+          "games": 545,
+          "mode": "normal",
+          "benchmarkMedal": 5,
+          "benchmarkRole": "CRY",
+          "winrate": 52.1,
+          "recentWinrate": null,
+          "avgKills": 8.9,
+          "avgDeaths": 8.4,
+          "avgAssists": 11.1,
+          "avgGpm": 582.6,
+          "avgXpm": 791.6,
+          "avgHeroDamage": 27846,
+          "avgTowerDamage": 5608,
+          "avgHealing": 416,
+          "avgLastHits": 250.6,
+          "roleWeights": "CRY",
+          "modeBreakdown": [
+            {
+              "mode": "normal",
+              "games": 545
+            }
+          ]
         }
       }
     }
   ],
   "squadPulse": {
     "record": {
-      "wins": 46,
-      "losses": 30,
-      "label": "46W-30L"
+      "wins": 60,
+      "losses": 49,
+      "label": "60W-49L"
     },
-    "trackedPlayerMatches": 76,
-    "turboMatches": 54,
+    "trackedPlayerMatches": 109,
+    "turboMatches": 75,
     "bestPerformer": {
       "rank": 1,
       "accountId": 175966938,
       "name": "АДМИРАЛ",
       "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-      "matches": 22,
+      "matches": 24,
       "wins": 15,
-      "losses": 7,
-      "winRate": 68.2,
-      "kda": 2.58,
+      "losses": 9,
+      "winRate": 62.5,
+      "kda": 2.47,
       "form": [
         "L",
-        "W",
-        "W",
+        "L",
+        "L",
         "W",
         "W"
       ]
@@ -436,7 +1110,7 @@
       "heroId": 26,
       "heroName": "Lion",
       "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
-      "losses": 4
+      "losses": 6
     }
   },
   "leaderboard": [
@@ -445,15 +1119,15 @@
       "accountId": 175966938,
       "name": "АДМИРАЛ",
       "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-      "matches": 22,
+      "matches": 24,
       "wins": 15,
-      "losses": 7,
-      "winRate": 68.2,
-      "kda": 2.58,
+      "losses": 9,
+      "winRate": 62.5,
+      "kda": 2.47,
       "form": [
         "L",
-        "W",
-        "W",
+        "L",
+        "L",
         "W",
         "W"
       ]
@@ -463,21 +1137,39 @@
       "accountId": 818003286,
       "name": "markwood1976",
       "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+      "matches": 24,
+      "wins": 13,
+      "losses": 11,
+      "winRate": 54.2,
+      "kda": 3.26,
+      "form": [
+        "L",
+        "W",
+        "L",
+        "L",
+        "L"
+      ]
+    },
+    {
+      "rank": 3,
+      "accountId": 167745528,
+      "name": "Пьер да Нул",
+      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
       "matches": 18,
-      "wins": 12,
-      "losses": 6,
-      "winRate": 66.7,
-      "kda": 3.64,
+      "wins": 11,
+      "losses": 7,
+      "winRate": 61.1,
+      "kda": 2.63,
       "form": [
         "L",
         "W",
         "W",
         "W",
-        "W"
+        "L"
       ]
     },
     {
-      "rank": 3,
+      "rank": 4,
       "accountId": 1055875308,
       "name": "Фимозик)",
       "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
@@ -495,10 +1187,10 @@
       ]
     },
     {
-      "rank": 4,
+      "rank": 5,
       "accountId": 244200929,
       "name": "КирюхаПодПлюхой",
-      "avatar": "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_full.jpg",
+      "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
       "matches": 7,
       "wins": 4,
       "losses": 3,
@@ -513,25 +1205,43 @@
       ]
     },
     {
-      "rank": 5,
+      "rank": 6,
       "accountId": 826136695,
       "name": "ЗАГЛОТЫШ",
       "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-      "matches": 8,
+      "matches": 9,
       "wins": 4,
-      "losses": 4,
-      "winRate": 50.0,
-      "kda": 4.66,
+      "losses": 5,
+      "winRate": 44.4,
+      "kda": 4.26,
       "form": [
-        "W",
         "L",
         "W",
         "L",
+        "W",
         "L"
       ]
     },
     {
-      "rank": 6,
+      "rank": 7,
+      "accountId": 970583237,
+      "name": "КАЛОПРИЕМНИК",
+      "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+      "matches": 6,
+      "wins": 2,
+      "losses": 4,
+      "winRate": 33.3,
+      "kda": 1.77,
+      "form": [
+        "L",
+        "L",
+        "L",
+        "W",
+        "L"
+      ]
+    },
+    {
+      "rank": 8,
       "accountId": 192250912,
       "name": "Thomas Shelby (SIGMA)",
       "avatar": "https://avatars.steamstatic.com/e263fd5ce2936efe8ab98653dd6ee8cf5ddb5520_full.jpg",
@@ -546,6 +1256,548 @@
     }
   ],
   "recentPartyGames": [
+    {
+      "matchId": 8888407970,
+      "startedAt": "2026-07-09T14:30:12Z",
+      "duration": 1679,
+      "durationLabel": "27:59",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 40,
+      "direScore": 36,
+      "trackedPlayers": [
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 54,
+          "heroName": "Lifestealer",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/life_stealer.png",
+          "kills": 9,
+          "deaths": 5,
+          "assists": 10,
+          "won": false
+        },
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 71,
+          "heroName": "Spirit Breaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png",
+          "kills": 12,
+          "deaths": 7,
+          "assists": 5,
+          "won": false
+        },
+        {
+          "accountId": 970583237,
+          "name": "КАЛОПРИЕМНИК",
+          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
+          "kills": 2,
+          "deaths": 11,
+          "assists": 14,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 54,
+          "heroName": "Lifestealer",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/life_stealer.png"
+        },
+        {
+          "heroId": 71,
+          "heroName": "Spirit Breaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png"
+        },
+        {
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 54,
+        "heroName": "Lifestealer",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/life_stealer.png",
+        "kills": 9,
+        "deaths": 5,
+        "assists": 10,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8888323787,
+      "startedAt": "2026-07-09T13:40:22Z",
+      "duration": 2198,
+      "durationLabel": "36:38",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 53,
+      "direScore": 46,
+      "trackedPlayers": [
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 123,
+          "heroName": "Hoodwink",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png",
+          "kills": 14,
+          "deaths": 6,
+          "assists": 31,
+          "won": true
+        },
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 7,
+          "heroName": "Earthshaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png",
+          "kills": 13,
+          "deaths": 14,
+          "assists": 20,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 123,
+          "heroName": "Hoodwink",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png"
+        },
+        {
+          "heroId": 7,
+          "heroName": "Earthshaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 123,
+        "heroName": "Hoodwink",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png",
+        "kills": 14,
+        "deaths": 6,
+        "assists": 31,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8888227610,
+      "startedAt": "2026-07-09T12:38:51Z",
+      "duration": 1460,
+      "durationLabel": "24:20",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": false,
+      "radiantScore": 17,
+      "direScore": 39,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 14,
+          "heroName": "Pudge",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png",
+          "kills": 3,
+          "deaths": 8,
+          "assists": 7,
+          "won": false
+        },
+        {
+          "accountId": 175966938,
+          "name": "АДМИРАЛ",
+          "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
+          "heroId": 3,
+          "heroName": "Bane",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bane.png",
+          "kills": 3,
+          "deaths": 8,
+          "assists": 7,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 14,
+          "heroName": "Pudge",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png"
+        },
+        {
+          "heroId": 3,
+          "heroName": "Bane",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bane.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 14,
+        "heroName": "Pudge",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png",
+        "kills": 3,
+        "deaths": 8,
+        "assists": 7,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8888187282,
+      "startedAt": "2026-07-09T12:10:11Z",
+      "duration": 1381,
+      "durationLabel": "23:01",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 34,
+      "direScore": 20,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 22,
+          "heroName": "Zeus",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
+          "kills": 4,
+          "deaths": 4,
+          "assists": 10,
+          "won": false
+        },
+        {
+          "accountId": 175966938,
+          "name": "АДМИРАЛ",
+          "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
+          "heroId": 126,
+          "heroName": "Void Spirit",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/void_spirit.png",
+          "kills": 3,
+          "deaths": 7,
+          "assists": 5,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 22,
+          "heroName": "Zeus",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png"
+        },
+        {
+          "heroId": 126,
+          "heroName": "Void Spirit",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/void_spirit.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 22,
+        "heroName": "Zeus",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
+        "kills": 4,
+        "deaths": 4,
+        "assists": 10,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8888071014,
+      "startedAt": "2026-07-09T10:29:26Z",
+      "duration": 3186,
+      "durationLabel": "53:06",
+      "mode": 4,
+      "modeName": "Single Draft",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": false,
+      "radiantScore": 49,
+      "direScore": 50,
+      "trackedPlayers": [
+        {
+          "accountId": 826136695,
+          "name": "ЗАГЛОТЫШ",
+          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+          "heroId": 1,
+          "heroName": "Anti-Mage",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/antimage.png",
+          "kills": 12,
+          "deaths": 10,
+          "assists": 12,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 1,
+          "heroName": "Anti-Mage",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/antimage.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 826136695,
+        "name": "ЗАГЛОТЫШ",
+        "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+        "heroId": 1,
+        "heroName": "Anti-Mage",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/antimage.png",
+        "kills": 12,
+        "deaths": 10,
+        "assists": 12,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8887631191,
+      "startedAt": "2026-07-08T23:33:33Z",
+      "duration": 1377,
+      "durationLabel": "22:57",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 26,
+      "direScore": 38,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
+          "kills": 7,
+          "deaths": 5,
+          "assists": 10,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 26,
+        "heroName": "Lion",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
+        "kills": 7,
+        "deaths": 5,
+        "assists": 10,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8887413870,
+      "startedAt": "2026-07-08T19:38:03Z",
+      "duration": 4440,
+      "durationLabel": "74:00",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 75,
+      "direScore": 68,
+      "trackedPlayers": [
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
+          "kills": 6,
+          "deaths": 21,
+          "assists": 38,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 26,
+        "heroName": "Lion",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
+        "kills": 6,
+        "deaths": 21,
+        "assists": 38,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8887358424,
+      "startedAt": "2026-07-08T18:54:09Z",
+      "duration": 2325,
+      "durationLabel": "38:45",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 55,
+      "direScore": 31,
+      "trackedPlayers": [
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 112,
+          "heroName": "Winter Wyvern",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/winter_wyvern.png",
+          "kills": 4,
+          "deaths": 6,
+          "assists": 21,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 112,
+          "heroName": "Winter Wyvern",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/winter_wyvern.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 112,
+        "heroName": "Winter Wyvern",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/winter_wyvern.png",
+        "kills": 4,
+        "deaths": 6,
+        "assists": 21,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8887069828,
+      "startedAt": "2026-07-08T15:24:13Z",
+      "duration": 1242,
+      "durationLabel": "20:42",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": false,
+      "radiantScore": 20,
+      "direScore": 38,
+      "trackedPlayers": [
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 25,
+          "heroName": "Lina",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lina.png",
+          "kills": 4,
+          "deaths": 7,
+          "assists": 7,
+          "won": false
+        },
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 72,
+          "heroName": "Gyrocopter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png",
+          "kills": 6,
+          "deaths": 9,
+          "assists": 8,
+          "won": false
+        },
+        {
+          "accountId": 970583237,
+          "name": "КАЛОПРИЕМНИК",
+          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+          "heroId": 22,
+          "heroName": "Zeus",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
+          "kills": 6,
+          "deaths": 6,
+          "assists": 12,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 25,
+          "heroName": "Lina",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lina.png"
+        },
+        {
+          "heroId": 72,
+          "heroName": "Gyrocopter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png"
+        },
+        {
+          "heroId": 22,
+          "heroName": "Zeus",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 970583237,
+        "name": "КАЛОПРИЕМНИК",
+        "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+        "heroId": 22,
+        "heroName": "Zeus",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
+        "kills": 6,
+        "deaths": 6,
+        "assists": 12,
+        "won": false
+      }
+    },
     {
       "matchId": 8886131605,
       "startedAt": "2026-07-07T21:28:23Z",
@@ -582,6 +1834,30 @@
           "deaths": 10,
           "assists": 6,
           "won": false
+        },
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 68,
+          "heroName": "Ancient Apparition",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ancient_apparition.png",
+          "kills": 2,
+          "deaths": 16,
+          "assists": 14,
+          "won": false
+        },
+        {
+          "accountId": 970583237,
+          "name": "КАЛОПРИЕМНИК",
+          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+          "heroId": 31,
+          "heroName": "Lich",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lich.png",
+          "kills": 1,
+          "deaths": 16,
+          "assists": 11,
+          "won": false
         }
       ],
       "heroes": [
@@ -594,19 +1870,29 @@
           "heroId": 72,
           "heroName": "Gyrocopter",
           "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png"
+        },
+        {
+          "heroId": 68,
+          "heroName": "Ancient Apparition",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ancient_apparition.png"
+        },
+        {
+          "heroId": 31,
+          "heroName": "Lich",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lich.png"
         }
       ],
       "result": "LOSS",
       "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 72,
-        "heroName": "Gyrocopter",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png",
-        "kills": 6,
-        "deaths": 10,
-        "assists": 6,
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 68,
+        "heroName": "Ancient Apparition",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ancient_apparition.png",
+        "kills": 2,
+        "deaths": 16,
+        "assists": 14,
         "won": false
       }
     },
@@ -646,6 +1932,30 @@
           "deaths": 8,
           "assists": 10,
           "won": true
+        },
+        {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 75,
+          "heroName": "Silencer",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/silencer.png",
+          "kills": 2,
+          "deaths": 11,
+          "assists": 31,
+          "won": true
+        },
+        {
+          "accountId": 970583237,
+          "name": "КАЛОПРИЕМНИК",
+          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
+          "kills": 10,
+          "deaths": 11,
+          "assists": 21,
+          "won": true
         }
       ],
       "heroes": [
@@ -658,19 +1968,29 @@
           "heroId": 72,
           "heroName": "Gyrocopter",
           "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png"
+        },
+        {
+          "heroId": 75,
+          "heroName": "Silencer",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/silencer.png"
+        },
+        {
+          "heroId": 26,
+          "heroName": "Lion",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png"
         }
       ],
       "result": "WIN",
       "highlight": {
-        "accountId": 175966938,
-        "name": "АДМИРАЛ",
-        "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-        "heroId": 84,
-        "heroName": "Ogre Magi",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-        "kills": 12,
-        "deaths": 12,
-        "assists": 17,
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 75,
+        "heroName": "Silencer",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/silencer.png",
+        "kills": 2,
+        "deaths": 11,
+        "assists": 31,
         "won": true
       }
     },
@@ -690,7 +2010,7 @@
         {
           "accountId": 244200929,
           "name": "КирюхаПодПлюхой",
-          "avatar": "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_full.jpg",
+          "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
           "heroId": 55,
           "heroName": "Dark Seer",
           "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/dark_seer.png",
@@ -711,7 +2031,7 @@
       "highlight": {
         "accountId": 244200929,
         "name": "КирюхаПодПлюхой",
-        "avatar": "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_full.jpg",
+        "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
         "heroId": 55,
         "heroName": "Dark Seer",
         "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/dark_seer.png",
@@ -1068,6 +2388,18 @@
       "direScore": 14,
       "trackedPlayers": [
         {
+          "accountId": 167745528,
+          "name": "Пьер да Нул",
+          "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+          "heroId": 64,
+          "heroName": "Jakiro",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png",
+          "kills": 2,
+          "deaths": 8,
+          "assists": 5,
+          "won": false
+        },
+        {
           "accountId": 175966938,
           "name": "АДМИРАЛ",
           "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
@@ -1082,6 +2414,11 @@
       ],
       "heroes": [
         {
+          "heroId": 64,
+          "heroName": "Jakiro",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png"
+        },
+        {
           "heroId": 8,
           "heroName": "Juggernaut",
           "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/juggernaut.png"
@@ -1089,15 +2426,15 @@
       ],
       "result": "LOSS",
       "highlight": {
-        "accountId": 175966938,
-        "name": "АДМИРАЛ",
-        "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-        "heroId": 8,
-        "heroName": "Juggernaut",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/juggernaut.png",
-        "kills": 5,
-        "deaths": 7,
-        "assists": 1,
+        "accountId": 167745528,
+        "name": "Пьер да Нул",
+        "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+        "heroId": 64,
+        "heroName": "Jakiro",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png",
+        "kills": 2,
+        "deaths": 8,
+        "assists": 5,
         "won": false
       }
     },
@@ -1147,497 +2484,6 @@
         "assists": 5,
         "won": true
       }
-    },
-    {
-      "matchId": 8884584733,
-      "startedAt": "2026-07-06T19:31:08Z",
-      "duration": 2468,
-      "durationLabel": "41:08",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": true,
-      "radiantScore": 62,
-      "direScore": 38,
-      "trackedPlayers": [
-        {
-          "accountId": 192250912,
-          "name": "Thomas Shelby (SIGMA)",
-          "avatar": "https://avatars.steamstatic.com/e263fd5ce2936efe8ab98653dd6ee8cf5ddb5520_full.jpg",
-          "heroId": 128,
-          "heroName": "Snapfire",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/snapfire.png",
-          "kills": 13,
-          "deaths": 9,
-          "assists": 13,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 128,
-          "heroName": "Snapfire",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/snapfire.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 192250912,
-        "name": "Thomas Shelby (SIGMA)",
-        "avatar": "https://avatars.steamstatic.com/e263fd5ce2936efe8ab98653dd6ee8cf5ddb5520_full.jpg",
-        "heroId": 128,
-        "heroName": "Snapfire",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/snapfire.png",
-        "kills": 13,
-        "deaths": 9,
-        "assists": 13,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8884523414,
-      "startedAt": "2026-07-06T18:41:04Z",
-      "duration": 2190,
-      "durationLabel": "36:30",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": false,
-      "radiantScore": 34,
-      "direScore": 39,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 62,
-          "heroName": "Bounty Hunter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
-          "kills": 4,
-          "deaths": 7,
-          "assists": 32,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 62,
-          "heroName": "Bounty Hunter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 62,
-        "heroName": "Bounty Hunter",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
-        "kills": 4,
-        "deaths": 7,
-        "assists": 32,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8884490081,
-      "startedAt": "2026-07-06T18:16:22Z",
-      "duration": 1027,
-      "durationLabel": "17:07",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 33,
-      "direScore": 12,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 36,
-          "heroName": "Necrophos",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/necrolyte.png",
-          "kills": 11,
-          "deaths": 1,
-          "assists": 12,
-          "won": true
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-          "kills": 3,
-          "deaths": 3,
-          "assists": 15,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 36,
-          "heroName": "Necrophos",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/necrolyte.png"
-        },
-        {
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 36,
-        "heroName": "Necrophos",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/necrolyte.png",
-        "kills": 11,
-        "deaths": 1,
-        "assists": 12,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8884402729,
-      "startedAt": "2026-07-06T17:13:34Z",
-      "duration": 1164,
-      "durationLabel": "19:24",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 41,
-      "direScore": 9,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 7,
-          "heroName": "Earthshaker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png",
-          "kills": 0,
-          "deaths": 8,
-          "assists": 4,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 7,
-          "heroName": "Earthshaker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 7,
-        "heroName": "Earthshaker",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png",
-        "kills": 0,
-        "deaths": 8,
-        "assists": 4,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8884303945,
-      "startedAt": "2026-07-06T16:05:54Z",
-      "duration": 2243,
-      "durationLabel": "37:23",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": false,
-      "radiantScore": 53,
-      "direScore": 66,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 73,
-          "heroName": "Alchemist",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png",
-          "kills": 6,
-          "deaths": 4,
-          "assists": 5,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 73,
-          "heroName": "Alchemist",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 73,
-        "heroName": "Alchemist",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png",
-        "kills": 6,
-        "deaths": 4,
-        "assists": 5,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8884245956,
-      "startedAt": "2026-07-06T15:28:03Z",
-      "duration": 2043,
-      "durationLabel": "34:03",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 45,
-      "direScore": 29,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 14,
-          "heroName": "Pudge",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png",
-          "kills": 10,
-          "deaths": 15,
-          "assists": 8,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 14,
-          "heroName": "Pudge",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 14,
-        "heroName": "Pudge",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png",
-        "kills": 10,
-        "deaths": 15,
-        "assists": 8,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8883854478,
-      "startedAt": "2026-07-06T11:14:08Z",
-      "duration": 1878,
-      "durationLabel": "31:18",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": false,
-      "radiantScore": 21,
-      "direScore": 49,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 7,
-          "heroName": "Earthshaker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png",
-          "kills": 4,
-          "deaths": 11,
-          "assists": 10,
-          "won": false
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-          "kills": 6,
-          "deaths": 12,
-          "assists": 7,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 7,
-          "heroName": "Earthshaker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png"
-        },
-        {
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 7,
-        "heroName": "Earthshaker",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png",
-        "kills": 4,
-        "deaths": 11,
-        "assists": 10,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8883827881,
-      "startedAt": "2026-07-06T10:51:03Z",
-      "duration": 1126,
-      "durationLabel": "18:46",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 30,
-      "direScore": 12,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 42,
-          "heroName": "Wraith King",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/skeleton_king.png",
-          "kills": 0,
-          "deaths": 6,
-          "assists": 5,
-          "won": false
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-          "kills": 0,
-          "deaths": 8,
-          "assists": 7,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 42,
-          "heroName": "Wraith King",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/skeleton_king.png"
-        },
-        {
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 175966938,
-        "name": "АДМИРАЛ",
-        "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-        "heroId": 84,
-        "heroName": "Ogre Magi",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-        "kills": 0,
-        "deaths": 8,
-        "assists": 7,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8883799162,
-      "startedAt": "2026-07-06T10:24:37Z",
-      "duration": 1159,
-      "durationLabel": "19:19",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 46,
-      "direScore": 24,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 71,
-          "heroName": "Spirit Breaker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png",
-          "kills": 10,
-          "deaths": 2,
-          "assists": 30,
-          "won": true
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-          "kills": 18,
-          "deaths": 4,
-          "assists": 23,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 71,
-          "heroName": "Spirit Breaker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png"
-        },
-        {
-          "heroId": 84,
-          "heroName": "Ogre Magi",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 175966938,
-        "name": "АДМИРАЛ",
-        "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-        "heroId": 84,
-        "heroName": "Ogre Magi",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ogre_magi.png",
-        "kills": 18,
-        "deaths": 4,
-        "assists": 23,
-        "won": true
-      }
     }
   ],
   "squadMeta": {
@@ -1645,9 +2491,9 @@
       "heroId": 26,
       "heroName": "Lion",
       "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lion.png",
-      "games": 7,
-      "wins": 3,
-      "winRate": 42.9
+      "games": 12,
+      "wins": 6,
+      "winRate": 50.0
     },
     "bestHero": {
       "heroId": 35,
@@ -1658,9 +2504,9 @@
       "winRate": 100.0
     },
     "cursedHero": {
-      "heroId": 7,
-      "heroName": "Earthshaker",
-      "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/earthshaker.png",
+      "heroId": 22,
+      "heroName": "Zeus",
+      "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
       "games": 2,
       "wins": 0,
       "winRate": 0.0
@@ -1676,6 +2522,118 @@
     {
       "type": "lowlight",
       "severity": "medium",
+      "accountId": 970583237,
+      "player": "КАЛОПРИЕМНИК",
+      "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+      "matchId": 8888407970,
+      "message": "КАЛОПРИЕМНИК died 11 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-09T14:30:12Z",
+      "stats": {
+        "kills": 2,
+        "deaths": 11,
+        "assists": 14
+      }
+    },
+    {
+      "type": "support",
+      "severity": "medium",
+      "accountId": 167745528,
+      "player": "Пьер да Нул",
+      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+      "matchId": 8888323787,
+      "message": "Пьер да Нул farmed 31 assists and pretended it was charity",
+      "icon": "eye",
+      "createdAt": "2026-07-09T13:40:22Z",
+      "stats": {
+        "kills": 14,
+        "deaths": 6,
+        "assists": 31
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 818003286,
+      "player": "markwood1976",
+      "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+      "matchId": 8888323787,
+      "message": "markwood1976 died 14 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-09T13:40:22Z",
+      "stats": {
+        "kills": 13,
+        "deaths": 14,
+        "assists": 20
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "medium",
+      "accountId": 826136695,
+      "player": "ЗАГЛОТЫШ",
+      "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+      "matchId": 8888071014,
+      "message": "ЗАГЛОТЫШ died 10 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-09T10:29:26Z",
+      "stats": {
+        "kills": 12,
+        "deaths": 10,
+        "assists": 12
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 167745528,
+      "player": "Пьер да Нул",
+      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+      "matchId": 8887413870,
+      "message": "Пьер да Нул died 21 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-08T19:38:03Z",
+      "stats": {
+        "kills": 6,
+        "deaths": 21,
+        "assists": 38
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 167745528,
+      "player": "Пьер да Нул",
+      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
+      "matchId": 8886131605,
+      "message": "Пьер да Нул died 16 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-07T21:28:23Z",
+      "stats": {
+        "kills": 2,
+        "deaths": 16,
+        "assists": 14
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 970583237,
+      "player": "КАЛОПРИЕМНИК",
+      "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
+      "matchId": 8886131605,
+      "message": "КАЛОПРИЕМНИК died 16 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-07T21:28:23Z",
+      "stats": {
+        "kills": 1,
+        "deaths": 16,
+        "assists": 11
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "medium",
       "accountId": 818003286,
       "player": "markwood1976",
       "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
@@ -1687,118 +2645,6 @@
         "kills": 6,
         "deaths": 10,
         "assists": 6
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 175966938,
-      "player": "АДМИРАЛ",
-      "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-      "matchId": 8886131605,
-      "message": "АДМИРАЛ died 13 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T21:28:23Z",
-      "stats": {
-        "kills": 1,
-        "deaths": 13,
-        "assists": 11
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 175966938,
-      "player": "АДМИРАЛ",
-      "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-      "matchId": 8886077137,
-      "message": "АДМИРАЛ died 12 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T20:34:47Z",
-      "stats": {
-        "kills": 12,
-        "deaths": 12,
-        "assists": 17
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 244200929,
-      "player": "КирюхаПодПлюхой",
-      "avatar": "https://avatars.steamstatic.com/8cdeaa73a78a27a250d68376ab0f01980e974f37_full.jpg",
-      "matchId": 8886025920,
-      "message": "КирюхаПодПлюхой died 17 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T19:51:59Z",
-      "stats": {
-        "kills": 6,
-        "deaths": 17,
-        "assists": 14
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 1055875308,
-      "player": "Фимозик)",
-      "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-      "matchId": 8885947232,
-      "message": "Фимозик) died 12 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T18:52:33Z",
-      "stats": {
-        "kills": 4,
-        "deaths": 12,
-        "assists": 7
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 1055875308,
-      "player": "Фимозик)",
-      "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-      "matchId": 8885808627,
-      "message": "Фимозик) died 18 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T17:03:21Z",
-      "stats": {
-        "kills": 1,
-        "deaths": 18,
-        "assists": 12
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 175966938,
-      "player": "АДМИРАЛ",
-      "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-      "matchId": 8885808627,
-      "message": "АДМИРАЛ died 13 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T17:03:21Z",
-      "stats": {
-        "kills": 14,
-        "deaths": 13,
-        "assists": 17
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "medium",
-      "accountId": 175966938,
-      "player": "АДМИРАЛ",
-      "avatar": "https://avatars.steamstatic.com/fdfce1d010337bdf42ebea8a8836894582f9bef9_full.jpg",
-      "matchId": 8885652481,
-      "message": "АДМИРАЛ died 11 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-07T15:12:21Z",
-      "stats": {
-        "kills": 15,
-        "deaths": 11,
-        "assists": 14
       }
     }
   ]

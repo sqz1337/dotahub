@@ -39,6 +39,7 @@ except ImportError:
 PLAYER_ENDPOINTS = (
     "profile",
     "wl",
+    "wlTurbo",
     "recentMatches",
     "matches",
     "heroes",
@@ -47,6 +48,7 @@ PLAYER_ENDPOINTS = (
     "rankings",
     "ratings",
     "totals",
+    "totalsTurbo",
     "counts",
     "wardmap",
     "wordcloud",
@@ -380,6 +382,9 @@ def fetch_player_endpoint(account_id: int, endpoint: str, since: datetime, days:
     elif endpoint == "matches":
         path = f"/players/{account_id}/matches"
         params = {"date": days}
+    elif endpoint in {"wlTurbo", "totalsTurbo"}:
+        path = f"/players/{account_id}/{endpoint.removesuffix('Turbo')}"
+        params = {"game_mode": 23}
     else:
         path = f"/players/{account_id}/{endpoint}"
         params = {}
@@ -392,6 +397,11 @@ def main() -> int:
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
     parser.add_argument("--since", help="UTC date in YYYY-MM-DD format. Defaults to data/player-ids.json.")
     parser.add_argument("--skip-match-details", action="store_true")
+    parser.add_argument(
+        "--only-card-aggregates",
+        action="store_true",
+        help="Refresh only profile, win/loss and total-stat endpoints used by card ratings.",
+    )
     parser.add_argument(
         "--request-parse-missing",
         action="store_true",
@@ -410,6 +420,7 @@ def main() -> int:
     since_ts = int(since.timestamp())
     days = max(1, int((now_utc() - since).total_seconds() // 86400) + 2)
     tracked_ids = set(players)
+    endpoints = ("profile", "wl", "wlTurbo", "totals", "totalsTurbo", "counts") if args.only_card_aggregates else PLAYER_ENDPOINTS
 
     conn = connect(args.db)
     migrate(conn)
@@ -439,7 +450,7 @@ def main() -> int:
                 (account_id, run_started),
             )
 
-            for endpoint in PLAYER_ENDPOINTS:
+            for endpoint in endpoints:
                 try:
                     path, params, payload = fetch_player_endpoint(account_id, endpoint, since, days)
                 except RuntimeError as exc:
