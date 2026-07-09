@@ -36,6 +36,11 @@ type PlayerCardStats = {
   overall: number;
   position: string;
   rows: { label: string; value: number }[];
+  source: {
+    avgGpm: number;
+    avgXpm: number;
+    avgLastHits: number;
+  };
 };
 type LeaderboardPlayer = DashboardData["leaderboard"][number];
 type RecentGame = DashboardData["recentPartyGames"][number];
@@ -46,12 +51,12 @@ type AuthUser = { authenticated: true; accountId: string; name: string; avatar: 
 const data = dashboardData as DashboardData;
 const playersById = new Map(data.players.map((player) => [player.accountId, player]));
 
-type Page = "dashboard" | "players";
+type Page = "dashboard" | "players" | "profile";
 
 const navItems: { label: string; href: string; page?: Page }[] = [
   { label: "Dashboard", href: "/dashboard/", page: "dashboard" },
   { label: "Players", href: "/players/", page: "players" },
-  { label: "Matches", href: "/dashboard/" },
+  { label: "Profile", href: "/profile/", page: "profile" },
   { label: "Achievements", href: "/dashboard/" },
   { label: "Hall of Fame", href: "/dashboard/" },
 ];
@@ -397,7 +402,7 @@ function Header({ activePage }: { activePage: Page }) {
       </nav>
       <div className="header-auth">
         {authUser ? (
-          <a className="profile-link" href="/dashboard/" aria-label={`Open ${authUser.name}'s dashboard`} title={authUser.name}>
+          <a className="profile-link" href={`/profile/?player=${authUser.accountId}`} aria-label={`Open ${authUser.name}'s profile`} title={authUser.name}>
             {authUser.avatar ? <img src={authUser.avatar} alt="" /> : <UserRound aria-hidden="true" />}
           </a>
         ) : (
@@ -802,6 +807,155 @@ function PlayersPage() {
   );
 }
 
+type ProfileOverride = { mmr?: number; matches?: number; firstMatchAt?: string };
+type ProfileTab = "activity" | "games";
+
+function profileDate(value: string | null | undefined) {
+  if (!value) return "Unknown";
+  return new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value));
+}
+
+function profileInputDate(value: string | null | undefined) {
+  return value ? value.slice(0, 10) : "";
+}
+
+function PlayStyleRadar({ rows }: { rows: PlayerCardStats["rows"] }) {
+  const labels = ["FIGHTING", "FARMING", "PUSHING", "SUPPORTING", "VERSATILITY", "SURVIVAL"];
+  const points = rows.map((row, index) => {
+    const angle = -Math.PI / 2 + index * Math.PI / 3;
+    const radius = 34 * (row.value / 100);
+    return `${50 + Math.cos(angle) * radius},${50 + Math.sin(angle) * radius}`;
+  }).join(" ");
+  return (
+    <div className="profile-radar">
+      <svg viewBox="0 0 100 100" role="img" aria-label="Play style radar">
+        <polygon className="radar-grid" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" />
+        <polygon className="radar-grid radar-inner" points="50,30 67.3,40 67.3,60 50,70 32.7,60 32.7,40" />
+        <line x1="50" y1="50" x2="50" y2="10" /><line x1="50" y1="50" x2="84.6" y2="30" />
+        <line x1="50" y1="50" x2="84.6" y2="70" /><line x1="50" y1="50" x2="50" y2="90" />
+        <line x1="50" y1="50" x2="15.4" y2="70" /><line x1="50" y1="50" x2="15.4" y2="30" />
+        <polygon className="radar-value" points={points} />
+      </svg>
+      {labels.map((label) => <span className={`radar-label radar-${label.toLowerCase()}`} key={label}>{label}</span>)}
+    </div>
+  );
+}
+
+function ProfilePage() {
+  const [authUser, setAuthUser] = useState<AuthUser | null>(null);
+  const requestedAccountId = Number(new URLSearchParams(window.location.search).get("player"));
+  const fallbackAccountId = data.leaderboard[0]?.accountId ?? data.players[0]?.accountId;
+  const accountId = Number.isFinite(requestedAccountId) && playersById.has(requestedAccountId)
+    ? requestedAccountId
+    : Number(authUser?.accountId ?? fallbackAccountId);
+  const player = playersById.get(accountId) ?? data.players[0];
+  const [overrides, setOverrides] = useState<ProfileOverride>({});
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [tab, setTab] = useState<ProfileTab>("games");
+  const baseFirstMatch = profileInputDate(player.profile.firstMatchAt);
+  const [draft, setDraft] = useState({ mmr: Math.round(player.computedMmr ?? 0), matches: player.matches, firstMatchAt: baseFirstMatch });
+
+  useEffect(() => {
+    let disposed = false;
+    fetch("/api/auth/me")
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload) => {
+        if (!disposed && payload?.authenticated) setAuthUser(payload as AuthUser);
+      })
+      .catch(() => undefined);
+    return () => { disposed = true; };
+  }, []);
+
+  useEffect(() => {
+    setEditing(false);
+    fetch(`/api/profiles/${player.accountId}`)
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload) => setOverrides(payload?.overrides ?? {}))
+      .catch(() => setOverrides({}));
+  }, [player.accountId]);
+
+  const profileValues = {
+    mmr: overrides.mmr ?? Math.round(player.computedMmr ?? 0),
+    matches: overrides.matches ?? player.matches,
+    firstMatchAt: overrides.firstMatchAt ?? baseFirstMatch,
+  };
+  const isOwner = String(authUser?.accountId) === String(player.accountId);
+
+  const beginEdit = () => {
+    setDraft(profileValues);
+    setEditing(true);
+  };
+
+  const saveProfile = async () => {
+    setSaving(true);
+    try {
+      const response = await fetch("/api/profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(draft),
+      });
+      const payload = await response.json();
+      if (response.ok) {
+        setOverrides(payload.overrides);
+        setEditing(false);
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <>
+      <Header activePage="profile" />
+      <section className="reborn-profile" aria-label={`${player.name} profile`}>
+        <div className="profile-breadcrumbs"><strong>PROFILE</strong><span>/</span><span>TROPHIES</span><span>/</span><span>TICKETS</span></div>
+        <header className="profile-identity">
+          <img src={player.avatar ?? "/assets/players/1.jpg"} alt="" />
+          <div><h1>{player.name}</h1><span>{rankLabel(player.rankTier)} · {player.card.position}</span></div>
+          <div className="profile-actions">
+            {isOwner ? (
+              editing ? <button className="profile-save" type="button" onClick={saveProfile} disabled={saving}>{saving ? "Saving…" : "✓ Save Changes"}</button>
+                : <button className="profile-edit" type="button" onClick={beginEdit}>✎ Edit Profile</button>
+            ) : <span className="profile-id">PLAYER ID: {player.accountId}</span>}
+          </div>
+        </header>
+
+        <div className="profile-showcase">
+          <div className="profile-empty-slot" /><div className="profile-empty-slot" /><div className="profile-empty-slot" />
+          <div className="profile-medal"><img src={`/assets/ranks/rank_icon_${player.medal.medal}.png`} alt={rankLabel(player.rankTier)} /></div>
+        </div>
+
+        <div className="profile-layout">
+          <aside className="profile-left-column">
+            <section className="reborn-panel profile-summary">
+              <header><span>PROFILE SUMMARY</span><small>UPDATED FROM DOTA HUB</small></header>
+              <div className="profile-metrics">
+                <div className="profile-metric"><span>MMR</span>{editing ? <input type="number" value={draft.mmr} onChange={(event) => setDraft({ ...draft, mmr: Number(event.target.value) })} /> : <strong>{profileValues.mmr.toLocaleString()}</strong>}</div>
+                <div className="profile-metric profile-metric-wide"><span>MATCHES / FIRST MATCH</span>{editing ? <div className="profile-edit-fields"><input type="number" value={draft.matches} onChange={(event) => setDraft({ ...draft, matches: Number(event.target.value) })} /><input type="date" value={draft.firstMatchAt} onChange={(event) => setDraft({ ...draft, firstMatchAt: event.target.value })} /></div> : <strong>{profileValues.matches} <em>/</em> {profileDate(profileValues.firstMatchAt)}</strong>}</div>
+              </div>
+            </section>
+            <section className="reborn-panel profile-playstyle">
+              <header><span>PLAY STYLE</span><small>MOST RECENT 20 GAME(S)</small></header>
+              <div className="profile-playstyle-content"><PlayStyleRadar rows={player.card.rows} /><div className="profile-lifetime-stats"><span>{Math.round(player.card.source.avgGpm)} <small>AVG GPM</small></span><span>{Math.round(player.card.source.avgXpm)} <small>AVG XPM</small></span><span>{Math.round(player.card.source.avgLastHits)} <small>AVG LAST HITS</small></span><hr />{player.card.rows.map((row) => <span key={row.label}>{row.value} <small>{row.label}</small></span>)}</div></div>
+            </section>
+          </aside>
+
+          <section className="reborn-panel profile-history">
+            <nav className="profile-tabs" aria-label="Profile history">
+              <button type="button" aria-pressed={tab === "activity"} onClick={() => setTab("activity")}>ACTIVITY FEED</button><span>/</span>
+              <button type="button" aria-pressed={tab === "games"} onClick={() => setTab("games")}>RECENT GAMES</button><span>/</span>
+              <button type="button" disabled>ALL-HERO CHALLENGE</button>
+            </nav>
+            {tab === "activity" ? <div className="profile-activity-list">{player.profile.activityFeed.length ? player.profile.activityFeed.map((event) => <article key={`${event.matchId}-${event.type}`}><span className={`profile-feed-icon ${event.icon}`}>◆</span><p><strong>{event.message}</strong><small>{relativeTime(event.createdAt)} · {event.stats.kills}/{event.stats.deaths}/{event.stats.assists}</small></p></article>) : <p className="profile-empty-state">No squad-feed events for this player yet.</p>}</div>
+              : <div className="profile-games-table"><div className="profile-games-head"><span>DATE / TIME</span><span>HERO PLAYED</span><span>RESULT</span><span>DURATION</span><span>TYPE</span></div>{player.profile.recentGames.map((game) => <article className="profile-game-row" key={game.matchId}><span>{profileDate(game.startedAt)}<small>{formatTime(game.startedAt)}</small></span><span className="profile-game-hero">{game.heroImage ? <img src={heroPortrait(game.heroImage) ?? ""} alt="" /> : null}<strong>{game.heroName}<small>{game.kills}/{game.deaths}/{game.assists}</small></strong></span><strong className={game.result === "WIN" ? "profile-win" : "profile-loss"}>{game.result === "WIN" ? "Win" : "Loss"}</strong><span>{game.durationLabel}</span><span>{game.modeName}</span></article>)}</div>}
+          </section>
+        </div>
+      </section>
+    </>
+  );
+}
+
 function PlayerCard({ player, index, period }: { player: CardPlayer; index: number; period: "season" | "allTime" }) {
   const shellRef = useRef<HTMLElement | null>(null);
   const nameRef = useRef<HTMLHeadingElement | null>(null);
@@ -930,11 +1084,11 @@ function PlayerCard({ player, index, period }: { player: CardPlayer; index: numb
 }
 
 function App() {
-  const page: Page = window.location.pathname.startsWith("/players") ? "players" : "dashboard";
+  const page: Page = window.location.pathname.startsWith("/players") ? "players" : window.location.pathname.startsWith("/profile") ? "profile" : "dashboard";
 
   return (
-    <main className={`dashboard-shell ${page === "players" ? "players-shell" : ""}`}>
-      {page === "players" ? <PlayersPage /> : <DashboardPage />}
+    <main className={`dashboard-shell ${page === "players" ? "players-shell" : ""} ${page === "profile" ? "profile-shell" : ""}`}>
+      {page === "players" ? <PlayersPage /> : page === "profile" ? <ProfilePage /> : <DashboardPage />}
     </main>
   );
 }

@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         dashboard: "dashboard/index.html",
         players: "players/index.html",
+        profile: "profile/index.html",
       },
     },
   },
