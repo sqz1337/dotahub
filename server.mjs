@@ -1,5 +1,5 @@
 import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
-import { createReadStream, existsSync, readFileSync } from "node:fs";
+import { createReadStream, existsSync, readFileSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -26,6 +26,7 @@ const STEAM_OPENID_URL = "https://steamcommunity.com/openid/login";
 const STEAM_ID_OFFSET = 76561197960265728n;
 const SESSION_COOKIE = "dotahub_session";
 const STATE_COOKIE = "dotahub_openid_state";
+const PROFILE_OVERRIDES_PATH = join(ROOT, "data", "profile-overrides.json");
 
 if (!SESSION_SECRET) {
   throw new Error("AUTH_SESSION_SECRET must be set when NODE_ENV=production.");
@@ -95,6 +96,28 @@ function trackedPlayer(accountId) {
   return dashboard.players?.find((player) => Number(player.accountId) === Number(accountId)) ?? null;
 }
 
+function profileOverrides() {
+  if (!existsSync(PROFILE_OVERRIDES_PATH)) return {};
+  try {
+    return JSON.parse(readFileSync(PROFILE_OVERRIDES_PATH, "utf8"));
+  } catch {
+    return {};
+  }
+}
+
+function profileOverride(accountId) {
+  return profileOverrides()[String(accountId)] ?? {};
+}
+
+async function readJson(request) {
+  let body = "";
+  for await (const chunk of request) {
+    body += chunk;
+    if (body.length > 10_000) throw new Error("Request body too large");
+  }
+  return JSON.parse(body || "{}");
+}
+
 function steamLoginUrl(returnTo) {
   const query = new URLSearchParams({
     "openid.ns": "http://specs.openid.net/auth/2.0",
@@ -125,11 +148,12 @@ async function verifySteamAssertion(url) {
 const mimeTypes = {
   ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-  ".svg": "image/svg+xml", ".woff2": "font/woff2",
+  ".svg": "image/svg+xml", ".woff2": "font/woff2", ".ttf": "font/ttf",
 };
 
 function serveStatic(request, response, pathname) {
-  const requested = pathname === "/" ? "/dashboard/" : pathname;
+  let requested = pathname === "/" ? "/dashboard/" : pathname;
+  if (/^\/profile\/\d+\/?$/.test(requested)) requested = "/profile/";
   const file = requested.endsWith("/") ? `${requested}index.html` : requested;
   const candidate = normalize(join(ROOT, "dist", file));
   const distRoot = normalize(join(ROOT, "dist"));
@@ -194,6 +218,48 @@ createServer(async (request, response) => {
       name: player.name,
       avatar: player.avatar,
     });
+    return;
+  }
+
+  const profileMatch = url.pathname.match(/^\/api\/profiles\/(\d+)$/);
+  if (request.method === "GET" && profileMatch) {
+    const player = trackedPlayer(profileMatch[1]);
+    if (!player) {
+      sendJson(response, 404, { error: "Profile not found" });
+      return;
+    }
+    sendJson(response, 200, { accountId: String(player.accountId), overrides: profileOverride(player.accountId) });
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/profile") {
+    const session = readToken(cookies[SESSION_COOKIE]);
+    if (!session || !trackedPlayer(session.accountId)) {
+      sendJson(response, 401, { error: "Authentication required" });
+      return;
+    }
+    try {
+      const input = await readJson(request);
+      const mmr = Number(input.mmr);
+      const matches = Number(input.matches);
+      const firstMatchAt = String(input.firstMatchAt ?? "");
+      const showcase = Array.isArray(input.showcase) ? input.showcase.map(String) : ["mmr", "wins"];
+      const allowedShowcase = new Set(["mmr", "wins", "matches", "firstMatch"]);
+      if (!Number.isFinite(mmr) || mmr < 0 || mmr > 20_000 || !Number.isInteger(matches) || matches < 0 || matches > 1_000_000 || !/^\d{4}-\d{2}-\d{2}$/.test(firstMatchAt)) {
+        sendJson(response, 400, { error: "Invalid profile fields" });
+        return;
+      }
+      if (showcase.length !== 2 || showcase.some((stat) => !allowedShowcase.has(stat))) {
+        sendJson(response, 400, { error: "Invalid showcase stats" });
+        return;
+      }
+      const overrides = profileOverrides();
+      overrides[session.accountId] = { mmr: Math.round(mmr), matches, firstMatchAt, showcase };
+      writeFileSync(PROFILE_OVERRIDES_PATH, `${JSON.stringify(overrides, null, 2)}\n`, "utf8");
+      sendJson(response, 200, { accountId: session.accountId, overrides: overrides[session.accountId] });
+    } catch {
+      sendJson(response, 400, { error: "Invalid request" });
+    }
     return;
   }
 

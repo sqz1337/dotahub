@@ -748,6 +748,49 @@ def build_players(conn: sqlite3.Connection, rows: list[sqlite3.Row]) -> list[dic
     return players
 
 
+def attach_profile_data(
+    conn: sqlite3.Connection,
+    players: list[dict[str, Any]],
+    rows: list[sqlite3.Row],
+    constants: dict[str, Any],
+) -> None:
+    """Attach player-owned feed and match history for the Reborn-style profile page."""
+    match_meta = {
+        int(row["match_id"]): row
+        for row in conn.execute("SELECT match_id, duration FROM raw_matches").fetchall()
+    }
+    by_player: dict[int, list[sqlite3.Row]] = defaultdict(list)
+    for row in rows:
+        by_player[int(row["account_id"])].append(row)
+
+    for player in players:
+        player_rows = by_player[player["accountId"]]
+        recent_games = []
+        for row in player_rows[:20]:
+            meta = match_meta.get(int(row["match_id"]))
+            recent_games.append(
+                {
+                    "matchId": row["match_id"],
+                    "startedAt": iso_from_ts(row["start_time"]),
+                    "heroName": hero_name(row["hero_id"], constants),
+                    "heroImage": hero_image(row["hero_id"], constants, "portrait"),
+                    "result": "WIN" if is_win(row) else "LOSS",
+                    "durationLabel": duration_label(meta["duration"] if meta else None),
+                    "modeName": game_mode_name(row["game_mode"], constants),
+                    "lobbyTypeName": lobby_type_name(row["lobby_type"], constants),
+                    "kills": row["kills"] or 0,
+                    "deaths": row["deaths"] or 0,
+                    "assists": row["assists"] or 0,
+                }
+            )
+        first_match = min((row["start_time"] for row in player_rows if row["start_time"]), default=None)
+        player["profile"] = {
+            "firstMatchAt": iso_from_ts(first_match),
+            "recentGames": recent_games,
+            "activityFeed": build_feed(player_rows, players, constants),
+        }
+
+
 def build_leaderboard(players: list[dict[str, Any]], rows: list[sqlite3.Row]) -> list[dict[str, Any]]:
     latest_by_player: dict[int, list[sqlite3.Row]] = defaultdict(list)
     for row in rows:
@@ -960,6 +1003,7 @@ def main() -> int:
     constants = load_constants(refresh=args.refresh_constants)
     rows = load_player_rows(conn)
     players = build_players(conn, rows)
+    attach_profile_data(conn, players, rows, constants)
     leaderboard = build_leaderboard(players, rows)
     raw_match_count = conn.execute("SELECT COUNT(*) FROM raw_matches").fetchone()[0]
     payload = {

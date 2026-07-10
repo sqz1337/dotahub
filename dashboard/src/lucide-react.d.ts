@@ -10,6 +10,7 @@ declare module "lucide-react" {
   export const Eye: LucideIcon;
   export const Frown: LucideIcon;
   export const Gauge: LucideIcon;
+  export const Settings: LucideIcon;
   export const Shield: LucideIcon;
   export const Skull: LucideIcon;
   export const TrendingUp: LucideIcon;
