@@ -148,11 +148,12 @@ async function verifySteamAssertion(url) {
 const mimeTypes = {
   ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8", ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8", ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
-  ".svg": "image/svg+xml", ".woff2": "font/woff2",
+  ".svg": "image/svg+xml", ".woff2": "font/woff2", ".ttf": "font/ttf",
 };
 
 function serveStatic(request, response, pathname) {
-  const requested = pathname === "/" ? "/dashboard/" : pathname;
+  let requested = pathname === "/" ? "/dashboard/" : pathname;
+  if (/^\/profile\/\d+\/?$/.test(requested)) requested = "/profile/";
   const file = requested.endsWith("/") ? `${requested}index.html` : requested;
   const candidate = normalize(join(ROOT, "dist", file));
   const distRoot = normalize(join(ROOT, "dist"));
@@ -242,12 +243,18 @@ createServer(async (request, response) => {
       const mmr = Number(input.mmr);
       const matches = Number(input.matches);
       const firstMatchAt = String(input.firstMatchAt ?? "");
+      const showcase = Array.isArray(input.showcase) ? input.showcase.map(String) : ["mmr", "wins"];
+      const allowedShowcase = new Set(["mmr", "wins", "matches", "firstMatch"]);
       if (!Number.isFinite(mmr) || mmr < 0 || mmr > 20_000 || !Number.isInteger(matches) || matches < 0 || matches > 1_000_000 || !/^\d{4}-\d{2}-\d{2}$/.test(firstMatchAt)) {
         sendJson(response, 400, { error: "Invalid profile fields" });
         return;
       }
+      if (showcase.length !== 2 || showcase.some((stat) => !allowedShowcase.has(stat))) {
+        sendJson(response, 400, { error: "Invalid showcase stats" });
+        return;
+      }
       const overrides = profileOverrides();
-      overrides[session.accountId] = { mmr: Math.round(mmr), matches, firstMatchAt };
+      overrides[session.accountId] = { mmr: Math.round(mmr), matches, firstMatchAt, showcase };
       writeFileSync(PROFILE_OVERRIDES_PATH, `${JSON.stringify(overrides, null, 2)}\n`, "utf8");
       sendJson(response, 200, { accountId: session.accountId, overrides: overrides[session.accountId] });
     } catch {
