@@ -1,0 +1,309 @@
+
+@media (prefers-reduced-motion: reduce) {
+  .feed-item,
+  .pulse-label svg,
+  .card-shell {
+    animation: none;
+  }
+
+  .card-shell,
+  .card-shell:hover,
+  .card-shell:focus-within {
+    transform: none;
+  }
+}
+
+@media (max-width: 1580px) and (min-width: 1181px) {
+  .leaderboard-head,
+  .leaderboard-row {
+    grid-template-columns: 28px minmax(106px, 1fr) 60px 84px;
+    gap: 8px;
+    padding: 0 20px 0 18px;
+  }
+
+  .leaderboard-head span:nth-child(3),
+  .leaderboard-row .record {
+    display: none;
+  }
+
+  .games-head,
+  .game-row {
+    grid-template-columns: 72px 38px minmax(54px, 0.6fr) 48px minmax(78px, 0.9fr) minmax(132px, 1.55fr);
+    gap: 9px;
+    padding: 0 20px 0 18px;
+  }
+
+  .games-list .game-row {
+    padding-right: 20px;
+    padding-left: 18px;
+  }
+
+  .party-stack {
+    width: auto;
+  }
+
+  .party-stack img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .party-stack img + img {
+    margin-left: -19px;
+  }
+
+  .highlight-cell {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .highlight-hero {
+    width: 42px;
+    height: 24px;
+  }
+
+  .meta-row {
+    grid-template-columns: 22px minmax(80px, 0.75fr) minmax(118px, 1fr) 96px;
+    gap: 8px;
+    font-size: 12.5px;
+  }
+
+  .meta-hero {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 7px;
+  }
+
+  .meta-hero img {
+    width: 38px;
+    height: 22px;
+  }
+
+  .pulse-item {
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 1180px) {
+  body {
+    overflow: auto;
+  }
+
+  .dashboard-shell {
+    height: auto;
+    min-height: 100svh;
+    display: block;
+    overflow: visible;
+  }
+
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .nav-links {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: start;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .pulse-bar {
+    flex-wrap: wrap;
+  }
+
+  .pulse-item {
+    padding: 8px 16px;
+  }
+
+  .pulse-item + .pulse-item {
+    border-left: 0;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .players-shell {
+    height: auto;
+    overflow: visible;
+  }
+
+  .players-shell .site-header {
+    position: static;
+    padding: 14px 12px 0;
+    background: none;
+  }
+
+  .players-page {
+    height: auto;
+    min-height: 80svh;
+    margin-top: 14px;
+    padding: 24px 18px 34px;
+    overflow: visible;
+  }
+
+  .players-hero {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    min-height: auto;
+  }
+
+  .players-title-copy {
+    grid-column: auto;
+  }
+
+  .players-controls {
+    grid-column: auto;
+    justify-self: center;
+    justify-items: center;
+  }
+
+  .players-cards-grid {
+    max-width: calc(var(--players-card-width) * 3 + var(--players-card-gap) * 2);
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboard-shell {
+    padding: 14px 12px 22px;
+  }
+
+  .site-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .leaderboard-head,
+  .games-head {
+    display: none;
+  }
+
+  .leaderboard-row {
+    grid-template-columns: 34px minmax(0, 1fr) 72px;
+    grid-template-areas:
+      "rank player win"
+      "rank player form";
+    min-height: 96px;
+  }
+
+  .leaderboard-row .rank-badge {
+    grid-area: rank;
+  }
+
+  .leaderboard-row .player-cell {
+    grid-area: player;
+  }
+
+  .leaderboard-row .record {
+    display: none;
+  }
+
+  .leaderboard-row > .win-rate {
+    grid-area: win;
+    justify-self: end;
+  }
+
+  .form-dots {
+    grid-area: form;
+  }
+
+  .game-row {
+    grid-template-columns: 1fr 62px;
+    grid-template-areas:
+      "party result"
+      "mode duration"
+      "highlight date";
+    min-height: 112px;
+    padding: 12px 8px;
+  }
+
+  .game-row .party-stack {
+    grid-area: party;
+  }
+
+  .game-row .result-pill {
+    grid-area: result;
+    justify-self: end;
+  }
+
+  .mode-cell {
+    grid-area: mode;
+  }
+
+  .duration-cell {
+    grid-area: duration;
+    justify-self: end;
+  }
+
+  .date-cell {
+    grid-area: date;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .highlight-cell {
+    grid-area: highlight;
+  }
+
+  .meta-row {
+    grid-template-columns: 24px minmax(0, 1fr) 64px;
+    grid-template-areas:
+      "icon label value"
+      "icon hero value";
+    min-height: 58px;
+  }
+
+  .meta-icon {
+    grid-area: icon;
+  }
+
+  .meta-row > span:nth-child(2) {
+    grid-area: label;
+  }
+
+  .meta-hero {
+    grid-area: hero;
+  }
+
+  .meta-row > strong {
+    grid-area: value;
+    justify-self: end;
+  }
+
+  .feed-item {
+    grid-template-columns: 42px minmax(0, 1fr);
+    grid-template-areas:
+      "avatar message"
+      "avatar time";
+  }
+
+  .feed-item img {
+    grid-area: avatar;
+    width: 42px;
+    height: 42px;
+  }
+
+  .feed-item p {
+    grid-area: message;
+  }
+
+  .feed-meta {
+    grid-area: time;
+    grid-auto-flow: column;
+    justify-items: start;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .feed-time {
+    text-align: left;
+  }
+
+  .players-cards-grid {
+    max-width: calc(var(--players-card-width) * 2 + var(--players-card-gap));
+  }
+
+  .card-shell:hover,
+  .card-shell:focus-within {
+    transform: translateY(-8px) scale(1.04);
+  }
+}

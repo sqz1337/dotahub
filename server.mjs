@@ -155,9 +155,14 @@ function serveStatic(request, response, pathname) {
   let requested = pathname === "/" ? "/dashboard/" : pathname;
   if (/^\/profile\/\d+\/?$/.test(requested)) requested = "/profile/";
   const file = requested.endsWith("/") ? `${requested}index.html` : requested;
-  const candidate = normalize(join(ROOT, "dist", file));
   const distRoot = normalize(join(ROOT, "dist"));
-  if (!candidate.startsWith(distRoot) || !existsSync(candidate)) {
+  const sourceAssetsRoot = normalize(join(ROOT, "assets"));
+  const distCandidate = normalize(join(distRoot, file));
+  const sourceAssetCandidate = normalize(join(ROOT, file));
+  const useSourceAsset = requested.startsWith("/assets/") && !existsSync(distCandidate);
+  const servingRoot = useSourceAsset ? sourceAssetsRoot : distRoot;
+  const candidate = useSourceAsset ? sourceAssetCandidate : distCandidate;
+  if (!candidate.startsWith(servingRoot) || !existsSync(candidate)) {
     response.writeHead(404);
     response.end("Not found");
     return;
@@ -169,6 +174,11 @@ function serveStatic(request, response, pathname) {
 createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", PUBLIC_ORIGIN);
   const cookies = parseCookies(request);
+
+  if (request.method === "GET" && ["/", "/index.html", "/cards.html"].includes(url.pathname)) {
+    redirect(response, "/dashboard/");
+    return;
+  }
 
   if (request.method === "GET" && url.pathname === "/auth/steam") {
     const state = randomBytes(24).toString("base64url");
