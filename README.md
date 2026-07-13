@@ -218,6 +218,18 @@ server.mjs                   Steam OpenID, profile API, static dist server
 vite.config.ts               multi-page build, redirects и profile rewrite
 ```
 
+## Автоматическое обновление данных
+
+GitHub Actions workflow `.github/workflows/data-refresh.yml` обновляет OpenDota-данные и публикует их через обычный Vercel Git deployment:
+
+- `data:refresh` — каждый час в `:17`, кроме полуночи;
+- `data:refresh_full` — ежедневно в `00:00 Europe/Moscow`;
+- ручной запуск доступен через **Actions → Refresh Dota data → Run workflow**;
+- одна concurrency-группа не позволяет hourly и daily refresh изменять SQLite одновременно;
+- если данные изменились, workflow коммитит только `data/opendota.sqlite`, `data/dashboard.json` и `data/matches.json` в `main`; Vercel автоматически создаёт новый production deployment.
+
+Опциональный repository secret `OPENDOTA_API_KEY` используется автоматически. Без него workflow работает через публичный OpenDota API и его стандартные ограничения.
+
 ## Важные инварианты
 
 Перед завершением изменений желательно проверить:
@@ -238,4 +250,3 @@ git diff --check
 - `raw_matches` должен совпадать с объединением recent-window;
 - профиль рейтингового матча должен иметь `mmrAfter` и `mmrChange`;
 - изменения стилей проверяются на Dashboard, Players и Profile, включая отсутствие горизонтального overflow.
-
