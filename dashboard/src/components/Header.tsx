@@ -1,6 +1,7 @@
 import { UserRound } from "lucide-react";
 import { defaultProfileAccountId, type Page } from "../data";
 import { useAuthUser } from "../auth/useAuthUser";
+import { BackgroundPicker } from "./BackgroundPicker";
 
 const navItems: { label: string; href: string; page?: Page }[] = [
   { label: "Dashboard", href: "/dashboard/", page: "dashboard" },
@@ -11,7 +12,7 @@ const navItems: { label: string; href: string; page?: Page }[] = [
 ];
 
 export function Header({ activePage }: { activePage: Page }) {
-  const { authUser } = useAuthUser();
+  const { authUser, resolved: authResolved } = useAuthUser();
   const authResult = new URLSearchParams(window.location.search).get("auth");
   const profileHref = `/profile/${authUser?.accountId ?? defaultProfileAccountId}`;
 
@@ -41,16 +42,24 @@ export function Header({ activePage }: { activePage: Page }) {
         ))}
       </nav>
       <div className="header-auth">
-        {authUser ? (
-          <a className="profile-link" href={`/profile/${authUser.accountId}`} aria-label={`Open ${authUser.name}'s profile`} title={authUser.name}>
-            {authUser.avatar ? <img src={authUser.avatar} alt="" /> : <UserRound aria-hidden="true" />}
-          </a>
-        ) : (
-          <a className="steam-login" href="/auth/steam">
-            <UserRound aria-hidden="true" />
-            Sign in through Steam
-          </a>
-        )}
+        <BackgroundPicker />
+        <span className="auth-session">
+          {!authResolved ? (
+            <span className="steam-login auth-pending" aria-hidden="true">
+              <UserRound />
+              Sign in through Steam
+            </span>
+          ) : authUser ? (
+            <a className="profile-link" href={`/profile/${authUser.accountId}`} aria-label={`Open ${authUser.name}'s profile`} title={authUser.name}>
+              {authUser.avatar ? <img src={authUser.avatar} alt="" /> : <UserRound aria-hidden="true" />}
+            </a>
+          ) : (
+            <a className="steam-login" href="/auth/steam">
+              <UserRound aria-hidden="true" />
+              Sign in through Steam
+            </a>
+          )}
+        </span>
       </div>
       {authNotice ? <p className="auth-notice" role="alert">{authNotice}</p> : null}
     </header>

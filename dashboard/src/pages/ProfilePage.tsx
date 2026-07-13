@@ -6,8 +6,8 @@ import { Header } from "../components/Header";
 import { heroPortrait, rankLabel, relativeTime } from "../utils/player";
 
 type ShowcaseStat = "mmr" | "wins" | "matches" | "firstMatch";
-type ProfileOverride = { mmr?: number; matches?: number; firstMatchAt?: string; showcase?: ShowcaseStat[] };
-type ProfileDraft = { mmr: number; matches: number; firstMatchAt: string; showcase: [ShowcaseStat, ShowcaseStat] };
+type ProfileOverride = { matches?: number; firstMatchAt?: string; showcase?: ShowcaseStat[] };
+type ProfileDraft = { matches: number; firstMatchAt: string; showcase: [ShowcaseStat, ShowcaseStat] };
 type ProfileTab = "activity" | "games";
 
 const showcaseOptions: { value: ShowcaseStat; label: string }[] = [
@@ -44,6 +44,15 @@ function gameTypeLabel(game: { modeName: string; lobbyTypeName: string }) {
 }
 
 type RadarAxis = { label: string; value: number };
+
+const CARD_RATING_FLOOR = 35;
+
+function cardRatingToRadar(value: number) {
+  // Card ratings start well above zero. Remove that built-in floor, then use a
+  // gentle curve so mid-card values look modest without flattening 90+ stats.
+  const normalized = Math.max(0, Math.min(1, (value - CARD_RATING_FLOOR) / (99 - CARD_RATING_FLOOR)));
+  return Math.round(100 * normalized ** 1.35);
+}
 
 function PlayStyleRadar({ axes }: { axes: RadarAxis[] }) {
   const point = (index: number, radius: number) => {
@@ -102,7 +111,7 @@ export function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState<ProfileTab>("games");
   const baseFirstMatch = profileInputDate(player.profile.firstMatchAt);
-  const [draft, setDraft] = useState<ProfileDraft>({ mmr: 0, matches: 0, firstMatchAt: baseFirstMatch, showcase: ["mmr", "wins"] });
+  const [draft, setDraft] = useState<ProfileDraft>({ matches: 0, firstMatchAt: baseFirstMatch, showcase: ["mmr", "wins"] });
 
   useEffect(() => {
     if (!authResolved || hasValidPathAccountId) return;
@@ -119,7 +128,7 @@ export function ProfilePage() {
   }, [player.accountId]);
 
   const values: Record<ShowcaseStat, string> = {
-    mmr: (overrides.mmr ?? Math.round(player.computedMmr ?? 0)).toLocaleString("en-US"),
+    mmr: Math.round(player.computedMmr ?? 3000).toLocaleString("en-US"),
     wins: player.wins.toLocaleString("en-US"),
     matches: (overrides.matches ?? player.matches).toLocaleString("en-US"),
     firstMatch: profileDate(overrides.firstMatchAt ?? baseFirstMatch),
@@ -132,7 +141,6 @@ export function ProfilePage() {
 
   const beginEdit = () => {
     setDraft({
-      mmr: overrides.mmr ?? Math.round(player.computedMmr ?? 0),
       matches: overrides.matches ?? player.matches,
       firstMatchAt: overrides.firstMatchAt ?? baseFirstMatch,
       showcase: [...showcase],
@@ -176,10 +184,10 @@ export function ProfilePage() {
     const uniqueHeroes = new Set(games.map((game) => game.heroName)).size;
     const versatility = games.length ? Math.round((uniqueHeroes / games.length) * 100) : 50;
     return [
-      { label: "FIGHTING", value: byKey.get("FGT") ?? 50 },
-      { label: "FARMING", value: byKey.get("FRM") ?? 50 },
-      { label: "SUPPORTING", value: byKey.get("UTL") ?? 50 },
-      { label: "PUSHING", value: byKey.get("OBJ") ?? 50 },
+      { label: "FIGHTING", value: cardRatingToRadar(byKey.get("FGT") ?? CARD_RATING_FLOOR) },
+      { label: "FARMING", value: cardRatingToRadar(byKey.get("FRM") ?? CARD_RATING_FLOOR) },
+      { label: "SUPPORTING", value: cardRatingToRadar(byKey.get("UTL") ?? CARD_RATING_FLOOR) },
+      { label: "PUSHING", value: cardRatingToRadar(byKey.get("OBJ") ?? CARD_RATING_FLOOR) },
       { label: "VERSATILITY", value: versatility },
     ];
   }, [player]);
@@ -191,7 +199,7 @@ export function ProfilePage() {
 
   const draftValue = (stat: ShowcaseStat, slot: number) => {
     if (stat === "mmr") {
-      return <input type="number" min={0} value={draft.mmr} onChange={(event) => setDraft({ ...draft, mmr: Number(event.target.value) })} aria-label="MMR" />;
+      return <strong key={slot}>{values.mmr}</strong>;
     }
     if (stat === "matches") {
       return <input type="number" min={0} value={draft.matches} onChange={(event) => setDraft({ ...draft, matches: Number(event.target.value) })} aria-label="Matches" />;
@@ -228,11 +236,11 @@ export function ProfilePage() {
           <div className="rp-identity-meta">
             {isOwner ? (
               editing ? (
-                <button className="rp-btn rp-btn-save" type="button" onClick={() => setEditing(false)}>
+                <button className="rp-btn rp-btn-save" type="button" onClick={saveProfile} disabled={saving}>
                   ✓ SAVE CHANGES
                 </button>
               ) : (
-                <button className="rp-btn" type="button" onClick={() => setEditing(true)}>EDIT PROFILE</button>
+                <button className="rp-btn" type="button" onClick={beginEdit}>EDIT PROFILE</button>
               )
             ) : null}
             <span className="rp-friend-id">
@@ -298,7 +306,7 @@ export function ProfilePage() {
                   <div className="rp-games-head">
                     <span>DATE / TIME</span>
                     <span>HERO PLAYED</span>
-                    <span>RESULT</span>
+                    <span>MMR</span>
                     <span>DURATION</span>
                     <span>TYPE</span>
                     <Settings aria-hidden="true" />
@@ -317,7 +325,17 @@ export function ProfilePage() {
                               {game.heroImage ? <img src={heroPortrait(game.heroImage) ?? ""} alt="" /> : null}
                               <b>{game.heroName}</b>
                             </span>
-                            <span className={game.result === "WIN" ? "rp-win" : "rp-loss"}>{game.result === "WIN" ? "Win" : "Loss"}</span>
+                            <span className="rp-game-result">
+                              {game.mmrAfter !== null ? (
+                                <b className={game.mmrChange >= 0 ? "rp-mmr-gain" : "rp-mmr-loss"}>
+                                  {game.mmrAfter.toLocaleString("en-US")} ({game.mmrChange >= 0 ? "+" : ""}{game.mmrChange})
+                                </b>
+                              ) : (
+                                <b className={game.result === "WIN" ? "rp-win" : "rp-loss"} title="Unrated match">
+                                  {game.result === "WIN" ? "Win" : "Loss"}
+                                </b>
+                              )}
+                            </span>
                             <span className="rp-game-duration">{game.durationLabel}</span>
                             <span>{gameTypeLabel(game)}</span>
                           </article>

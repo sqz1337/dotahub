@@ -9,8 +9,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "start": "node server.mjs",
-    "data:build": "python3 scripts/build_dashboard_data.py",
-    "data:refresh": "python3 scripts/ingest_opendota.py && python3 scripts/build_dashboard_data.py"
+    "data:build": "node scripts/data_tasks.mjs build",
+    "data:refresh": "node scripts/data_tasks.mjs refresh",
+    "data:refresh_full": "node scripts/data_tasks.mjs refresh_full"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.2",

@@ -2,7 +2,6 @@ import { useMemo, useState, type ReactNode } from "react";
 import {
   Activity,
   ChevronDown,
-  ChevronRight,
   Crown,
   Eye,
   Frown,
@@ -14,13 +13,12 @@ import {
 } from "lucide-react";
 import {
   data,
-  playersById,
   type FeedEvent,
   type GameModeFilter,
   type LeaderboardPlayer,
   type RecentGame,
 } from "../data";
-import { formatTime, heroPortrait, rankIconSrc, rankLabel, relativeTime } from "../utils/player";
+import { formatTime, heroPortrait, mmrMedal, relativeTime, roleLabel } from "../utils/player";
 import { Header } from "../components/Header";
 import { Panel } from "../components/Panel";
 
@@ -127,19 +125,13 @@ function SquadPulse() {
 }
 
 
-function RankBadge({ rank }: { rank: number }) {
-  return <span className={`rank-badge rank-${Math.min(rank, 3)}`}>{rank}</span>;
-}
-
-function FormDots({ form }: { form: string[] }) {
+function LeaderboardMedal({ mmr }: { mmr: number }) {
+  const rank = mmrMedal(mmr);
   return (
-    <div className="form-dots" aria-label={`Form ${form.join("")}`}>
-      {form.map((item, index) => (
-        <span key={`${item}-${index}`} className={item === "W" ? "form-win" : "form-loss"}>
-          {item}
-        </span>
-      ))}
-    </div>
+    <span className="leaderboard-medal" title={rank.label} aria-label={rank.label}>
+      <img className="leaderboard-medal-base" src={`/assets/ranks/rank_icon_${rank.medal}.png`} alt="" />
+      {rank.star ? <img className="leaderboard-medal-star" src={`/assets/ranks/rank_star_${rank.star}.png`} alt="" /> : null}
+    </span>
   );
 }
 
@@ -147,43 +139,36 @@ function Leaderboard() {
   return (
     <Panel title="Friends Leaderboard" className="leaderboard-panel">
       <div className="leaderboard-head">
-        <span>#</span>
+        <span>Rank</span>
         <span>Player</span>
+        <span>MMR</span>
         <span>Record</span>
         <span>Win Rate</span>
-        <span>Form</span>
       </div>
       <div className="leaderboard-list">
         {data.leaderboard.map((player: LeaderboardPlayer) => (
           <article className="leaderboard-row" key={player.accountId}>
-            <RankBadge rank={player.rank} />
+            <LeaderboardMedal mmr={player.mmr} />
             <div className="player-cell">
               <img className="player-avatar" src={player.avatar ?? ""} alt="" />
               <div>
                 <strong>{player.name}</strong>
                 <span className="rank-line">
-                  {rankIconSrc(playersById.get(player.accountId)?.rankTier) ? (
-                    <img src={rankIconSrc(playersById.get(player.accountId)?.rankTier) ?? ""} alt="" />
-                  ) : null}
-                  {rankLabel(playersById.get(player.accountId)?.rankTier)}
+                  {roleLabel(player.position)}
                   <span className="rank-kda">· KDA {player.kda}</span>
                 </span>
               </div>
             </div>
+            <strong className="leaderboard-mmr">{player.mmr.toLocaleString("en-US")}</strong>
             <strong className="record">
               <span className="record-wins">{player.wins}</span>
               <span className="record-separator">-</span>
               <span className="record-losses">{player.losses}</span>
             </strong>
             <strong className="win-rate">{player.winRate}%</strong>
-            <FormDots form={player.form} />
           </article>
         ))}
       </div>
-      <a className="panel-footer" href="/players/">
-        View all players
-        <ChevronRight aria-hidden="true" />
-      </a>
     </Panel>
   );
 }
@@ -269,7 +254,7 @@ function RecentGames() {
       </div>
       <div className="games-list">
         {visibleGames.length ? visibleGames.map((game: RecentGame) => (
-          <article className="game-row" key={game.matchId}>
+          <a className="game-row" href={`/matches/${game.matchId}`} key={game.matchId}>
             <PartyStack game={game} />
             <span className={`result-pill ${game.result === "WIN" ? "win" : "loss"}`}>
               {game.result === "WIN" ? "W" : "L"}
@@ -281,13 +266,9 @@ function RecentGames() {
               <small>{formatTime(game.startedAt)}</small>
             </span>
             <GameHighlight game={game} />
-          </article>
+          </a>
         )) : <div className="games-empty">No games for this mode</div>}
       </div>
-      <a className="panel-footer" href="/dashboard/">
-        View all party games
-        <ChevronRight aria-hidden="true" />
-      </a>
     </Panel>
   );
 }

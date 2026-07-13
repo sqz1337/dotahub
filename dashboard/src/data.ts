@@ -1,5 +1,6 @@
 import cardPresetJson from "../../card_example.json";
 import dashboardData from "../../data/dashboard.json";
+import matchesData from "../../data/matches.json";
 
 export type DashboardData = typeof dashboardData;
 export type CardPreset = typeof cardPresetJson;
@@ -17,10 +18,15 @@ export type PlayerCardStats = {
 export type LeaderboardPlayer = DashboardData["leaderboard"][number];
 export type RecentGame = DashboardData["recentPartyGames"][number];
 export type FeedEvent = DashboardData["feed"][number];
+export type MatchesData = typeof matchesData;
+export type MatchDetail = MatchesData["matches"][number];
+export type MatchPlayer = MatchDetail["scoreboard"][number];
 export type GameModeFilter = "all" | "turbo" | "ranked" | "other";
-export type Page = "dashboard" | "players" | "profile";
+export type Page = "dashboard" | "players" | "match" | "profile";
 
 export const data = dashboardData as DashboardData;
+export const matchData = matchesData as MatchesData;
+export const matchesById = new Map(matchData.matches.map((match) => [String(match.matchId), match]));
 export const cardPreset = cardPresetJson as CardPreset;
 export const playersById = new Map(data.players.map((player) => [player.accountId, player]));
 

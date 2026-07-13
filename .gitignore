@@ -3,6 +3,12 @@ dist/
 .DS_Store
 *.log
 *.tsbuildinfo
+__pycache__/
+*.py[cod]
 data/*.sqlite-wal
 data/*.sqlite-shm
 .claude/settings.local.json
+profile/reference.webp
+
+.vercel
+.env*

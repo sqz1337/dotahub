@@ -4,9 +4,9 @@
     {
       "name": "dotafifa",
       "runtimeExecutable": "npx",
-      "runtimeArgs": ["vite", "--host", "127.0.0.1"],
-      "port": 5173,
-      "autoPort": true
+      "runtimeArgs": ["vite", "--host", "127.0.0.1", "--port", "5187", "--strictPort"],
+      "port": 5187,
+      "autoPort": false
     }
   ]
 }

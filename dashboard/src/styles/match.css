@@ -1,0 +1,399 @@
+.match-shell {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  height: 100svh;
+  min-height: 640px;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* The dashboard shell pulls the header out by its own padding; the match shell
+   has none, so neutralize that here (same class weight to win the cascade). */
+.dashboard-shell.match-shell .site-header {
+  margin: 0;
+  z-index: 20;
+}
+
+/* The whole page fits the viewport: topbar + hero strip are fixed-content
+   rows, the scoreboard/performers row stretches and its rows flex with it. */
+.match-page {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  padding: 0 24px 16px;
+  overflow: hidden;
+}
+
+.match-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 42px;
+}
+
+.match-breadcrumb strong {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+}
+
+/* Open header strip: team names and score sit directly on the page background. */
+.match-hero-panel {
+  display: grid;
+  grid-template-areas: "rteam result dteam";
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 40px);
+  align-items: center;
+  padding: 4px 6px 18px;
+}
+
+.team-side { min-width: 0; display: grid; grid-area: rteam; }
+.team-side.dire { grid-area: dteam; justify-items: end; text-align: right; }
+
+.team-title { min-width: 0; display: flex; align-items: center; gap: 15px; }
+.team-side.dire .team-title { flex-direction: row-reverse; }
+
+.team-title strong {
+  overflow: hidden;
+  font-size: clamp(26px, 2.1vw, 36px);
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.team-side.radiant .team-title strong { color: #43f58a; text-shadow: 0 0 22px rgba(32, 217, 107, 0.38); }
+.team-side.dire .team-title strong { color: #ff6259; text-shadow: 0 0 22px rgba(255, 68, 59, 0.38); }
+
+.result-badge {
+  flex: none;
+  padding: 4px 14px;
+  border: 1px solid;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.result-badge.win {
+  border-color: rgba(61, 255, 134, 0.55);
+  color: #fff;
+  background: rgba(32, 217, 107, 0.08);
+  box-shadow: 0 0 18px rgba(32, 217, 107, 0.22), inset 0 0 12px rgba(32, 217, 107, 0.07);
+  text-shadow: 0 0 10px rgba(61, 255, 134, 0.55);
+}
+
+.result-badge.loss {
+  border-color: rgba(255, 91, 82, 0.55);
+  color: #fff;
+  background: rgba(255, 68, 59, 0.08);
+  box-shadow: 0 0 18px rgba(255, 68, 59, 0.2), inset 0 0 12px rgba(255, 68, 59, 0.07);
+  text-shadow: 0 0 10px rgba(255, 91, 82, 0.55);
+}
+
+.match-result {
+  position: relative;
+  grid-area: result;
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  padding: 0 clamp(4px, 1vw, 18px);
+}
+
+/* Soft brand aura anchoring the score against the open background. */
+.match-result::before {
+  content: "";
+  position: absolute;
+  inset: -36px -74px;
+  z-index: -1;
+  background: radial-gradient(50% 62% at 50% 46%, rgba(150, 55, 235, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.result-mode {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.result-score { display: flex; align-items: center; gap: clamp(14px, 1.6vw, 26px); font-variant-numeric: tabular-nums; }
+
+.result-score b {
+  font-size: clamp(46px, 3.8vw, 66px);
+  font-weight: 800;
+  line-height: 0.95;
+}
+
+.result-score b.radiant,
+.result-score b.dire { color: #fff; text-shadow: 0 0 34px rgba(255, 255, 255, 0.35); }
+.result-score i { color: rgba(255, 255, 255, 0.5); font-size: 24px; font-style: normal; }
+
+.result-sub {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.match-content {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(280px, 18vw, 332px);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.match-scoreboard { min-width: 0; min-height: 0; display: flex; flex-direction: column; padding: 0; overflow: hidden; }
+.match-scoreboard > header { flex: none; min-height: 42px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--line); }
+
+.match-scoreboard h2,
+.match-performers h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 0.07em;
+  text-shadow: 0 0 11px rgba(255, 255, 255, 0.13);
+}
+
+.match-scoreboard h2::before,
+.match-performers h2::before {
+  content: "";
+  width: 3px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 9px rgba(255, 59, 50, 0.6);
+}
+
+.match-table-scroll { flex: 1; min-height: 0; overflow: auto; }
+
+/* The grid stretches to the panel height; player rows share the free space. */
+.match-score-grid {
+  min-width: 1240px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto auto repeat(5, minmax(31px, 1fr)) auto repeat(5, minmax(31px, 1fr));
+  --item-w: clamp(28px, 1.7vw, 36px);
+}
+
+.match-score-head,
+.match-score-row {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.2fr) 30px 30px 30px 46px 72px 68px 48px 48px 68px 60px 56px minmax(224px, 1.05fr) 58px 86px;
+  gap: 7px;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.match-score-head { min-height: 32px; color: #f3e9dd; font-size: clamp(11px, 0.68vw, 13px); font-weight: 800; letter-spacing: 0.055em; text-shadow: 0 0 10px rgba(255, 255, 255, 0.12); }
+.match-score-head span:not(:first-child) { text-align: center; }
+
+.match-team-divider {
+  display: flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 0 14px;
+  border-top: 1px solid var(--row-line);
+  background: linear-gradient(90deg, rgba(32, 217, 107, 0.09), transparent 46%);
+  color: #43f58a;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.match-team-divider.dire {
+  background: linear-gradient(90deg, rgba(255, 68, 59, 0.09), transparent 46%);
+  color: #ff6259;
+}
+
+.match-score-row {
+  position: relative;
+  min-height: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.045);
+  color: #eee7de;
+  font-size: clamp(13px, 0.82vw, 16px);
+  font-variant-numeric: tabular-nums;
+}
+
+.match-score-row:hover { background: rgba(255, 255, 255, 0.035); }
+.match-score-row.tracked { background: linear-gradient(90deg, rgba(105, 36, 145, 0.22), rgba(105, 36, 145, 0.07) 65%, transparent); }
+.match-score-row.tracked:hover { background: linear-gradient(90deg, rgba(105, 36, 145, 0.3), rgba(105, 36, 145, 0.12) 65%, rgba(255, 255, 255, 0.03)); }
+.match-score-row.tracked::before { content: ""; position: absolute; inset: 4px auto 4px 0; width: 3px; border-radius: 0 3px 3px 0; background: #a85be0; box-shadow: 0 0 9px #a85be0; }
+.match-score-row > span:not(:first-child), .match-score-row > strong { text-align: center; }
+.net-worth { color: var(--gold); }
+.kda-value { color: #fff; font-weight: 700; }
+
+.match-player-cell { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; }
+
+.match-player-cell > img, .hero-placeholder {
+  width: clamp(48px, 3.4vw, 62px);
+  aspect-ratio: 1.7;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 5px;
+  object-fit: cover;
+  background: #17171a;
+}
+
+.match-player-cell > span:nth-child(2) { min-width: 0; display: grid; }
+.match-player-cell strong, .match-player-cell small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.match-player-cell strong { color: #fff; font-size: clamp(13px, 0.86vw, 16px); }
+.match-player-cell small { color: #c9c0b6; font-size: clamp(10.5px, 0.68vw, 13px); }
+
+.match-items { display: grid; grid-template-columns: repeat(7, var(--item-w)); justify-content: center; gap: 3px; }
+
+.match-items img, .match-item-empty {
+  width: var(--item-w);
+  height: calc(var(--item-w) * 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.match-items img.neutral, .match-item-empty.neutral { margin-left: 2px; border-radius: 50%; border-color: rgba(194, 142, 68, 0.56); }
+.impact-value { font-size: clamp(13px, 0.8vw, 15px); }
+.impact-value.elite { color: #cf8dff; }
+.impact-value.good { color: var(--green); }
+.impact-value.neutral, .muted-value { color: var(--soft); }
+.impact-value.bad, .mmr-down { color: var(--danger); }
+.mmr-up { color: var(--green); }
+
+.match-performers { min-height: 0; display: flex; flex-direction: column; padding: 13px 14px 14px; }
+.match-performers h2 { flex: none; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+
+.performer-list {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: clamp(8px, 1.2vh, 13px);
+  margin-top: 12px;
+}
+
+.performer-card {
+  min-height: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 13px;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.032), rgba(255, 255, 255, 0.008));
+}
+
+.performer-card.tracked { border-color: rgba(168, 91, 224, 0.45); box-shadow: inset 0 0 16px rgba(160, 75, 255, 0.07); }
+
+.performer-card img,
+.performer-card .hero-empty {
+  width: clamp(50px, 7.2vh, 70px);
+  height: clamp(50px, 7.2vh, 70px);
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  object-fit: cover;
+  object-position: center 25%;
+  background: #101014;
+}
+
+.performer-card > div { min-width: 0; display: grid; gap: 2px; }
+.performer-card small { color: #e1d4e8; font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; }
+.performer-card strong { overflow: hidden; color: #fff; font-size: clamp(13px, 1.75vh, 15px); text-overflow: ellipsis; white-space: nowrap; }
+
+.performer-card b {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  color: var(--copy-strong);
+  font-size: clamp(17px, 2.4vh, 22px);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.performer-card b.heal { color: #4fe08d; }
+.performer-card b.gold { color: var(--gold); }
+.performer-card b.bad { color: #ff6259; }
+.performer-card b span { color: #d8cfdc; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; }
+
+.opendota-link, .match-missing a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border: 1px solid rgba(164, 89, 214, .45);
+  border-radius: 6px;
+  color: #d7a7f5;
+  background: rgba(91, 38, 127, .12);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.opendota-link:hover, .match-missing a:hover { border-color: #c07bea; background: rgba(115, 54, 154, .2); }
+.topbar-opendota { min-height: 30px; padding: 0 14px; border-radius: 7px; font-size: 10px; }
+
+.match-missing { max-width: 520px; display: grid; justify-items: center; gap: 12px; margin: 12vh auto 0; padding: 42px; text-align: center; }
+.match-missing svg { width: 48px; height: 48px; color: var(--soft); }
+.match-missing h1, .match-missing p { margin: 0; }
+.match-missing p { color: var(--muted); }
+.match-missing a { width: 220px; margin-top: 8px; }
+
+/* Mid-size desktops (MacBook Air): tighter columns so the table still fits
+   next to the sidebar without a horizontal scrollbar. */
+@media (max-width: 1600px) {
+  .match-score-grid { min-width: 1080px; --item-w: clamp(26px, 1.55vw, 32px); }
+  .match-score-head,
+  .match-score-row {
+    grid-template-columns: minmax(168px, 1.2fr) 28px 28px 28px 40px 64px 60px 42px 42px 60px 50px 48px minmax(204px, 1.05fr) 44px 68px;
+    gap: 5px;
+    padding: 0 12px;
+  }
+}
+
+/* Below desktop widths the one-screen constraint is dropped: the page scrolls
+   and every stretched grid falls back to natural content heights. */
+@media (max-width: 1180px) {
+  .match-page { display: block; overflow: auto; scrollbar-color: rgba(160, 91, 255, 0.45) transparent; }
+  .match-content { grid-template-columns: 1fr; }
+  .match-score-grid { height: auto; grid-template-rows: none; }
+  .match-score-row { min-height: 46px; }
+  .performer-list { grid-template-rows: none; grid-template-columns: repeat(2, 1fr); }
+  .performer-card { padding: 10px 12px; }
+}
+
+@media (max-width: 980px) {
+  .match-hero-panel {
+    grid-template-areas: "result" "rteam" "dteam";
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+    padding: 8px 4px 16px;
+  }
+  .team-side, .team-side.dire { justify-items: center; text-align: center; }
+  .team-side.dire .team-title { flex-direction: row; }
+}
+
+@media (max-width: 760px) {
+  .match-page { padding: 0 12px 14px; }
+  .performer-list { grid-template-columns: 1fr; }
+}
+
+/* Safety valve for very short desktop windows: let the page scroll instead of
+   crushing rows below readability. */
+@media (min-width: 1181px) and (max-height: 660px) {
+  .match-page { display: block; overflow: auto; scrollbar-color: rgba(160, 91, 255, 0.45) transparent; }
+  .match-score-grid { height: auto; grid-template-rows: none; }
+  .match-score-row { min-height: 40px; }
+  .performer-list { grid-template-rows: none; }
+  .performer-card { padding: 9px 12px; }
+}

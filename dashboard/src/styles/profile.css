@@ -24,8 +24,9 @@
   padding: 0;
   overflow-y: hidden;
   background:
-    radial-gradient(920px 470px at 50% 6%, rgba(65, 83, 88, 0.2), transparent 72%),
-    linear-gradient(180deg, #0b1012 0%, #151e21 54%, #202c2f 100%);
+    radial-gradient(920px 470px at 50% 6%, rgba(65, 83, 88, 0.16), transparent 72%),
+    var(--site-background-image) center / cover no-repeat,
+    #0b1012;
 }
 
 .profile-shell .site-header {
@@ -473,7 +474,7 @@
 .rp-games-head {
   position: relative;
   display: grid;
-  grid-template-columns: 112px minmax(110px, 1fr) 42px 52px 70px;
+  grid-template-columns: 112px minmax(110px, 1fr) 82px 52px 70px;
   gap: 8px;
   align-items: center;
   min-height: 37px;
@@ -507,7 +508,7 @@
 
 .rp-game-row {
   display: grid;
-  grid-template-columns: 112px minmax(110px, 1fr) 42px 52px 70px;
+  grid-template-columns: 112px minmax(110px, 1fr) 82px 52px 70px;
   gap: 8px;
   align-items: center;
   min-height: 31px;
@@ -546,6 +547,10 @@
 
 .rp-win { color: #7cb42e; font-weight: 500; }
 .rp-loss { color: #c53b2a; font-weight: 500; }
+.rp-game-result { line-height: 1.05; font-variant-numeric: tabular-nums; }
+.rp-game-result b { font-size: 11px; font-weight: 600; white-space: nowrap; }
+.rp-mmr-gain { color: #87b84a; }
+.rp-mmr-loss { color: #bd5d50; }
 .rp-game-date,
 .rp-game-duration,
 .rp-game-row > span:last-child { color: #dce2e3; }
@@ -619,7 +624,7 @@
   .rp-identity-stats { order: 3; width: 100%; margin-left: 0; }
   .rp-stat strong { font-size: 22px; }
   .rp-games-head { display: none; }
-  .rp-game-row { grid-template-columns: minmax(0, 1fr) 44px 52px; padding: 6px 12px; }
+  .rp-game-row { grid-template-columns: minmax(0, 1fr) 82px 52px; padding: 6px 12px; }
   .rp-game-row > .rp-game-date, .rp-game-row > span:last-child { display: none; }
   .rp-playstyle-grid { grid-template-columns: 1fr; }
   .rp-lifetime h3 { padding-top: 4px; }

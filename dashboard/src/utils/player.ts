@@ -62,6 +62,24 @@ export function rankIconSrc(rankTier: number | null | undefined) {
   return `/assets/ranks/rank_icon_${medal}.png`;
 }
 
+const mmrMedalThresholds = [
+  [2310, 4, 1], [2450, 4, 2], [2610, 4, 3], [2770, 4, 4], [2930, 4, 5],
+  [3080, 5, 1], [3230, 5, 2], [3390, 5, 3], [3540, 5, 4], [3700, 5, 5],
+  [3850, 6, 1], [4000, 6, 2], [4150, 6, 3], [4300, 6, 4], [4460, 6, 5],
+  [4620, 7, 1], [4820, 7, 2], [5020, 7, 3], [5220, 7, 4], [5420, 7, 5],
+] as const;
+
+export function mmrMedal(mmr: number) {
+  if (mmr > 5620) return { medal: 8, star: 0, label: "Immortal" };
+  const threshold = [...mmrMedalThresholds].reverse().find(([minimum]) => mmr >= minimum);
+  const [, medal, star] = threshold ?? [0, 4, 1];
+  return { medal, star, label: `${rankNames[medal]} ${rankStars[star]}` };
+}
+
+export function roleLabel(position: string) {
+  return ({ CRY: "Carry", MID: "Mid", OFF: "Offlane", SUP: "Support", FLX: "Flex" } as Record<string, string>)[position] ?? position;
+}
+
 function pct(value: number | string) {
   return `${Number(value)}%`;
 }

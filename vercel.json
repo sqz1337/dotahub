@@ -1,0 +1,62 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/dashboard/",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "/dashboard/",
+      "permanent": false
+    },
+    {
+      "source": "/cards.html",
+      "destination": "/dashboard/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/auth/:path*",
+      "destination": "/api/index?route=auth/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index?route=api/:path*"
+    },
+    {
+      "source": "/profile/:accountId",
+      "destination": "/profile/"
+    },
+    {
+      "source": "/matches/:matchId",
+      "destination": "/matches/"
+    }
+  ],
+  "functions": {
+    "api/index.mjs": {
+      "includeFiles": "data/{dashboard,profile-overrides}.json"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ]
+}

@@ -213,9 +213,9 @@ function PlayerCard({ player, index, period }: { player: CardPlayer; index: numb
         <div className="avatar-frame">
           <img
             className="avatar"
-            src={localAvatar}
+            src={remoteAvatar}
             alt={String(state.name)}
-            data-fallback={remoteAvatar}
+            data-fallback={localAvatar}
             onError={handleAvatarError}
           />
         </div>

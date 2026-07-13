@@ -12,14 +12,14 @@
   background:
     linear-gradient(180deg, rgba(3, 3, 4, 0.12), rgba(3, 3, 4, 0.24)),
     linear-gradient(90deg, rgba(255, 45, 45, 0.06), transparent 30%, transparent 70%, rgba(95, 148, 255, 0.08)),
-    url("/assets/backgrounds/players-collections-bg-new.png") center / cover no-repeat,
+    var(--site-background-image) center / cover no-repeat,
     #050607;
 }
 
 .players-stage {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: clamp(22px, 3.6svh, 42px);
+  gap: clamp(10px, 1.8svh, 20px);
   min-height: 0;
   width: 100%;
 }
@@ -73,6 +73,7 @@
   display: grid;
   justify-items: end;
   gap: 8px;
+  transform: translateY(14px);
 }
 
 .period-toggle {
@@ -147,9 +148,9 @@
 
 .players-roster-frame {
   display: grid;
-  align-items: center;
+  align-items: start;
   min-height: 0;
-  padding: clamp(18px, 3svh, 32px) 0 0;
+  padding: clamp(4px, 1svh, 10px) 0 0;
   background: transparent;
 }
 

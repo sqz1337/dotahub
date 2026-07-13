@@ -16,14 +16,23 @@
 @media (max-width: 1580px) and (min-width: 1181px) {
   .leaderboard-head,
   .leaderboard-row {
-    grid-template-columns: 28px minmax(106px, 1fr) 60px 84px;
-    gap: 8px;
-    padding: 0 20px 0 18px;
+    grid-template-columns: 42px minmax(90px, 1fr) 48px 44px 56px;
+    gap: 6px;
+    padding: 0 12px;
   }
 
-  .leaderboard-head span:nth-child(3),
-  .leaderboard-row .record {
-    display: none;
+  .leaderboard-medal {
+    width: 44px;
+    height: 44px;
+  }
+
+  .leaderboard-mmr,
+  .win-rate {
+    font-size: 16px;
+  }
+
+  .record {
+    font-size: 15px;
   }
 
   .games-head,
@@ -155,6 +164,7 @@
     grid-column: auto;
     justify-self: center;
     justify-items: center;
+    transform: none;
   }
 
   .players-cards-grid {
@@ -178,14 +188,15 @@
   }
 
   .leaderboard-row {
-    grid-template-columns: 34px minmax(0, 1fr) 72px;
+    grid-template-columns: 50px minmax(0, 1fr) 72px;
     grid-template-areas:
-      "rank player win"
-      "rank player form";
-    min-height: 96px;
+      "rank player mmr"
+      "rank player record"
+      "rank player win";
+    min-height: 112px;
   }
 
-  .leaderboard-row .rank-badge {
+  .leaderboard-row .leaderboard-medal {
     grid-area: rank;
   }
 
@@ -193,17 +204,19 @@
     grid-area: player;
   }
 
+  .leaderboard-row .leaderboard-mmr {
+    grid-area: mmr;
+    justify-self: end;
+  }
+
   .leaderboard-row .record {
-    display: none;
+    grid-area: record;
+    justify-self: end;
   }
 
   .leaderboard-row > .win-rate {
     grid-area: win;
     justify-self: end;
-  }
-
-  .form-dots {
-    grid-area: form;
   }
 
   .game-row {
