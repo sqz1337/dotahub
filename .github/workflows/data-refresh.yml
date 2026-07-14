@@ -1,12 +1,6 @@
 name: Refresh Dota data
 
 on:
-  schedule:
-    # Incremental refresh every hour except midnight, when the full refresh runs.
-    - cron: "17 1-23 * * *"
-      timezone: "Europe/Moscow"
-    - cron: "0 0 * * *"
-      timezone: "Europe/Moscow"
   workflow_dispatch:
     inputs:
       mode:
