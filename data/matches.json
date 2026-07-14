@@ -1,10 +1,668 @@
 {
-  "generatedAt": "2026-07-13T23:12:04.078287Z",
+  "generatedAt": "2026-07-14T00:06:23.226036Z",
   "source": {
     "api": "https://api.opendota.com/api",
     "database": "data/opendota.sqlite"
   },
   "matches": [
+    {
+      "matchId": 8895545984,
+      "startedAt": "2026-07-13T23:08:17Z",
+      "duration": 1469,
+      "durationLabel": "24:29",
+      "gameMode": 23,
+      "gameModeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 42,
+      "direScore": 27,
+      "firstBloodTime": 112,
+      "region": 8,
+      "patch": 60,
+      "scoreboard": [
+        {
+          "playerSlot": 0,
+          "team": "radiant",
+          "accountId": null,
+          "tracked": false,
+          "name": "Anonymous",
+          "avatar": null,
+          "position": null,
+          "heroId": 1,
+          "heroName": "Anti-Mage",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/antimage.png",
+          "level": 30,
+          "kills": 15,
+          "deaths": 1,
+          "assists": 9,
+          "netWorth": 38804,
+          "lastHits": 134,
+          "denies": 10,
+          "gpm": 1803,
+          "xpm": 2789,
+          "heroDamage": 46607,
+          "heroHealing": 0,
+          "towerDamage": 18892,
+          "items": [
+            {
+              "id": 208,
+              "name": "Abyssal Blade",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png?t=1593393829403"
+            },
+            {
+              "id": 1097,
+              "name": "Disperser",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/disperser.png?t=1593393829403"
+            },
+            {
+              "id": 135,
+              "name": "Monkey King Bar",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403"
+            },
+            {
+              "id": 139,
+              "name": "Butterfly",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/butterfly.png?t=1593393829403"
+            },
+            {
+              "id": 147,
+              "name": "Manta Style",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403"
+            },
+            {
+              "id": 63,
+              "name": "Power Treads",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/power_treads.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1643,
+            "name": "Giant's Maul",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/giant_maul.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 1,
+          "team": "radiant",
+          "accountId": null,
+          "tracked": false,
+          "name": "Anonymous",
+          "avatar": null,
+          "position": null,
+          "heroId": 50,
+          "heroName": "Dazzle",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dazzle.png",
+          "level": 28,
+          "kills": 5,
+          "deaths": 5,
+          "assists": 21,
+          "netWorth": 21477,
+          "lastHits": 20,
+          "denies": 1,
+          "gpm": 936,
+          "xpm": 2289,
+          "heroDamage": 4826,
+          "heroHealing": 17778,
+          "towerDamage": 291,
+          "items": [
+            {
+              "id": 180,
+              "name": "Arcane Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png?t=1593393829403"
+            },
+            {
+              "id": 254,
+              "name": "Glimmer Cape",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png?t=1593393829403"
+            },
+            {
+              "id": 102,
+              "name": "Force Staff",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/force_staff.png?t=1593393829403"
+            },
+            {
+              "id": 36,
+              "name": "Magic Wand",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_wand.png?t=1593393829403"
+            },
+            {
+              "id": 235,
+              "name": "Octarine Core",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403"
+            },
+            {
+              "id": 108,
+              "name": "Aghanim's Scepter",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 359,
+            "name": "Essence Ring",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/essence_ring.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 2,
+          "team": "radiant",
+          "accountId": null,
+          "tracked": false,
+          "name": "Anonymous",
+          "avatar": null,
+          "position": null,
+          "heroId": 64,
+          "heroName": "Jakiro",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
+          "level": 27,
+          "kills": 2,
+          "deaths": 9,
+          "assists": 14,
+          "netWorth": 23602,
+          "lastHits": 92,
+          "denies": 7,
+          "gpm": 1040,
+          "xpm": 1819,
+          "heroDamage": 14954,
+          "heroHealing": 0,
+          "towerDamage": 2950,
+          "items": [
+            null,
+            {
+              "id": 158,
+              "name": "Mjollnir",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mjollnir.png?t=1593393829403"
+            },
+            {
+              "id": 188,
+              "name": "Smoke of Deceit",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/smoke_of_deceit.png?t=1593393829403"
+            },
+            {
+              "id": 610,
+              "name": "Wind Waker",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/wind_waker.png?t=1593393829403"
+            },
+            {
+              "id": 50,
+              "name": "Phase Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phase_boots.png?t=1593393829403"
+            },
+            {
+              "id": 98,
+              "name": "Orchid Malevolence",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/orchid.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1864,
+            "name": "Conjurer's Catalyst",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/conjurers_catalyst.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 3,
+          "team": "radiant",
+          "accountId": null,
+          "tracked": false,
+          "name": "Anonymous",
+          "avatar": null,
+          "position": null,
+          "heroId": 23,
+          "heroName": "Kunkka",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
+          "level": 29,
+          "kills": 7,
+          "deaths": 5,
+          "assists": 20,
+          "netWorth": 30970,
+          "lastHits": 115,
+          "denies": 4,
+          "gpm": 1370,
+          "xpm": 2317,
+          "heroDamage": 37406,
+          "heroHealing": 0,
+          "towerDamage": 863,
+          "items": [
+            {
+              "id": 127,
+              "name": "Blade Mail",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blade_mail.png?t=1593393829403"
+            },
+            {
+              "id": 114,
+              "name": "Heart of Tarrasque",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png?t=1593393829403"
+            },
+            {
+              "id": 116,
+              "name": "Black King Bar",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/black_king_bar.png?t=1593393829403"
+            },
+            {
+              "id": 50,
+              "name": "Phase Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phase_boots.png?t=1593393829403"
+            },
+            {
+              "id": 141,
+              "name": "Daedalus",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/greater_crit.png?t=1593393829403"
+            },
+            {
+              "id": 137,
+              "name": "Radiance",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/radiance.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1605,
+            "name": "Serrated Shiv",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/serrated_shiv.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 4,
+          "team": "radiant",
+          "accountId": 1012155431,
+          "tracked": false,
+          "name": "гряязный эдуардо",
+          "avatar": null,
+          "position": null,
+          "heroId": 45,
+          "heroName": "Pugna",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/pugna.png",
+          "level": 28,
+          "kills": 12,
+          "deaths": 7,
+          "assists": 17,
+          "netWorth": 27022,
+          "lastHits": 27,
+          "denies": 1,
+          "gpm": 1167,
+          "xpm": 2048,
+          "heroDamage": 31070,
+          "heroHealing": 7168,
+          "towerDamage": 4664,
+          "items": [
+            {
+              "id": 232,
+              "name": "Aether Lens",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aether_lens.png?t=1593393829403"
+            },
+            {
+              "id": 1,
+              "name": "Blink Dagger",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403"
+            },
+            {
+              "id": 180,
+              "name": "Arcane Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png?t=1593393829403"
+            },
+            {
+              "id": 256,
+              "name": "Aeon Disk",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aeon_disk.png?t=1593393829403"
+            },
+            {
+              "id": 1856,
+              "name": "Crella's Crozier",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/crellas_crozier.png?t=1593393829403"
+            },
+            {
+              "id": 226,
+              "name": "Lotus Orb",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 840,
+            "name": "Tumbler's Toy",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/pogo_stick.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 128,
+          "team": "dire",
+          "accountId": 1313518580,
+          "tracked": false,
+          "name": "Хватамба",
+          "avatar": null,
+          "position": null,
+          "heroId": 86,
+          "heroName": "Rubick",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
+          "level": 26,
+          "kills": 4,
+          "deaths": 8,
+          "assists": 12,
+          "netWorth": 19194,
+          "lastHits": 41,
+          "denies": 0,
+          "gpm": 779,
+          "xpm": 1665,
+          "heroDamage": 17619,
+          "heroHealing": 1100,
+          "towerDamage": 0,
+          "items": [
+            {
+              "id": 235,
+              "name": "Octarine Core",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/octarine_core.png?t=1593393829403"
+            },
+            {
+              "id": 232,
+              "name": "Aether Lens",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/aether_lens.png?t=1593393829403"
+            },
+            {
+              "id": 108,
+              "name": "Aghanim's Scepter",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403"
+            },
+            {
+              "id": 1107,
+              "name": "Phylactery",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phylactery.png?t=1593393829403"
+            },
+            {
+              "id": 180,
+              "name": "Arcane Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png?t=1593393829403"
+            },
+            {
+              "id": 1,
+              "name": "Blink Dagger",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 675,
+            "name": "Psychic Headband",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/psychic_headband.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 129,
+          "team": "dire",
+          "accountId": 818003286,
+          "tracked": true,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "position": "SUP",
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+          "level": 26,
+          "kills": 6,
+          "deaths": 8,
+          "assists": 9,
+          "netWorth": 29118,
+          "lastHits": 81,
+          "denies": 2,
+          "gpm": 1424,
+          "xpm": 1680,
+          "heroDamage": 23291,
+          "heroHealing": 0,
+          "towerDamage": 844,
+          "items": [
+            {
+              "id": 135,
+              "name": "Monkey King Bar",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403"
+            },
+            {
+              "id": 208,
+              "name": "Abyssal Blade",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/abyssal_blade.png?t=1593393829403"
+            },
+            {
+              "id": 247,
+              "name": "Moon Shard",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/moon_shard.png?t=1593393829403"
+            },
+            null,
+            {
+              "id": 250,
+              "name": "Bloodthorn",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bloodthorn.png?t=1593393829403"
+            },
+            {
+              "id": 50,
+              "name": "Phase Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/phase_boots.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1605,
+            "name": "Serrated Shiv",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/serrated_shiv.png?t=1593393829403"
+          },
+          "impact": 38,
+          "impactAxes": {
+            "IMP": 42.2,
+            "FRM": 61.7,
+            "FGT": 47.2,
+            "SUR": 31.1,
+            "OBJ": 44.4,
+            "UTL": 30.1
+          },
+          "mmrChange": -15
+        },
+        {
+          "playerSlot": 130,
+          "team": "dire",
+          "accountId": null,
+          "tracked": false,
+          "name": "Anonymous",
+          "avatar": null,
+          "position": null,
+          "heroId": 31,
+          "heroName": "Lich",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lich.png",
+          "level": 25,
+          "kills": 1,
+          "deaths": 13,
+          "assists": 14,
+          "netWorth": 11123,
+          "lastHits": 19,
+          "denies": 0,
+          "gpm": 582,
+          "xpm": 1466,
+          "heroDamage": 14911,
+          "heroHealing": 0,
+          "towerDamage": 0,
+          "items": [
+            {
+              "id": 36,
+              "name": "Magic Wand",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/magic_wand.png?t=1593393829403"
+            },
+            {
+              "id": 254,
+              "name": "Glimmer Cape",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/glimmer_cape.png?t=1593393829403"
+            },
+            {
+              "id": 226,
+              "name": "Lotus Orb",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/lotus_orb.png?t=1593393829403"
+            },
+            {
+              "id": 42,
+              "name": "Observer Ward",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ward_observer.png?t=1593393829403"
+            },
+            {
+              "id": 77,
+              "name": "Null Talisman",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/null_talisman.png?t=1593393829403"
+            },
+            {
+              "id": 180,
+              "name": "Arcane Boots",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/arcane_boots.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1859,
+            "name": "Spellslinger",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/spellslinger.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 131,
+          "team": "dire",
+          "accountId": 1161522686,
+          "tracked": false,
+          "name": "DarkTerror [ムボット]?",
+          "avatar": null,
+          "position": null,
+          "heroId": 126,
+          "heroName": "Void Spirit",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/void_spirit.png",
+          "level": 25,
+          "kills": 3,
+          "deaths": 5,
+          "assists": 7,
+          "netWorth": 19892,
+          "lastHits": 107,
+          "denies": 4,
+          "gpm": 841,
+          "xpm": 1463,
+          "heroDamage": 22037,
+          "heroHealing": 0,
+          "towerDamage": 88,
+          "items": [
+            {
+              "id": 63,
+              "name": "Power Treads",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/power_treads.png?t=1593393829403"
+            },
+            {
+              "id": 147,
+              "name": "Manta Style",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403"
+            },
+            {
+              "id": 225,
+              "name": "Nullifier",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/nullifier.png?t=1593393829403"
+            },
+            {
+              "id": 598,
+              "name": "Mage Slayer",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/mage_slayer.png?t=1593393829403"
+            },
+            {
+              "id": 108,
+              "name": "Aghanim's Scepter",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/ultimate_scepter.png?t=1593393829403"
+            },
+            {
+              "id": 41,
+              "name": "Bottle",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/bottle.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1603,
+            "name": "Gunpowder Gauntlet",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/gunpowder_gauntlets.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        },
+        {
+          "playerSlot": 132,
+          "team": "dire",
+          "accountId": null,
+          "tracked": false,
+          "name": "Anonymous",
+          "avatar": null,
+          "position": null,
+          "heroId": 81,
+          "heroName": "Chaos Knight",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/chaos_knight.png",
+          "level": 27,
+          "kills": 13,
+          "deaths": 8,
+          "assists": 2,
+          "netWorth": 27123,
+          "lastHits": 142,
+          "denies": 1,
+          "gpm": 1313,
+          "xpm": 1885,
+          "heroDamage": 40619,
+          "heroHealing": 0,
+          "towerDamage": 2162,
+          "items": [
+            {
+              "id": 939,
+              "name": "Harpoon",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/harpoon.png?t=1593393829403"
+            },
+            {
+              "id": 135,
+              "name": "Monkey King Bar",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/monkey_king_bar.png?t=1593393829403"
+            },
+            {
+              "id": 147,
+              "name": "Manta Style",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/manta.png?t=1593393829403"
+            },
+            {
+              "id": 63,
+              "name": "Power Treads",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/power_treads.png?t=1593393829403"
+            },
+            {
+              "id": 114,
+              "name": "Heart of Tarrasque",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/heart.png?t=1593393829403"
+            },
+            {
+              "id": 151,
+              "name": "Armlet of Mordiggian",
+              "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/armlet.png?t=1593393829403"
+            }
+          ],
+          "neutralItem": {
+            "id": 1605,
+            "name": "Serrated Shiv",
+            "image": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/serrated_shiv.png?t=1593393829403"
+          },
+          "impact": null,
+          "impactAxes": null,
+          "mmrChange": null
+        }
+      ],
+      "highestImpactSlot": 129
+    },
     {
       "matchId": 8895326808,
       "startedAt": "2026-07-13T19:36:23Z",
