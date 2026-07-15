@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-14T06:23:46.283672Z",
+  "generatedAt": "2026-07-15T11:27:08.152117Z",
   "source": {
     "api": "https://api.opendota.com/api",
     "database": "data/opendota.sqlite"
   },
   "summary": {
     "trackedPlayers": 8,
-    "playerMatches": 215,
-    "rawMatches": 75,
+    "playerMatches": 234,
+    "rawMatches": 85,
     "seasonStartedAt": "2026-07-01T00:00:00Z",
     "seasonStartMmr": 3000,
     "constants": [
@@ -2336,15 +2336,15 @@
       "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
       "rankTier": 71,
       "leaderboardRank": null,
-      "computedMmr": 3041,
-      "matches": 9,
-      "wins": 5,
-      "losses": 4,
-      "winRate": 55.6,
-      "kills": 60,
-      "deaths": 76,
-      "assists": 141,
-      "kda": 2.64,
+      "computedMmr": 3136,
+      "matches": 13,
+      "wins": 8,
+      "losses": 5,
+      "winRate": 61.5,
+      "kills": 115,
+      "deaths": 112,
+      "assists": 221,
+      "kda": 3.0,
       "medal": {
         "medal": 7,
         "stars": 1,
@@ -2352,55 +2352,55 @@
       },
       "roleOverride": null,
       "card": {
-        "overall": 68,
+        "overall": 71,
         "position": "OFF",
         "rows": [
           {
             "label": "IMP",
-            "value": 71
+            "value": 76
           },
           {
             "label": "FRM",
-            "value": 71
+            "value": 74
           },
           {
             "label": "FGT",
-            "value": 65
+            "value": 71
           },
           {
             "label": "SUR",
-            "value": 67
+            "value": 68
           },
           {
             "label": "OBJ",
-            "value": 63
+            "value": 67
           },
           {
             "label": "UTL",
-            "value": 69
+            "value": 70
           }
         ],
         "source": {
-          "games": 9,
+          "games": 13,
           "mode": "mixed",
           "benchmarkMedal": 7,
           "benchmarkRole": "OFF",
-          "winrate": 55.6,
-          "recentWinrate": 55.6,
-          "avgKills": 6.7,
-          "avgDeaths": 8.4,
-          "avgAssists": 15.7,
-          "avgGpm": 468.0,
-          "avgXpm": 655.1,
-          "avgHeroDamage": 22367,
-          "avgTowerDamage": 2971,
-          "avgHealing": 394,
-          "avgLastHits": 115.9,
+          "winrate": 61.5,
+          "recentWinrate": 60.0,
+          "avgKills": 8.8,
+          "avgDeaths": 8.6,
+          "avgAssists": 17.0,
+          "avgGpm": 500.3,
+          "avgXpm": 703.8,
+          "avgHeroDamage": 24673,
+          "avgTowerDamage": 3077,
+          "avgHealing": 273,
+          "avgLastHits": 141.8,
           "roleWeights": "OFF",
           "modeBreakdown": [
             {
               "mode": "normal",
-              "games": 2
+              "games": 6
             },
             {
               "mode": "turbo",
@@ -2466,9 +2466,9 @@
       "seasonMmr": {
         "startedAt": "2026-07-01T00:00:00Z",
         "startMmr": 3000,
-        "currentMmr": 3041,
-        "change": 41,
-        "ratedMatches": 9,
+        "currentMmr": 3136,
+        "change": 136,
+        "ratedMatches": 13,
         "history": [
           {
             "matchId": 8876601562,
@@ -2631,12 +2631,148 @@
             },
             "change": 48,
             "mmrAfter": 3041
+          },
+          {
+            "matchId": 8896404615,
+            "startedAt": "2026-07-14T14:01:24Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 55.5,
+            "impactFactor": 0.099,
+            "impactAxes": {
+              "IMP": 18.9,
+              "FRM": 72.2,
+              "FGT": 70.0,
+              "SUR": 55.6,
+              "OBJ": 77.8,
+              "UTL": 68.1
+            },
+            "change": 33,
+            "mmrAfter": 3074
+          },
+          {
+            "matchId": 8896480184,
+            "startedAt": "2026-07-14T14:47:30Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 62.4,
+            "impactFactor": 0.273,
+            "impactAxes": {
+              "IMP": 48.9,
+              "FRM": 67.2,
+              "FGT": 66.7,
+              "SUR": 66.7,
+              "OBJ": 77.8,
+              "UTL": 50.9
+            },
+            "change": 38,
+            "mmrAfter": 3112
+          },
+          {
+            "matchId": 8896574312,
+            "startedAt": "2026-07-14T15:45:50Z",
+            "mode": "ranked",
+            "result": "LOSS",
+            "impactScore": 41.5,
+            "impactFactor": -0.17,
+            "impactAxes": {
+              "IMP": 31.1,
+              "FRM": 44.4,
+              "FGT": 40.0,
+              "SUR": 33.3,
+              "OBJ": 66.7,
+              "UTL": 46.3
+            },
+            "change": -22,
+            "mmrAfter": 3090
+          },
+          {
+            "matchId": 8896946887,
+            "startedAt": "2026-07-14T20:31:09Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 70.9,
+            "impactFactor": 0.525,
+            "impactAxes": {
+              "IMP": 57.8,
+              "FRM": 77.8,
+              "FGT": 76.7,
+              "SUR": 82.2,
+              "OBJ": 77.8,
+              "UTL": 52.8
+            },
+            "change": 46,
+            "mmrAfter": 3136
           }
         ]
       },
       "profile": {
         "firstMatchAt": "2026-07-01T19:36:23Z",
         "recentGames": [
+          {
+            "matchId": 8896946887,
+            "startedAt": "2026-07-14T20:31:09Z",
+            "heroName": "Slardar",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
+            "result": "WIN",
+            "durationLabel": "35:19",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 22,
+            "deaths": 5,
+            "assists": 14,
+            "impactScore": 70.9,
+            "mmrChange": 46,
+            "mmrAfter": 3136
+          },
+          {
+            "matchId": 8896574312,
+            "startedAt": "2026-07-14T15:45:50Z",
+            "heroName": "Brewmaster",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/brewmaster.png",
+            "result": "LOSS",
+            "durationLabel": "63:31",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 12,
+            "deaths": 18,
+            "assists": 31,
+            "impactScore": 41.5,
+            "mmrChange": -22,
+            "mmrAfter": 3090
+          },
+          {
+            "matchId": 8896480184,
+            "startedAt": "2026-07-14T14:47:30Z",
+            "heroName": "Axe",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/axe.png",
+            "result": "WIN",
+            "durationLabel": "34:46",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 14,
+            "deaths": 7,
+            "assists": 15,
+            "impactScore": 62.4,
+            "mmrChange": 38,
+            "mmrAfter": 3112
+          },
+          {
+            "matchId": 8896404615,
+            "startedAt": "2026-07-14T14:01:24Z",
+            "heroName": "Slardar",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/slardar.png",
+            "result": "WIN",
+            "durationLabel": "29:09",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 7,
+            "deaths": 6,
+            "assists": 20,
+            "impactScore": 55.5,
+            "mmrChange": 33,
+            "mmrAfter": 3074
+          },
           {
             "matchId": 8888755355,
             "startedAt": "2026-07-09T18:34:13Z",
@@ -2784,6 +2920,38 @@
         ],
         "activityFeed": [
           {
+            "type": "highlight",
+            "severity": "high",
+            "accountId": 244200929,
+            "player": "КирюхаПодПлюхой",
+            "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+            "matchId": 8896946887,
+            "message": "КирюхаПодПлюхой dropped 22 kills on Slardar",
+            "icon": "crown",
+            "createdAt": "2026-07-14T20:31:09Z",
+            "stats": {
+              "kills": 22,
+              "deaths": 5,
+              "assists": 14
+            }
+          },
+          {
+            "type": "lowlight",
+            "severity": "high",
+            "accountId": 244200929,
+            "player": "КирюхаПодПлюхой",
+            "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+            "matchId": 8896574312,
+            "message": "КирюхаПодПлюхой died 18 times and still called it space creation",
+            "icon": "skull",
+            "createdAt": "2026-07-14T15:45:50Z",
+            "stats": {
+              "kills": 12,
+              "deaths": 18,
+              "assists": 31
+            }
+          },
+          {
             "type": "lowlight",
             "severity": "medium",
             "accountId": 244200929,
@@ -2840,15 +3008,15 @@
       "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
       "rankTier": 62,
       "leaderboardRank": null,
-      "computedMmr": 3465,
-      "matches": 14,
-      "wins": 11,
-      "losses": 3,
-      "winRate": 78.6,
-      "kills": 223,
-      "deaths": 81,
-      "assists": 201,
-      "kda": 5.23,
+      "computedMmr": 3609,
+      "matches": 18,
+      "wins": 14,
+      "losses": 4,
+      "winRate": 77.8,
+      "kills": 298,
+      "deaths": 104,
+      "assists": 283,
+      "kda": 5.59,
       "medal": {
         "medal": 6,
         "stars": 2,
@@ -2856,7 +3024,7 @@
       },
       "roleOverride": null,
       "card": {
-        "overall": 88,
+        "overall": 89,
         "position": "OFF",
         "rows": [
           {
@@ -2865,46 +3033,46 @@
           },
           {
             "label": "FRM",
-            "value": 93
+            "value": 94
           },
           {
             "label": "FGT",
-            "value": 93
+            "value": 95
           },
           {
             "label": "SUR",
-            "value": 83
+            "value": 84
           },
           {
             "label": "OBJ",
-            "value": 93
+            "value": 92
           },
           {
             "label": "UTL",
-            "value": 71
+            "value": 77
           }
         ],
         "source": {
-          "games": 14,
+          "games": 18,
           "mode": "mixed",
           "benchmarkMedal": 6,
           "benchmarkRole": "OFF",
-          "winrate": 78.6,
-          "recentWinrate": 80.0,
-          "avgKills": 15.9,
+          "winrate": 77.8,
+          "recentWinrate": 70.0,
+          "avgKills": 16.6,
           "avgDeaths": 5.8,
-          "avgAssists": 14.4,
-          "avgGpm": 681.8,
-          "avgXpm": 909.8,
-          "avgHeroDamage": 43578,
-          "avgTowerDamage": 5866,
-          "avgHealing": 659,
-          "avgLastHits": 285.1,
+          "avgAssists": 15.7,
+          "avgGpm": 700.5,
+          "avgXpm": 915.3,
+          "avgHeroDamage": 45445,
+          "avgTowerDamage": 5869,
+          "avgHealing": 1469,
+          "avgLastHits": 304.3,
           "roleWeights": "OFF",
           "modeBreakdown": [
             {
               "mode": "normal",
-              "games": 13
+              "games": 17
             },
             {
               "mode": "turbo",
@@ -2970,9 +3138,9 @@
       "seasonMmr": {
         "startedAt": "2026-07-01T00:00:00Z",
         "startMmr": 3000,
-        "currentMmr": 3465,
-        "change": 465,
-        "ratedMatches": 13,
+        "currentMmr": 3609,
+        "change": 609,
+        "ratedMatches": 17,
         "history": [
           {
             "matchId": 8884490081,
@@ -3207,12 +3375,148 @@
             },
             "change": 60,
             "mmrAfter": 3465
+          },
+          {
+            "matchId": 8896398105,
+            "startedAt": "2026-07-14T13:57:29Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 76.9,
+            "impactFactor": 0.72,
+            "impactAxes": {
+              "IMP": 71.1,
+              "FRM": 75.0,
+              "FGT": 80.6,
+              "SUR": 77.8,
+              "OBJ": 77.8,
+              "UTL": 82.4
+            },
+            "change": 52,
+            "mmrAfter": 3517
+          },
+          {
+            "matchId": 8896480184,
+            "startedAt": "2026-07-14T14:47:30Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 89.9,
+            "impactFactor": 1.0,
+            "impactAxes": {
+              "IMP": 82.2,
+              "FRM": 100.0,
+              "FGT": 93.3,
+              "SUR": 93.3,
+              "OBJ": 100.0,
+              "UTL": 70.4
+            },
+            "change": 60,
+            "mmrAfter": 3577
+          },
+          {
+            "matchId": 8896574312,
+            "startedAt": "2026-07-14T15:45:50Z",
+            "mode": "ranked",
+            "result": "LOSS",
+            "impactScore": 80.9,
+            "impactFactor": 0.856,
+            "impactAxes": {
+              "IMP": 100.0,
+              "FRM": 88.3,
+              "FGT": 90.0,
+              "SUR": 96.7,
+              "OBJ": 11.1,
+              "UTL": 80.6
+            },
+            "change": -11,
+            "mmrAfter": 3566
+          },
+          {
+            "matchId": 8896946887,
+            "startedAt": "2026-07-14T20:31:09Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 67.6,
+            "impactFactor": 0.423,
+            "impactAxes": {
+              "IMP": 40.0,
+              "FRM": 97.2,
+              "FGT": 70.0,
+              "SUR": 84.4,
+              "OBJ": 100.0,
+              "UTL": 20.4
+            },
+            "change": 43,
+            "mmrAfter": 3609
           }
         ]
       },
       "profile": {
         "firstMatchAt": "2026-07-06T18:16:22Z",
         "recentGames": [
+          {
+            "matchId": 8896946887,
+            "startedAt": "2026-07-14T20:31:09Z",
+            "heroName": "Shadow Fiend",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/nevermore.png",
+            "result": "WIN",
+            "durationLabel": "35:19",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 18,
+            "deaths": 4,
+            "assists": 7,
+            "impactScore": 67.6,
+            "mmrChange": 43,
+            "mmrAfter": 3609
+          },
+          {
+            "matchId": 8896574312,
+            "startedAt": "2026-07-14T15:45:50Z",
+            "heroName": "Tinker",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/tinker.png",
+            "result": "LOSS",
+            "durationLabel": "63:31",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 30,
+            "deaths": 11,
+            "assists": 33,
+            "impactScore": 80.9,
+            "mmrChange": -11,
+            "mmrAfter": 3566
+          },
+          {
+            "matchId": 8896480184,
+            "startedAt": "2026-07-14T14:47:30Z",
+            "heroName": "Sniper",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+            "result": "WIN",
+            "durationLabel": "34:46",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 19,
+            "deaths": 4,
+            "assists": 19,
+            "impactScore": 89.9,
+            "mmrChange": 60,
+            "mmrAfter": 3577
+          },
+          {
+            "matchId": 8896398105,
+            "startedAt": "2026-07-14T13:57:29Z",
+            "heroName": "Snapfire",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/snapfire.png",
+            "result": "WIN",
+            "durationLabel": "29:16",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 8,
+            "deaths": 4,
+            "assists": 23,
+            "impactScore": 76.9,
+            "mmrChange": 52,
+            "mmrAfter": 3517
+          },
           {
             "matchId": 8895326808,
             "startedAt": "2026-07-13T19:36:23Z",
@@ -3445,6 +3749,54 @@
             "accountId": 785591295,
             "player": "⁶⁷маленький⁶⁷",
             "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+            "matchId": 8896946887,
+            "message": "⁶⁷маленький⁶⁷ dropped 18 kills on Shadow Fiend",
+            "icon": "crown",
+            "createdAt": "2026-07-14T20:31:09Z",
+            "stats": {
+              "kills": 18,
+              "deaths": 4,
+              "assists": 7
+            }
+          },
+          {
+            "type": "lowlight",
+            "severity": "high",
+            "accountId": 785591295,
+            "player": "⁶⁷маленький⁶⁷",
+            "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+            "matchId": 8896574312,
+            "message": "⁶⁷маленький⁶⁷ died 11 times and still called it space creation",
+            "icon": "skull",
+            "createdAt": "2026-07-14T15:45:50Z",
+            "stats": {
+              "kills": 30,
+              "deaths": 11,
+              "assists": 33
+            }
+          },
+          {
+            "type": "highlight",
+            "severity": "high",
+            "accountId": 785591295,
+            "player": "⁶⁷маленький⁶⁷",
+            "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+            "matchId": 8896480184,
+            "message": "⁶⁷маленький⁶⁷ dropped 19 kills on Sniper",
+            "icon": "crown",
+            "createdAt": "2026-07-14T14:47:30Z",
+            "stats": {
+              "kills": 19,
+              "deaths": 4,
+              "assists": 19
+            }
+          },
+          {
+            "type": "highlight",
+            "severity": "high",
+            "accountId": 785591295,
+            "player": "⁶⁷маленький⁶⁷",
+            "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
             "matchId": 8895326808,
             "message": "⁶⁷маленький⁶⁷ dropped 25 kills on Drow Ranger",
             "icon": "crown",
@@ -3518,54 +3870,6 @@
               "deaths": 5,
               "assists": 19
             }
-          },
-          {
-            "type": "highlight",
-            "severity": "medium",
-            "accountId": 785591295,
-            "player": "⁶⁷маленький⁶⁷",
-            "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-            "matchId": 8893507212,
-            "message": "⁶⁷маленький⁶⁷ dropped 15 kills on Windranger",
-            "icon": "crown",
-            "createdAt": "2026-07-12T15:57:10Z",
-            "stats": {
-              "kills": 15,
-              "deaths": 2,
-              "assists": 10
-            }
-          },
-          {
-            "type": "highlight",
-            "severity": "high",
-            "accountId": 785591295,
-            "player": "⁶⁷маленький⁶⁷",
-            "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-            "matchId": 8887358424,
-            "message": "⁶⁷маленький⁶⁷ dropped 18 kills on Tiny",
-            "icon": "crown",
-            "createdAt": "2026-07-08T18:54:09Z",
-            "stats": {
-              "kills": 18,
-              "deaths": 3,
-              "assists": 15
-            }
-          },
-          {
-            "type": "lowlight",
-            "severity": "high",
-            "accountId": 785591295,
-            "player": "⁶⁷маленький⁶⁷",
-            "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-            "matchId": 8886131605,
-            "message": "⁶⁷маленький⁶⁷ died 14 times and still called it space creation",
-            "icon": "skull",
-            "createdAt": "2026-07-07T21:28:23Z",
-            "stats": {
-              "kills": 5,
-              "deaths": 14,
-              "assists": 8
-            }
           }
         ]
       }
@@ -3576,15 +3880,15 @@
       "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
       "rankTier": 52,
       "leaderboardRank": null,
-      "computedMmr": 3348,
-      "matches": 48,
-      "wins": 29,
-      "losses": 19,
-      "winRate": 60.4,
-      "kills": 357,
-      "deaths": 357,
-      "assists": 822,
-      "kda": 3.3,
+      "computedMmr": 3450,
+      "matches": 55,
+      "wins": 33,
+      "losses": 22,
+      "winRate": 60.0,
+      "kills": 428,
+      "deaths": 428,
+      "assists": 974,
+      "kda": 3.28,
       "medal": {
         "medal": 5,
         "stars": 2,
@@ -3592,32 +3896,32 @@
       },
       "roleOverride": null,
       "card": {
-        "overall": 74,
+        "overall": 71,
         "position": "SUP",
         "rows": [
           {
             "label": "IMP",
-            "value": 83
+            "value": 78
           },
           {
             "label": "FRM",
-            "value": 72
+            "value": 71
           },
           {
             "label": "FGT",
-            "value": 74
+            "value": 77
           },
           {
             "label": "SUR",
-            "value": 74
+            "value": 65
           },
           {
             "label": "OBJ",
-            "value": 68
+            "value": 63
           },
           {
             "label": "UTL",
-            "value": 71
+            "value": 70
           }
         ],
         "source": {
@@ -3625,26 +3929,26 @@
           "mode": "mixed",
           "benchmarkMedal": 5,
           "benchmarkRole": "SUP",
-          "winrate": 70.0,
-          "recentWinrate": 50.0,
-          "avgKills": 7.2,
-          "avgDeaths": 7.4,
-          "avgAssists": 18.6,
-          "avgGpm": 486.1,
-          "avgXpm": 639.0,
-          "avgHeroDamage": 18927,
-          "avgTowerDamage": 2661,
-          "avgHealing": 272,
-          "avgLastHits": 72.2,
+          "winrate": 55.0,
+          "recentWinrate": 40.0,
+          "avgKills": 8.0,
+          "avgDeaths": 9.2,
+          "avgAssists": 18.9,
+          "avgGpm": 457.9,
+          "avgXpm": 635.1,
+          "avgHeroDamage": 20851,
+          "avgTowerDamage": 1692,
+          "avgHealing": 117,
+          "avgLastHits": 75.1,
           "roleWeights": "SUP",
           "modeBreakdown": [
             {
               "mode": "turbo",
-              "games": 9
+              "games": 7
             },
             {
               "mode": "normal",
-              "games": 11
+              "games": 13
             }
           ]
         }
@@ -3706,9 +4010,9 @@
       "seasonMmr": {
         "startedAt": "2026-07-01T00:00:00Z",
         "startMmr": 3000,
-        "currentMmr": 3348,
-        "change": 348,
-        "ratedMatches": 43,
+        "currentMmr": 3450,
+        "change": 450,
+        "ratedMatches": 50,
         "history": [
           {
             "matchId": 8879248614,
@@ -4483,12 +4787,250 @@
             },
             "change": -15,
             "mmrAfter": 3348
+          },
+          {
+            "matchId": 8896343642,
+            "startedAt": "2026-07-14T13:24:00Z",
+            "mode": "turbo",
+            "result": "LOSS",
+            "impactScore": 53.9,
+            "impactFactor": 0.064,
+            "impactAxes": {
+              "IMP": 90.0,
+              "FRM": 48.3,
+              "FGT": 59.4,
+              "SUR": 33.3,
+              "OBJ": 44.4,
+              "UTL": 38.9
+            },
+            "change": -13,
+            "mmrAfter": 3335
+          },
+          {
+            "matchId": 8896398105,
+            "startedAt": "2026-07-14T13:57:29Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 69.5,
+            "impactFactor": 0.481,
+            "impactAxes": {
+              "IMP": 62.2,
+              "FRM": 52.8,
+              "FGT": 60.6,
+              "SUR": 60.0,
+              "OBJ": 44.4,
+              "UTL": 90.7
+            },
+            "change": 44,
+            "mmrAfter": 3379
+          },
+          {
+            "matchId": 8896480184,
+            "startedAt": "2026-07-14T14:47:30Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 75.2,
+            "impactFactor": 0.663,
+            "impactAxes": {
+              "IMP": 86.7,
+              "FRM": 46.1,
+              "FGT": 91.1,
+              "SUR": 64.4,
+              "OBJ": 55.6,
+              "UTL": 76.9
+            },
+            "change": 50,
+            "mmrAfter": 3429
+          },
+          {
+            "matchId": 8896574312,
+            "startedAt": "2026-07-14T15:45:50Z",
+            "mode": "ranked",
+            "result": "LOSS",
+            "impactScore": 54.4,
+            "impactFactor": 0.075,
+            "impactAxes": {
+              "IMP": 53.3,
+              "FRM": 30.6,
+              "FGT": 45.6,
+              "SUR": 24.4,
+              "OBJ": 33.3,
+              "UTL": 80.1
+            },
+            "change": -19,
+            "mmrAfter": 3410
+          },
+          {
+            "matchId": 8896946887,
+            "startedAt": "2026-07-14T20:31:09Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 63.4,
+            "impactFactor": 0.301,
+            "impactAxes": {
+              "IMP": 37.8,
+              "FRM": 42.2,
+              "FGT": 48.9,
+              "SUR": 53.3,
+              "OBJ": 55.6,
+              "UTL": 95.4
+            },
+            "change": 39,
+            "mmrAfter": 3449
+          },
+          {
+            "matchId": 8897479971,
+            "startedAt": "2026-07-15T09:05:25Z",
+            "mode": "turbo",
+            "result": "LOSS",
+            "impactScore": 57.5,
+            "impactFactor": 0.146,
+            "impactAxes": {
+              "IMP": 84.4,
+              "FRM": 31.1,
+              "FGT": 67.8,
+              "SUR": 37.8,
+              "OBJ": 0.0,
+              "UTL": 63.9
+            },
+            "change": -12,
+            "mmrAfter": 3437
+          },
+          {
+            "matchId": 8897564114,
+            "startedAt": "2026-07-15T10:34:15Z",
+            "mode": "turbo",
+            "result": "WIN",
+            "impactScore": 53.5,
+            "impactFactor": 0.056,
+            "impactAxes": {
+              "IMP": 81.1,
+              "FRM": 45.6,
+              "FGT": 74.4,
+              "SUR": 13.3,
+              "OBJ": 44.4,
+              "UTL": 48.6
+            },
+            "change": 13,
+            "mmrAfter": 3450
           }
         ]
       },
       "profile": {
         "firstMatchAt": "2026-07-03T14:55:24Z",
         "recentGames": [
+          {
+            "matchId": 8897564114,
+            "startedAt": "2026-07-15T10:34:15Z",
+            "heroName": "Gyrocopter",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/gyrocopter.png",
+            "result": "WIN",
+            "durationLabel": "23:18",
+            "modeName": "Turbo",
+            "lobbyTypeName": "Normal",
+            "kills": 11,
+            "deaths": 9,
+            "assists": 12,
+            "impactScore": 53.5,
+            "mmrChange": 13,
+            "mmrAfter": 3450
+          },
+          {
+            "matchId": 8897479971,
+            "startedAt": "2026-07-15T09:05:25Z",
+            "heroName": "Spirit Breaker",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/spirit_breaker.png",
+            "result": "LOSS",
+            "durationLabel": "29:07",
+            "modeName": "Turbo",
+            "lobbyTypeName": "Normal",
+            "kills": 6,
+            "deaths": 8,
+            "assists": 14,
+            "impactScore": 57.5,
+            "mmrChange": -12,
+            "mmrAfter": 3437
+          },
+          {
+            "matchId": 8896946887,
+            "startedAt": "2026-07-14T20:31:09Z",
+            "heroName": "Bounty Hunter",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+            "result": "WIN",
+            "durationLabel": "35:19",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 6,
+            "deaths": 11,
+            "assists": 25,
+            "impactScore": 63.4,
+            "mmrChange": 39,
+            "mmrAfter": 3449
+          },
+          {
+            "matchId": 8896574312,
+            "startedAt": "2026-07-14T15:45:50Z",
+            "heroName": "Jakiro",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
+            "result": "LOSS",
+            "durationLabel": "63:31",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 14,
+            "deaths": 21,
+            "assists": 38,
+            "impactScore": 54.4,
+            "mmrChange": -19,
+            "mmrAfter": 3410
+          },
+          {
+            "matchId": 8896480184,
+            "startedAt": "2026-07-14T14:47:30Z",
+            "heroName": "Rubick",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/rubick.png",
+            "result": "WIN",
+            "durationLabel": "34:46",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 20,
+            "deaths": 8,
+            "assists": 25,
+            "impactScore": 75.2,
+            "mmrChange": 50,
+            "mmrAfter": 3429
+          },
+          {
+            "matchId": 8896398105,
+            "startedAt": "2026-07-14T13:57:29Z",
+            "heroName": "Bounty Hunter",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+            "result": "WIN",
+            "durationLabel": "29:16",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 8,
+            "deaths": 6,
+            "assists": 30,
+            "impactScore": 69.5,
+            "mmrChange": 44,
+            "mmrAfter": 3379
+          },
+          {
+            "matchId": 8896343642,
+            "startedAt": "2026-07-14T13:24:00Z",
+            "heroName": "Sniper",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+            "result": "LOSS",
+            "durationLabel": "27:52",
+            "modeName": "Turbo",
+            "lobbyTypeName": "Normal",
+            "kills": 6,
+            "deaths": 8,
+            "assists": 8,
+            "impactScore": 53.9,
+            "mmrChange": -13,
+            "mmrAfter": 3335
+          },
           {
             "matchId": 8895545984,
             "startedAt": "2026-07-13T23:08:17Z",
@@ -4696,121 +5238,73 @@
             "impactScore": null,
             "mmrChange": 0,
             "mmrAfter": null
-          },
-          {
-            "matchId": 8890611178,
-            "startedAt": "2026-07-10T23:02:11Z",
-            "heroName": "Bounty Hunter",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
-            "result": "WIN",
-            "durationLabel": "39:30",
-            "modeName": "All Draft",
-            "lobbyTypeName": "Ranked",
-            "kills": 8,
-            "deaths": 5,
-            "assists": 38,
-            "impactScore": 80.4,
-            "mmrChange": 55,
-            "mmrAfter": 3301
-          },
-          {
-            "matchId": 8890578018,
-            "startedAt": "2026-07-10T22:24:16Z",
-            "heroName": "Bounty Hunter",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
-            "result": "WIN",
-            "durationLabel": "32:47",
-            "modeName": "All Draft",
-            "lobbyTypeName": "Ranked",
-            "kills": 12,
-            "deaths": 9,
-            "assists": 32,
-            "impactScore": 72.5,
-            "mmrChange": 47,
-            "mmrAfter": 3246
-          },
-          {
-            "matchId": 8890049738,
-            "startedAt": "2026-07-10T15:53:05Z",
-            "heroName": "Disruptor",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/disruptor.png",
-            "result": "WIN",
-            "durationLabel": "19:01",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 3,
-            "deaths": 5,
-            "assists": 19,
-            "impactScore": 65.7,
-            "mmrChange": 16,
-            "mmrAfter": 3199
-          },
-          {
-            "matchId": 8890020940,
-            "startedAt": "2026-07-10T15:35:52Z",
-            "heroName": "Jakiro",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
-            "result": "WIN",
-            "durationLabel": "12:56",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 10,
-            "deaths": 3,
-            "assists": 12,
-            "impactScore": 68.9,
-            "mmrChange": 16,
-            "mmrAfter": 3183
-          },
-          {
-            "matchId": 8889788745,
-            "startedAt": "2026-07-10T13:24:30Z",
-            "heroName": "Kunkka",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/kunkka.png",
-            "result": "WIN",
-            "durationLabel": "20:32",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 2,
-            "deaths": 1,
-            "assists": 9,
-            "impactScore": 45.2,
-            "mmrChange": 12,
-            "mmrAfter": 3167
-          },
-          {
-            "matchId": 8889636122,
-            "startedAt": "2026-07-10T11:42:51Z",
-            "heroName": "Omniknight",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/omniknight.png",
-            "result": "WIN",
-            "durationLabel": "33:52",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 8,
-            "deaths": 8,
-            "assists": 28,
-            "impactScore": 73.2,
-            "mmrChange": 17,
-            "mmrAfter": 3155
-          },
-          {
-            "matchId": 8889601188,
-            "startedAt": "2026-07-10T11:15:35Z",
-            "heroName": "Jakiro",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/jakiro.png",
-            "result": "WIN",
-            "durationLabel": "16:50",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 13,
-            "deaths": 5,
-            "assists": 8,
-            "impactScore": 72.2,
-            "mmrChange": 17,
-            "mmrAfter": 3138
           }
         ],
         "activityFeed": [
+          {
+            "type": "lowlight",
+            "severity": "medium",
+            "accountId": 818003286,
+            "player": "markwood1976",
+            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+            "matchId": 8896946887,
+            "message": "markwood1976 died 11 times and still called it space creation",
+            "icon": "skull",
+            "createdAt": "2026-07-14T20:31:09Z",
+            "stats": {
+              "kills": 6,
+              "deaths": 11,
+              "assists": 25
+            }
+          },
+          {
+            "type": "lowlight",
+            "severity": "high",
+            "accountId": 818003286,
+            "player": "markwood1976",
+            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+            "matchId": 8896574312,
+            "message": "markwood1976 died 21 times and still called it space creation",
+            "icon": "skull",
+            "createdAt": "2026-07-14T15:45:50Z",
+            "stats": {
+              "kills": 14,
+              "deaths": 21,
+              "assists": 38
+            }
+          },
+          {
+            "type": "highlight",
+            "severity": "high",
+            "accountId": 818003286,
+            "player": "markwood1976",
+            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+            "matchId": 8896480184,
+            "message": "markwood1976 dropped 20 kills on Rubick",
+            "icon": "crown",
+            "createdAt": "2026-07-14T14:47:30Z",
+            "stats": {
+              "kills": 20,
+              "deaths": 8,
+              "assists": 25
+            }
+          },
+          {
+            "type": "support",
+            "severity": "medium",
+            "accountId": 818003286,
+            "player": "markwood1976",
+            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+            "matchId": 8896398105,
+            "message": "markwood1976 farmed 30 assists and pretended it was charity",
+            "icon": "eye",
+            "createdAt": "2026-07-14T13:57:29Z",
+            "stats": {
+              "kills": 8,
+              "deaths": 6,
+              "assists": 30
+            }
+          },
           {
             "type": "lowlight",
             "severity": "medium",
@@ -4874,70 +5368,6 @@
               "deaths": 15,
               "assists": 13
             }
-          },
-          {
-            "type": "support",
-            "severity": "medium",
-            "accountId": 818003286,
-            "player": "markwood1976",
-            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-            "matchId": 8893690871,
-            "message": "markwood1976 farmed 32 assists and pretended it was charity",
-            "icon": "eye",
-            "createdAt": "2026-07-12T17:55:28Z",
-            "stats": {
-              "kills": 6,
-              "deaths": 5,
-              "assists": 32
-            }
-          },
-          {
-            "type": "support",
-            "severity": "medium",
-            "accountId": 818003286,
-            "player": "markwood1976",
-            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-            "matchId": 8893601517,
-            "message": "markwood1976 farmed 37 assists and pretended it was charity",
-            "icon": "eye",
-            "createdAt": "2026-07-12T16:55:48Z",
-            "stats": {
-              "kills": 7,
-              "deaths": 7,
-              "assists": 37
-            }
-          },
-          {
-            "type": "highlight",
-            "severity": "medium",
-            "accountId": 818003286,
-            "player": "markwood1976",
-            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-            "matchId": 8893507212,
-            "message": "markwood1976 dropped 15 kills on Jakiro",
-            "icon": "crown",
-            "createdAt": "2026-07-12T15:57:10Z",
-            "stats": {
-              "kills": 15,
-              "deaths": 6,
-              "assists": 15
-            }
-          },
-          {
-            "type": "support",
-            "severity": "medium",
-            "accountId": 818003286,
-            "player": "markwood1976",
-            "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-            "matchId": 8890660115,
-            "message": "markwood1976 farmed 34 assists and pretended it was charity",
-            "icon": "eye",
-            "createdAt": "2026-07-11T00:07:16Z",
-            "stats": {
-              "kills": 7,
-              "deaths": 7,
-              "assists": 34
-            }
           }
         ]
       }
@@ -4948,15 +5378,15 @@
       "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
       "rankTier": 45,
       "leaderboardRank": null,
-      "computedMmr": 3278,
-      "matches": 17,
-      "wins": 10,
+      "computedMmr": 3382,
+      "matches": 19,
+      "wins": 12,
       "losses": 7,
-      "winRate": 58.8,
-      "kills": 239,
-      "deaths": 96,
-      "assists": 201,
-      "kda": 4.58,
+      "winRate": 63.2,
+      "kills": 262,
+      "deaths": 100,
+      "assists": 222,
+      "kda": 4.84,
       "medal": {
         "medal": 4,
         "stars": 5,
@@ -4969,7 +5399,7 @@
         "rows": [
           {
             "label": "IMP",
-            "value": 86
+            "value": 87
           },
           {
             "label": "FRM",
@@ -4977,11 +5407,11 @@
           },
           {
             "label": "FGT",
-            "value": 92
+            "value": 91
           },
           {
             "label": "SUR",
-            "value": 79
+            "value": 80
           },
           {
             "label": "OBJ",
@@ -4989,30 +5419,30 @@
           },
           {
             "label": "UTL",
-            "value": 77
+            "value": 78
           }
         ],
         "source": {
-          "games": 17,
+          "games": 19,
           "mode": "normal",
           "benchmarkMedal": 4,
           "benchmarkRole": "CRY",
-          "winrate": 58.8,
-          "recentWinrate": 70.0,
-          "avgKills": 14.1,
-          "avgDeaths": 5.6,
-          "avgAssists": 11.8,
-          "avgGpm": 652.6,
-          "avgXpm": 897.2,
-          "avgHeroDamage": 32149,
-          "avgTowerDamage": 7757,
-          "avgHealing": 741,
-          "avgLastHits": 278.4,
+          "winrate": 63.2,
+          "recentWinrate": 80.0,
+          "avgKills": 13.8,
+          "avgDeaths": 5.3,
+          "avgAssists": 11.7,
+          "avgGpm": 649.8,
+          "avgXpm": 873.9,
+          "avgHeroDamage": 31197,
+          "avgTowerDamage": 8198,
+          "avgHealing": 929,
+          "avgLastHits": 269.2,
           "roleWeights": "CRY",
           "modeBreakdown": [
             {
               "mode": "normal",
-              "games": 17
+              "games": 19
             }
           ]
         }
@@ -5074,9 +5504,9 @@
       "seasonMmr": {
         "startedAt": "2026-07-01T00:00:00Z",
         "startMmr": 3000,
-        "currentMmr": 3278,
-        "change": 278,
-        "ratedMatches": 12,
+        "currentMmr": 3382,
+        "change": 382,
+        "ratedMatches": 14,
         "history": [
           {
             "matchId": 8878218202,
@@ -5293,12 +5723,80 @@
             },
             "change": 38,
             "mmrAfter": 3278
+          },
+          {
+            "matchId": 8896085384,
+            "startedAt": "2026-07-14T10:03:28Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 69.0,
+            "impactFactor": 0.466,
+            "impactAxes": {
+              "IMP": 45.6,
+              "FRM": 68.3,
+              "FGT": 55.0,
+              "SUR": 100.0,
+              "OBJ": 88.9,
+              "UTL": 43.5
+            },
+            "change": 44,
+            "mmrAfter": 3322
+          },
+          {
+            "matchId": 8896119115,
+            "startedAt": "2026-07-14T10:36:13Z",
+            "mode": "ranked",
+            "result": "WIN",
+            "impactScore": 95.2,
+            "impactFactor": 1.0,
+            "impactAxes": {
+              "IMP": 90.0,
+              "FRM": 100.0,
+              "FGT": 90.0,
+              "SUR": 94.4,
+              "OBJ": 100.0,
+              "UTL": 71.3
+            },
+            "change": 60,
+            "mmrAfter": 3382
           }
         ]
       },
       "profile": {
         "firstMatchAt": "2026-07-02T20:55:25Z",
         "recentGames": [
+          {
+            "matchId": 8896119115,
+            "startedAt": "2026-07-14T10:36:13Z",
+            "heroName": "Dawnbreaker",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/dawnbreaker.png",
+            "result": "WIN",
+            "durationLabel": "32:26",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 17,
+            "deaths": 3,
+            "assists": 19,
+            "impactScore": 95.2,
+            "mmrChange": 60,
+            "mmrAfter": 3382
+          },
+          {
+            "matchId": 8896085384,
+            "startedAt": "2026-07-14T10:03:28Z",
+            "heroName": "Lycan",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/lycan.png",
+            "result": "WIN",
+            "durationLabel": "27:45",
+            "modeName": "All Draft",
+            "lobbyTypeName": "Ranked",
+            "kills": 6,
+            "deaths": 1,
+            "assists": 2,
+            "impactScore": 69.0,
+            "mmrChange": 44,
+            "mmrAfter": 3322
+          },
           {
             "matchId": 8894649019,
             "startedAt": "2026-07-13T11:50:22Z",
@@ -5574,6 +6072,22 @@
         ],
         "activityFeed": [
           {
+            "type": "highlight",
+            "severity": "medium",
+            "accountId": 826136695,
+            "player": "ЗАГЛОТЫШ",
+            "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+            "matchId": 8896119115,
+            "message": "ЗАГЛОТЫШ dropped 17 kills on Dawnbreaker",
+            "icon": "crown",
+            "createdAt": "2026-07-14T10:36:13Z",
+            "stats": {
+              "kills": 17,
+              "deaths": 3,
+              "assists": 19
+            }
+          },
+          {
             "type": "lowlight",
             "severity": "medium",
             "accountId": 826136695,
@@ -5683,22 +6197,6 @@
               "kills": 12,
               "deaths": 10,
               "assists": 12
-            }
-          },
-          {
-            "type": "highlight",
-            "severity": "high",
-            "accountId": 826136695,
-            "player": "ЗАГЛОТЫШ",
-            "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-            "matchId": 8883227635,
-            "message": "ЗАГЛОТЫШ dropped 19 kills on Clinkz",
-            "icon": "crown",
-            "createdAt": "2026-07-05T21:02:33Z",
-            "stats": {
-              "kills": 19,
-              "deaths": 1,
-              "assists": 13
             }
           }
         ]
@@ -6580,15 +7078,15 @@
       "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
       "rankTier": 52,
       "leaderboardRank": null,
-      "computedMmr": 3235,
-      "matches": 41,
-      "wins": 25,
-      "losses": 16,
-      "winRate": 61.0,
-      "kills": 380,
-      "deaths": 305,
-      "assists": 391,
-      "kda": 2.53,
+      "computedMmr": 3234,
+      "matches": 43,
+      "wins": 26,
+      "losses": 17,
+      "winRate": 60.5,
+      "kills": 393,
+      "deaths": 323,
+      "assists": 398,
+      "kda": 2.45,
       "medal": {
         "medal": 5,
         "stars": 2,
@@ -6596,12 +7094,12 @@
       },
       "roleOverride": null,
       "card": {
-        "overall": 73,
+        "overall": 72,
         "position": "MID",
         "rows": [
           {
             "label": "IMP",
-            "value": 75
+            "value": 73
           },
           {
             "label": "FRM",
@@ -6609,19 +7107,19 @@
           },
           {
             "label": "FGT",
-            "value": 69
+            "value": 68
           },
           {
             "label": "SUR",
-            "value": 69
+            "value": 67
           },
           {
             "label": "OBJ",
-            "value": 65
+            "value": 64
           },
           {
             "label": "UTL",
-            "value": 70
+            "value": 69
           }
         ],
         "source": {
@@ -6630,16 +7128,16 @@
           "benchmarkMedal": 5,
           "benchmarkRole": "MID",
           "winrate": 65.0,
-          "recentWinrate": 60.0,
-          "avgKills": 8.8,
-          "avgDeaths": 6.7,
-          "avgAssists": 10.1,
-          "avgGpm": 566.6,
-          "avgXpm": 770.8,
-          "avgHeroDamage": 26687,
-          "avgTowerDamage": 3819,
+          "recentWinrate": 50.0,
+          "avgKills": 8.4,
+          "avgDeaths": 6.8,
+          "avgAssists": 9.4,
+          "avgGpm": 569.1,
+          "avgXpm": 781.4,
+          "avgHeroDamage": 24853,
+          "avgTowerDamage": 3688,
           "avgHealing": 503,
-          "avgLastHits": 147.8,
+          "avgLastHits": 143.9,
           "roleWeights": "MID",
           "modeBreakdown": [
             {
@@ -6710,9 +7208,9 @@
       "seasonMmr": {
         "startedAt": "2026-07-01T00:00:00Z",
         "startMmr": 3000,
-        "currentMmr": 3235,
-        "change": 235,
-        "ratedMatches": 40,
+        "currentMmr": 3234,
+        "change": 234,
+        "ratedMatches": 42,
         "history": [
           {
             "matchId": 8880546401,
@@ -7433,12 +7931,80 @@
             },
             "change": 9,
             "mmrAfter": 3235
+          },
+          {
+            "matchId": 8896825369,
+            "startedAt": "2026-07-14T18:44:16Z",
+            "mode": "turbo",
+            "result": "WIN",
+            "impactScore": 60.1,
+            "impactFactor": 0.212,
+            "impactAxes": {
+              "IMP": 42.2,
+              "FRM": 97.2,
+              "FGT": 62.2,
+              "SUR": 50.0,
+              "OBJ": 88.9,
+              "UTL": 16.2
+            },
+            "change": 14,
+            "mmrAfter": 3249
+          },
+          {
+            "matchId": 8896886041,
+            "startedAt": "2026-07-14T19:35:39Z",
+            "mode": "turbo",
+            "result": "LOSS",
+            "impactScore": 35.7,
+            "impactFactor": -0.327,
+            "impactAxes": {
+              "IMP": 68.9,
+              "FRM": 12.8,
+              "FGT": 43.9,
+              "SUR": 4.4,
+              "OBJ": 16.7,
+              "UTL": 30.1
+            },
+            "change": -15,
+            "mmrAfter": 3234
           }
         ]
       },
       "profile": {
         "firstMatchAt": "2026-07-04T11:01:40Z",
         "recentGames": [
+          {
+            "matchId": 8896886041,
+            "startedAt": "2026-07-14T19:35:39Z",
+            "heroName": "Bounty Hunter",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/bounty_hunter.png",
+            "result": "LOSS",
+            "durationLabel": "17:25",
+            "modeName": "Turbo",
+            "lobbyTypeName": "Normal",
+            "kills": 4,
+            "deaths": 13,
+            "assists": 4,
+            "impactScore": 35.7,
+            "mmrChange": -15,
+            "mmrAfter": 3234
+          },
+          {
+            "matchId": 8896825369,
+            "startedAt": "2026-07-14T18:44:16Z",
+            "heroName": "Sniper",
+            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/sniper.png",
+            "result": "WIN",
+            "durationLabel": "20:08",
+            "modeName": "Turbo",
+            "lobbyTypeName": "Normal",
+            "kills": 9,
+            "deaths": 5,
+            "assists": 3,
+            "impactScore": 60.1,
+            "mmrChange": 14,
+            "mmrAfter": 3249
+          },
           {
             "matchId": 8893806908,
             "startedAt": "2026-07-12T19:16:41Z",
@@ -7726,41 +8292,25 @@
             "impactScore": 24.2,
             "mmrChange": -18,
             "mmrAfter": 3094
-          },
-          {
-            "matchId": 8889355899,
-            "startedAt": "2026-07-10T07:04:10Z",
-            "heroName": "Ancient Apparition",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/ancient_apparition.png",
-            "result": "WIN",
-            "durationLabel": "28:48",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 13,
-            "deaths": 9,
-            "assists": 13,
-            "impactScore": 60.0,
-            "mmrChange": 14,
-            "mmrAfter": 3112
-          },
-          {
-            "matchId": 8888824424,
-            "startedAt": "2026-07-09T19:27:50Z",
-            "heroName": "Phantom Assassin",
-            "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/phantom_assassin.png",
-            "result": "LOSS",
-            "durationLabel": "28:57",
-            "modeName": "Turbo",
-            "lobbyTypeName": "Normal",
-            "kills": 7,
-            "deaths": 8,
-            "assists": 6,
-            "impactScore": 32.6,
-            "mmrChange": -16,
-            "mmrAfter": 3098
           }
         ],
         "activityFeed": [
+          {
+            "type": "lowlight",
+            "severity": "high",
+            "accountId": 1055875308,
+            "player": "Фимозик)",
+            "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
+            "matchId": 8896886041,
+            "message": "Фимозик) died 13 times and still called it space creation",
+            "icon": "skull",
+            "createdAt": "2026-07-14T19:35:39Z",
+            "stats": {
+              "kills": 4,
+              "deaths": 13,
+              "assists": 4
+            }
+          },
           {
             "type": "lowlight",
             "severity": "medium",
@@ -7872,22 +8422,6 @@
               "deaths": 12,
               "assists": 7
             }
-          },
-          {
-            "type": "lowlight",
-            "severity": "high",
-            "accountId": 1055875308,
-            "player": "Фимозик)",
-            "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-            "matchId": 8885808627,
-            "message": "Фимозик) died 18 times and still called it space creation",
-            "icon": "skull",
-            "createdAt": "2026-07-07T17:03:21Z",
-            "stats": {
-              "kills": 1,
-              "deaths": 18,
-              "assists": 12
-            }
           }
         ]
       }
@@ -7895,23 +8429,23 @@
   ],
   "squadPulse": {
     "record": {
-      "wins": 133,
-      "losses": 82,
-      "label": "133W-82L"
+      "wins": 146,
+      "losses": 88,
+      "label": "146W-88L"
     },
-    "trackedPlayerMatches": 215,
-    "turboMatches": 123,
+    "trackedPlayerMatches": 234,
+    "turboMatches": 128,
     "bestPerformer": {
       "accountId": 785591295,
       "name": "⁶⁷маленький⁶⁷",
       "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-      "mmr": 3465,
+      "mmr": 3609,
       "position": "OFF",
-      "matches": 14,
-      "wins": 11,
-      "losses": 3,
-      "winRate": 78.6,
-      "kda": 5.23
+      "matches": 18,
+      "wins": 14,
+      "losses": 4,
+      "winRate": 77.8,
+      "kda": 5.59
     },
     "cursedPick": {
       "heroId": 26,
@@ -7925,49 +8459,49 @@
       "accountId": 785591295,
       "name": "⁶⁷маленький⁶⁷",
       "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-      "mmr": 3465,
+      "mmr": 3609,
       "position": "OFF",
-      "matches": 14,
-      "wins": 11,
-      "losses": 3,
-      "winRate": 78.6,
-      "kda": 5.23
+      "matches": 18,
+      "wins": 14,
+      "losses": 4,
+      "winRate": 77.8,
+      "kda": 5.59
     },
     {
       "accountId": 818003286,
       "name": "markwood1976",
       "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-      "mmr": 3348,
+      "mmr": 3450,
       "position": "SUP",
-      "matches": 48,
-      "wins": 29,
-      "losses": 19,
-      "winRate": 60.4,
-      "kda": 3.3
+      "matches": 55,
+      "wins": 33,
+      "losses": 22,
+      "winRate": 60.0,
+      "kda": 3.28
     },
     {
       "accountId": 826136695,
       "name": "ЗАГЛОТЫШ",
       "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-      "mmr": 3278,
+      "mmr": 3382,
       "position": "CRY",
-      "matches": 17,
-      "wins": 10,
+      "matches": 19,
+      "wins": 12,
       "losses": 7,
-      "winRate": 58.8,
-      "kda": 4.58
+      "winRate": 63.2,
+      "kda": 4.84
     },
     {
       "accountId": 1055875308,
       "name": "Фимозик)",
       "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-      "mmr": 3235,
+      "mmr": 3234,
       "position": "MID",
-      "matches": 41,
-      "wins": 25,
-      "losses": 16,
-      "winRate": 61.0,
-      "kda": 2.53
+      "matches": 43,
+      "wins": 26,
+      "losses": 17,
+      "winRate": 60.5,
+      "kda": 2.45
     },
     {
       "accountId": 167745528,
@@ -7994,6 +8528,18 @@
       "kda": 2.65
     },
     {
+      "accountId": 244200929,
+      "name": "КирюхаПодПлюхой",
+      "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+      "mmr": 3136,
+      "position": "OFF",
+      "matches": 13,
+      "wins": 8,
+      "losses": 5,
+      "winRate": 61.5,
+      "kda": 3.0
+    },
+    {
       "accountId": 970583237,
       "name": "КАЛОПРИЕМНИК",
       "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
@@ -8004,21 +8550,692 @@
       "losses": 8,
       "winRate": 57.9,
       "kda": 2.73
-    },
-    {
-      "accountId": 244200929,
-      "name": "КирюхаПодПлюхой",
-      "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
-      "mmr": 3041,
-      "position": "OFF",
-      "matches": 9,
-      "wins": 5,
-      "losses": 4,
-      "winRate": 55.6,
-      "kda": 2.64
     }
   ],
   "recentPartyGames": [
+    {
+      "matchId": 8897564114,
+      "startedAt": "2026-07-15T10:34:15Z",
+      "duration": 1398,
+      "durationLabel": "23:18",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 33,
+      "direScore": 31,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 72,
+          "heroName": "Gyrocopter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png",
+          "kills": 11,
+          "deaths": 9,
+          "assists": 12,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 72,
+          "heroName": "Gyrocopter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 72,
+        "heroName": "Gyrocopter",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png",
+        "kills": 11,
+        "deaths": 9,
+        "assists": 12,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8897479971,
+      "startedAt": "2026-07-15T09:05:25Z",
+      "duration": 1747,
+      "durationLabel": "29:07",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 45,
+      "direScore": 30,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 71,
+          "heroName": "Spirit Breaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png",
+          "kills": 6,
+          "deaths": 8,
+          "assists": 14,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 71,
+          "heroName": "Spirit Breaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 71,
+        "heroName": "Spirit Breaker",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/spirit_breaker.png",
+        "kills": 6,
+        "deaths": 8,
+        "assists": 14,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8896946887,
+      "startedAt": "2026-07-14T20:31:09Z",
+      "duration": 2119,
+      "durationLabel": "35:19",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 68,
+      "direScore": 31,
+      "trackedPlayers": [
+        {
+          "accountId": 244200929,
+          "name": "КирюхаПодПлюхой",
+          "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+          "heroId": 28,
+          "heroName": "Slardar",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png",
+          "kills": 22,
+          "deaths": 5,
+          "assists": 14,
+          "won": true
+        },
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
+          "kills": 6,
+          "deaths": 11,
+          "assists": 25,
+          "won": true
+        },
+        {
+          "accountId": 785591295,
+          "name": "⁶⁷маленький⁶⁷",
+          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+          "heroId": 11,
+          "heroName": "Shadow Fiend",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/nevermore.png",
+          "kills": 18,
+          "deaths": 4,
+          "assists": 7,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 28,
+          "heroName": "Slardar",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png"
+        },
+        {
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png"
+        },
+        {
+          "heroId": 11,
+          "heroName": "Shadow Fiend",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/nevermore.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 244200929,
+        "name": "КирюхаПодПлюхой",
+        "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+        "heroId": 28,
+        "heroName": "Slardar",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png",
+        "kills": 22,
+        "deaths": 5,
+        "assists": 14,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8896886041,
+      "startedAt": "2026-07-14T19:35:39Z",
+      "duration": 1045,
+      "durationLabel": "17:25",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": false,
+      "radiantScore": 17,
+      "direScore": 45,
+      "trackedPlayers": [
+        {
+          "accountId": 1055875308,
+          "name": "Фимозик)",
+          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
+          "kills": 4,
+          "deaths": 13,
+          "assists": 4,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 1055875308,
+        "name": "Фимозик)",
+        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
+        "heroId": 62,
+        "heroName": "Bounty Hunter",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
+        "kills": 4,
+        "deaths": 13,
+        "assists": 4,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8896825369,
+      "startedAt": "2026-07-14T18:44:16Z",
+      "duration": 1208,
+      "durationLabel": "20:08",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": false,
+      "radiantScore": 27,
+      "direScore": 35,
+      "trackedPlayers": [
+        {
+          "accountId": 1055875308,
+          "name": "Фимозик)",
+          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
+          "heroId": 35,
+          "heroName": "Sniper",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
+          "kills": 9,
+          "deaths": 5,
+          "assists": 3,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 35,
+          "heroName": "Sniper",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 1055875308,
+        "name": "Фимозик)",
+        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
+        "heroId": 35,
+        "heroName": "Sniper",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
+        "kills": 9,
+        "deaths": 5,
+        "assists": 3,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8896574312,
+      "startedAt": "2026-07-14T15:45:50Z",
+      "duration": 3811,
+      "durationLabel": "63:31",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 78,
+      "direScore": 88,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 64,
+          "heroName": "Jakiro",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png",
+          "kills": 14,
+          "deaths": 21,
+          "assists": 38,
+          "won": false
+        },
+        {
+          "accountId": 785591295,
+          "name": "⁶⁷маленький⁶⁷",
+          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+          "heroId": 34,
+          "heroName": "Tinker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/tinker.png",
+          "kills": 30,
+          "deaths": 11,
+          "assists": 33,
+          "won": false
+        },
+        {
+          "accountId": 244200929,
+          "name": "КирюхаПодПлюхой",
+          "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+          "heroId": 78,
+          "heroName": "Brewmaster",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/brewmaster.png",
+          "kills": 12,
+          "deaths": 18,
+          "assists": 31,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 64,
+          "heroName": "Jakiro",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png"
+        },
+        {
+          "heroId": 34,
+          "heroName": "Tinker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/tinker.png"
+        },
+        {
+          "heroId": 78,
+          "heroName": "Brewmaster",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/brewmaster.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 785591295,
+        "name": "⁶⁷маленький⁶⁷",
+        "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+        "heroId": 34,
+        "heroName": "Tinker",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/tinker.png",
+        "kills": 30,
+        "deaths": 11,
+        "assists": 33,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8896480184,
+      "startedAt": "2026-07-14T14:47:30Z",
+      "duration": 2086,
+      "durationLabel": "34:46",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": false,
+      "radiantScore": 28,
+      "direScore": 66,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 86,
+          "heroName": "Rubick",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png",
+          "kills": 20,
+          "deaths": 8,
+          "assists": 25,
+          "won": true
+        },
+        {
+          "accountId": 785591295,
+          "name": "⁶⁷маленький⁶⁷",
+          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+          "heroId": 35,
+          "heroName": "Sniper",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
+          "kills": 19,
+          "deaths": 4,
+          "assists": 19,
+          "won": true
+        },
+        {
+          "accountId": 244200929,
+          "name": "КирюхаПодПлюхой",
+          "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+          "heroId": 2,
+          "heroName": "Axe",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/axe.png",
+          "kills": 14,
+          "deaths": 7,
+          "assists": 15,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 86,
+          "heroName": "Rubick",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png"
+        },
+        {
+          "heroId": 35,
+          "heroName": "Sniper",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png"
+        },
+        {
+          "heroId": 2,
+          "heroName": "Axe",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/axe.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 86,
+        "heroName": "Rubick",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png",
+        "kills": 20,
+        "deaths": 8,
+        "assists": 25,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8896404615,
+      "startedAt": "2026-07-14T14:01:24Z",
+      "duration": 1749,
+      "durationLabel": "29:09",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 52,
+      "direScore": 17,
+      "trackedPlayers": [
+        {
+          "accountId": 244200929,
+          "name": "КирюхаПодПлюхой",
+          "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+          "heroId": 28,
+          "heroName": "Slardar",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png",
+          "kills": 7,
+          "deaths": 6,
+          "assists": 20,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 28,
+          "heroName": "Slardar",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 244200929,
+        "name": "КирюхаПодПлюхой",
+        "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+        "heroId": 28,
+        "heroName": "Slardar",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png",
+        "kills": 7,
+        "deaths": 6,
+        "assists": 20,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8896398105,
+      "startedAt": "2026-07-14T13:57:29Z",
+      "duration": 1756,
+      "durationLabel": "29:16",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": false,
+      "radiantScore": 17,
+      "direScore": 51,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
+          "kills": 8,
+          "deaths": 6,
+          "assists": 30,
+          "won": true
+        },
+        {
+          "accountId": 785591295,
+          "name": "⁶⁷маленький⁶⁷",
+          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+          "heroId": 128,
+          "heroName": "Snapfire",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/snapfire.png",
+          "kills": 8,
+          "deaths": 4,
+          "assists": 23,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 62,
+          "heroName": "Bounty Hunter",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png"
+        },
+        {
+          "heroId": 128,
+          "heroName": "Snapfire",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/snapfire.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 62,
+        "heroName": "Bounty Hunter",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
+        "kills": 8,
+        "deaths": 6,
+        "assists": 30,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8896343642,
+      "startedAt": "2026-07-14T13:24:00Z",
+      "duration": 1672,
+      "durationLabel": "27:52",
+      "mode": 23,
+      "modeName": "Turbo",
+      "lobbyType": 0,
+      "lobbyTypeName": "Normal",
+      "radiantWin": true,
+      "radiantScore": 45,
+      "direScore": 21,
+      "trackedPlayers": [
+        {
+          "accountId": 818003286,
+          "name": "markwood1976",
+          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+          "heroId": 35,
+          "heroName": "Sniper",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
+          "kills": 6,
+          "deaths": 8,
+          "assists": 8,
+          "won": false
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 35,
+          "heroName": "Sniper",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png"
+        }
+      ],
+      "result": "LOSS",
+      "highlight": {
+        "accountId": 818003286,
+        "name": "markwood1976",
+        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+        "heroId": 35,
+        "heroName": "Sniper",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
+        "kills": 6,
+        "deaths": 8,
+        "assists": 8,
+        "won": false
+      }
+    },
+    {
+      "matchId": 8896119115,
+      "startedAt": "2026-07-14T10:36:13Z",
+      "duration": 1946,
+      "durationLabel": "32:26",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 49,
+      "direScore": 26,
+      "trackedPlayers": [
+        {
+          "accountId": 826136695,
+          "name": "ЗАГЛОТЫШ",
+          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+          "heroId": 135,
+          "heroName": "Dawnbreaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/dawnbreaker.png",
+          "kills": 17,
+          "deaths": 3,
+          "assists": 19,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 135,
+          "heroName": "Dawnbreaker",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/dawnbreaker.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 826136695,
+        "name": "ЗАГЛОТЫШ",
+        "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+        "heroId": 135,
+        "heroName": "Dawnbreaker",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/dawnbreaker.png",
+        "kills": 17,
+        "deaths": 3,
+        "assists": 19,
+        "won": true
+      }
+    },
+    {
+      "matchId": 8896085384,
+      "startedAt": "2026-07-14T10:03:28Z",
+      "duration": 1665,
+      "durationLabel": "27:45",
+      "mode": 22,
+      "modeName": "All Draft",
+      "lobbyType": 7,
+      "lobbyTypeName": "Ranked",
+      "radiantWin": true,
+      "radiantScore": 18,
+      "direScore": 13,
+      "trackedPlayers": [
+        {
+          "accountId": 826136695,
+          "name": "ЗАГЛОТЫШ",
+          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+          "heroId": 77,
+          "heroName": "Lycan",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lycan.png",
+          "kills": 6,
+          "deaths": 1,
+          "assists": 2,
+          "won": true
+        }
+      ],
+      "heroes": [
+        {
+          "heroId": 77,
+          "heroName": "Lycan",
+          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lycan.png"
+        }
+      ],
+      "result": "WIN",
+      "highlight": {
+        "accountId": 826136695,
+        "name": "ЗАГЛОТЫШ",
+        "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
+        "heroId": 77,
+        "heroName": "Lycan",
+        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/lycan.png",
+        "kills": 6,
+        "deaths": 1,
+        "assists": 2,
+        "won": true
+      }
+    },
     {
       "matchId": 8895545984,
       "startedAt": "2026-07-13T23:08:17Z",
@@ -8547,961 +9764,6 @@
         "assists": 23,
         "won": true
       }
-    },
-    {
-      "matchId": 8893943824,
-      "startedAt": "2026-07-12T21:00:02Z",
-      "duration": 2010,
-      "durationLabel": "33:30",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": false,
-      "radiantScore": 18,
-      "direScore": 46,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 87,
-          "heroName": "Disruptor",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/disruptor.png",
-          "kills": 0,
-          "deaths": 14,
-          "assists": 13,
-          "won": false
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/ad0479827d6da64fd40f00637d872daebed8a93f_full.jpg",
-          "heroId": 108,
-          "heroName": "Underlord",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/abyssal_underlord.png",
-          "kills": 2,
-          "deaths": 8,
-          "assists": 9,
-          "won": false
-        },
-        {
-          "accountId": 785591295,
-          "name": "⁶⁷маленький⁶⁷",
-          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-          "heroId": 86,
-          "heroName": "Rubick",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png",
-          "kills": 7,
-          "deaths": 10,
-          "assists": 6,
-          "won": false
-        },
-        {
-          "accountId": 970583237,
-          "name": "КАЛОПРИЕМНИК",
-          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-          "heroId": 123,
-          "heroName": "Hoodwink",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png",
-          "kills": 4,
-          "deaths": 9,
-          "assists": 6,
-          "won": false
-        },
-        {
-          "accountId": 826136695,
-          "name": "ЗАГЛОТЫШ",
-          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-          "heroId": 114,
-          "heroName": "Monkey King",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/monkey_king.png",
-          "kills": 5,
-          "deaths": 5,
-          "assists": 2,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 87,
-          "heroName": "Disruptor",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/disruptor.png"
-        },
-        {
-          "heroId": 108,
-          "heroName": "Underlord",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/abyssal_underlord.png"
-        },
-        {
-          "heroId": 86,
-          "heroName": "Rubick",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png"
-        },
-        {
-          "heroId": 123,
-          "heroName": "Hoodwink",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png"
-        },
-        {
-          "heroId": 114,
-          "heroName": "Monkey King",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/monkey_king.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 785591295,
-        "name": "⁶⁷маленький⁶⁷",
-        "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-        "heroId": 86,
-        "heroName": "Rubick",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png",
-        "kills": 7,
-        "deaths": 10,
-        "assists": 6,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8893902318,
-      "startedAt": "2026-07-12T20:27:08Z",
-      "duration": 1660,
-      "durationLabel": "27:40",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": true,
-      "radiantScore": 62,
-      "direScore": 16,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 72,
-          "heroName": "Gyrocopter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png",
-          "kills": 10,
-          "deaths": 9,
-          "assists": 23,
-          "won": true
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/ad0479827d6da64fd40f00637d872daebed8a93f_full.jpg",
-          "heroId": 60,
-          "heroName": "Night Stalker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/night_stalker.png",
-          "kills": 12,
-          "deaths": 0,
-          "assists": 8,
-          "won": true
-        },
-        {
-          "accountId": 785591295,
-          "name": "⁶⁷маленький⁶⁷",
-          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-          "heroId": 35,
-          "heroName": "Sniper",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
-          "kills": 16,
-          "deaths": 3,
-          "assists": 17,
-          "won": true
-        },
-        {
-          "accountId": 970583237,
-          "name": "КАЛОПРИЕМНИК",
-          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-          "heroId": 22,
-          "heroName": "Zeus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
-          "kills": 8,
-          "deaths": 2,
-          "assists": 30,
-          "won": true
-        },
-        {
-          "accountId": 826136695,
-          "name": "ЗАГЛОТЫШ",
-          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-          "heroId": 39,
-          "heroName": "Queen of Pain",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/queenofpain.png",
-          "kills": 16,
-          "deaths": 2,
-          "assists": 10,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 72,
-          "heroName": "Gyrocopter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/gyrocopter.png"
-        },
-        {
-          "heroId": 60,
-          "heroName": "Night Stalker",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/night_stalker.png"
-        },
-        {
-          "heroId": 35,
-          "heroName": "Sniper",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png"
-        },
-        {
-          "heroId": 22,
-          "heroName": "Zeus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png"
-        },
-        {
-          "heroId": 39,
-          "heroName": "Queen of Pain",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/queenofpain.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 970583237,
-        "name": "КАЛОПРИЕМНИК",
-        "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-        "heroId": 22,
-        "heroName": "Zeus",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
-        "kills": 8,
-        "deaths": 2,
-        "assists": 30,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8893839062,
-      "startedAt": "2026-07-12T19:39:59Z",
-      "duration": 2351,
-      "durationLabel": "39:11",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": false,
-      "radiantScore": 26,
-      "direScore": 48,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 14,
-          "heroName": "Pudge",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png",
-          "kills": 4,
-          "deaths": 15,
-          "assists": 13,
-          "won": false
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/ad0479827d6da64fd40f00637d872daebed8a93f_full.jpg",
-          "heroId": 36,
-          "heroName": "Necrophos",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/necrolyte.png",
-          "kills": 2,
-          "deaths": 10,
-          "assists": 8,
-          "won": false
-        },
-        {
-          "accountId": 785591295,
-          "name": "⁶⁷маленький⁶⁷",
-          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-          "heroId": 11,
-          "heroName": "Shadow Fiend",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/nevermore.png",
-          "kills": 2,
-          "deaths": 9,
-          "assists": 7,
-          "won": false
-        },
-        {
-          "accountId": 970583237,
-          "name": "КАЛОПРИЕМНИК",
-          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-          "heroId": 85,
-          "heroName": "Undying",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/undying.png",
-          "kills": 1,
-          "deaths": 9,
-          "assists": 11,
-          "won": false
-        },
-        {
-          "accountId": 826136695,
-          "name": "ЗАГЛОТЫШ",
-          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-          "heroId": 70,
-          "heroName": "Ursa",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ursa.png",
-          "kills": 15,
-          "deaths": 5,
-          "assists": 1,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 14,
-          "heroName": "Pudge",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png"
-        },
-        {
-          "heroId": 36,
-          "heroName": "Necrophos",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/necrolyte.png"
-        },
-        {
-          "heroId": 11,
-          "heroName": "Shadow Fiend",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/nevermore.png"
-        },
-        {
-          "heroId": 85,
-          "heroName": "Undying",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/undying.png"
-        },
-        {
-          "heroId": 70,
-          "heroName": "Ursa",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/ursa.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 14,
-        "heroName": "Pudge",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/pudge.png",
-        "kills": 4,
-        "deaths": 15,
-        "assists": 13,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8893806908,
-      "startedAt": "2026-07-12T19:16:41Z",
-      "duration": 1278,
-      "durationLabel": "21:18",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 49,
-      "direScore": 29,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 73,
-          "heroName": "Alchemist",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png",
-          "kills": 2,
-          "deaths": 2,
-          "assists": 2,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 73,
-          "heroName": "Alchemist",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 73,
-        "heroName": "Alchemist",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png",
-        "kills": 2,
-        "deaths": 2,
-        "assists": 2,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8893690871,
-      "startedAt": "2026-07-12T17:55:28Z",
-      "duration": 2032,
-      "durationLabel": "33:52",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": false,
-      "radiantScore": 25,
-      "direScore": 52,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 62,
-          "heroName": "Bounty Hunter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
-          "kills": 6,
-          "deaths": 5,
-          "assists": 32,
-          "won": true
-        },
-        {
-          "accountId": 826136695,
-          "name": "ЗАГЛОТЫШ",
-          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-          "heroId": 8,
-          "heroName": "Juggernaut",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/juggernaut.png",
-          "kills": 26,
-          "deaths": 4,
-          "assists": 4,
-          "won": true
-        },
-        {
-          "accountId": 785591295,
-          "name": "⁶⁷маленький⁶⁷",
-          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-          "heroId": 11,
-          "heroName": "Shadow Fiend",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/nevermore.png",
-          "kills": 11,
-          "deaths": 3,
-          "assists": 16,
-          "won": true
-        },
-        {
-          "accountId": 970583237,
-          "name": "КАЛОПРИЕМНИК",
-          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-          "heroId": 123,
-          "heroName": "Hoodwink",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png",
-          "kills": 4,
-          "deaths": 6,
-          "assists": 22,
-          "won": true
-        },
-        {
-          "accountId": 175966938,
-          "name": "АДМИРАЛ",
-          "avatar": "https://avatars.steamstatic.com/ad0479827d6da64fd40f00637d872daebed8a93f_full.jpg",
-          "heroId": 28,
-          "heroName": "Slardar",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png",
-          "kills": 4,
-          "deaths": 7,
-          "assists": 12,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 62,
-          "heroName": "Bounty Hunter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png"
-        },
-        {
-          "heroId": 8,
-          "heroName": "Juggernaut",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/juggernaut.png"
-        },
-        {
-          "heroId": 11,
-          "heroName": "Shadow Fiend",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/nevermore.png"
-        },
-        {
-          "heroId": 123,
-          "heroName": "Hoodwink",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png"
-        },
-        {
-          "heroId": 28,
-          "heroName": "Slardar",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 62,
-        "heroName": "Bounty Hunter",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
-        "kills": 6,
-        "deaths": 5,
-        "assists": 32,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8893601517,
-      "startedAt": "2026-07-12T16:55:48Z",
-      "duration": 2335,
-      "durationLabel": "38:55",
-      "mode": 22,
-      "modeName": "All Draft",
-      "lobbyType": 7,
-      "lobbyTypeName": "Ranked",
-      "radiantWin": false,
-      "radiantScore": 35,
-      "direScore": 63,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 62,
-          "heroName": "Bounty Hunter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
-          "kills": 7,
-          "deaths": 7,
-          "assists": 37,
-          "won": true
-        },
-        {
-          "accountId": 826136695,
-          "name": "ЗАГЛОТЫШ",
-          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-          "heroId": 97,
-          "heroName": "Magnus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/magnataur.png",
-          "kills": 18,
-          "deaths": 3,
-          "assists": 22,
-          "won": true
-        },
-        {
-          "accountId": 785591295,
-          "name": "⁶⁷маленький⁶⁷",
-          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-          "heroId": 86,
-          "heroName": "Rubick",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png",
-          "kills": 20,
-          "deaths": 5,
-          "assists": 19,
-          "won": true
-        },
-        {
-          "accountId": 970583237,
-          "name": "КАЛОПРИЕМНИК",
-          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-          "heroId": 123,
-          "heroName": "Hoodwink",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png",
-          "kills": 6,
-          "deaths": 9,
-          "assists": 22,
-          "won": true
-        },
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 48,
-          "heroName": "Luna",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/luna.png",
-          "kills": 11,
-          "deaths": 11,
-          "assists": 12,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 62,
-          "heroName": "Bounty Hunter",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png"
-        },
-        {
-          "heroId": 97,
-          "heroName": "Magnus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/magnataur.png"
-        },
-        {
-          "heroId": 86,
-          "heroName": "Rubick",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/rubick.png"
-        },
-        {
-          "heroId": 123,
-          "heroName": "Hoodwink",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/hoodwink.png"
-        },
-        {
-          "heroId": 48,
-          "heroName": "Luna",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/luna.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 818003286,
-        "name": "markwood1976",
-        "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-        "heroId": 62,
-        "heroName": "Bounty Hunter",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/bounty_hunter.png",
-        "kills": 7,
-        "deaths": 7,
-        "assists": 37,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8893507212,
-      "startedAt": "2026-07-12T15:57:10Z",
-      "duration": 1992,
-      "durationLabel": "33:12",
-      "mode": 4,
-      "modeName": "Single Draft",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": false,
-      "radiantScore": 29,
-      "direScore": 55,
-      "trackedPlayers": [
-        {
-          "accountId": 818003286,
-          "name": "markwood1976",
-          "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-          "heroId": 64,
-          "heroName": "Jakiro",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png",
-          "kills": 15,
-          "deaths": 6,
-          "assists": 15,
-          "won": true
-        },
-        {
-          "accountId": 826136695,
-          "name": "ЗАГЛОТЫШ",
-          "avatar": "https://avatars.steamstatic.com/02cf4fb81f8fe883d196c83974b8018c9aa44a8e_full.jpg",
-          "heroId": 136,
-          "heroName": "Marci",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/marci.png",
-          "kills": 13,
-          "deaths": 5,
-          "assists": 11,
-          "won": true
-        },
-        {
-          "accountId": 785591295,
-          "name": "⁶⁷маленький⁶⁷",
-          "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-          "heroId": 21,
-          "heroName": "Windranger",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/windrunner.png",
-          "kills": 15,
-          "deaths": 2,
-          "assists": 10,
-          "won": true
-        },
-        {
-          "accountId": 970583237,
-          "name": "КАЛОПРИЕМНИК",
-          "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-          "heroId": 87,
-          "heroName": "Disruptor",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/disruptor.png",
-          "kills": 4,
-          "deaths": 10,
-          "assists": 27,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 64,
-          "heroName": "Jakiro",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/jakiro.png"
-        },
-        {
-          "heroId": 136,
-          "heroName": "Marci",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/marci.png"
-        },
-        {
-          "heroId": 21,
-          "heroName": "Windranger",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/windrunner.png"
-        },
-        {
-          "heroId": 87,
-          "heroName": "Disruptor",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/disruptor.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 970583237,
-        "name": "КАЛОПРИЕМНИК",
-        "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-        "heroId": 87,
-        "heroName": "Disruptor",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/disruptor.png",
-        "kills": 4,
-        "deaths": 10,
-        "assists": 27,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8892905082,
-      "startedAt": "2026-07-12T09:53:52Z",
-      "duration": 1516,
-      "durationLabel": "25:16",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 40,
-      "direScore": 21,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 73,
-          "heroName": "Alchemist",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png",
-          "kills": 6,
-          "deaths": 7,
-          "assists": 5,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 73,
-          "heroName": "Alchemist",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 73,
-        "heroName": "Alchemist",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/alchemist.png",
-        "kills": 6,
-        "deaths": 7,
-        "assists": 5,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8892877295,
-      "startedAt": "2026-07-12T09:32:23Z",
-      "duration": 1014,
-      "durationLabel": "16:54",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 36,
-      "direScore": 15,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 1,
-          "heroName": "Anti-Mage",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/antimage.png",
-          "kills": 10,
-          "deaths": 2,
-          "assists": 3,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 1,
-          "heroName": "Anti-Mage",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/antimage.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 1,
-        "heroName": "Anti-Mage",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/antimage.png",
-        "kills": 10,
-        "deaths": 2,
-        "assists": 3,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8892838793,
-      "startedAt": "2026-07-12T09:02:32Z",
-      "duration": 1591,
-      "durationLabel": "26:31",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": false,
-      "radiantScore": 33,
-      "direScore": 33,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 41,
-          "heroName": "Faceless Void",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/faceless_void.png",
-          "kills": 14,
-          "deaths": 7,
-          "assists": 4,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 41,
-          "heroName": "Faceless Void",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/faceless_void.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 41,
-        "heroName": "Faceless Void",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/faceless_void.png",
-        "kills": 14,
-        "deaths": 7,
-        "assists": 4,
-        "won": false
-      }
-    },
-    {
-      "matchId": 8891848770,
-      "startedAt": "2026-07-11T16:56:21Z",
-      "duration": 853,
-      "durationLabel": "14:13",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": true,
-      "radiantScore": 42,
-      "direScore": 7,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 22,
-          "heroName": "Zeus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
-          "kills": 6,
-          "deaths": 1,
-          "assists": 19,
-          "won": true
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 22,
-          "heroName": "Zeus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png"
-        }
-      ],
-      "result": "WIN",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 22,
-        "heroName": "Zeus",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
-        "kills": 6,
-        "deaths": 1,
-        "assists": 19,
-        "won": true
-      }
-    },
-    {
-      "matchId": 8891803418,
-      "startedAt": "2026-07-11T16:28:16Z",
-      "duration": 1303,
-      "durationLabel": "21:43",
-      "mode": 23,
-      "modeName": "Turbo",
-      "lobbyType": 0,
-      "lobbyTypeName": "Normal",
-      "radiantWin": false,
-      "radiantScore": 29,
-      "direScore": 60,
-      "trackedPlayers": [
-        {
-          "accountId": 1055875308,
-          "name": "Фимозик)",
-          "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-          "heroId": 22,
-          "heroName": "Zeus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
-          "kills": 13,
-          "deaths": 11,
-          "assists": 9,
-          "won": false
-        }
-      ],
-      "heroes": [
-        {
-          "heroId": 22,
-          "heroName": "Zeus",
-          "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png"
-        }
-      ],
-      "result": "LOSS",
-      "highlight": {
-        "accountId": 1055875308,
-        "name": "Фимозик)",
-        "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
-        "heroId": 22,
-        "heroName": "Zeus",
-        "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/zuus.png",
-        "kills": 13,
-        "deaths": 11,
-        "assists": 9,
-        "won": false
-      }
     }
   ],
   "squadMeta": {
@@ -9514,11 +9776,11 @@
       "winRate": 53.3
     },
     "bestHero": {
-      "heroId": 35,
-      "heroName": "Sniper",
-      "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/sniper.png",
-      "games": 11,
-      "wins": 11,
+      "heroId": 28,
+      "heroName": "Slardar",
+      "heroImage": "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/slardar.png",
+      "games": 5,
+      "wins": 5,
       "winRate": 100.0
     },
     "cursedHero": {
@@ -9543,14 +9805,110 @@
       "accountId": 785591295,
       "player": "⁶⁷маленький⁶⁷",
       "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-      "matchId": 8895326808,
-      "message": "⁶⁷маленький⁶⁷ dropped 25 kills on Drow Ranger",
+      "matchId": 8896946887,
+      "message": "⁶⁷маленький⁶⁷ dropped 18 kills on Shadow Fiend",
       "icon": "crown",
-      "createdAt": "2026-07-13T19:36:23Z",
+      "createdAt": "2026-07-14T20:31:09Z",
       "stats": {
-        "kills": 25,
-        "deaths": 3,
-        "assists": 19
+        "kills": 18,
+        "deaths": 4,
+        "assists": 7
+      }
+    },
+    {
+      "type": "highlight",
+      "severity": "high",
+      "accountId": 244200929,
+      "player": "КирюхаПодПлюхой",
+      "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+      "matchId": 8896946887,
+      "message": "КирюхаПодПлюхой dropped 22 kills on Slardar",
+      "icon": "crown",
+      "createdAt": "2026-07-14T20:31:09Z",
+      "stats": {
+        "kills": 22,
+        "deaths": 5,
+        "assists": 14
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "medium",
+      "accountId": 818003286,
+      "player": "markwood1976",
+      "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+      "matchId": 8896946887,
+      "message": "markwood1976 died 11 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-14T20:31:09Z",
+      "stats": {
+        "kills": 6,
+        "deaths": 11,
+        "assists": 25
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 1055875308,
+      "player": "Фимозик)",
+      "avatar": "https://avatars.steamstatic.com/59bc28c34465a62c71c1eab2656e538c21d96720_full.jpg",
+      "matchId": 8896886041,
+      "message": "Фимозик) died 13 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-14T19:35:39Z",
+      "stats": {
+        "kills": 4,
+        "deaths": 13,
+        "assists": 4
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 785591295,
+      "player": "⁶⁷маленький⁶⁷",
+      "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
+      "matchId": 8896574312,
+      "message": "⁶⁷маленький⁶⁷ died 11 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-14T15:45:50Z",
+      "stats": {
+        "kills": 30,
+        "deaths": 11,
+        "assists": 33
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 244200929,
+      "player": "КирюхаПодПлюхой",
+      "avatar": "https://avatars.steamstatic.com/d6c6db2342879fd284325480c4b6c2e09ceea1b9_full.jpg",
+      "matchId": 8896574312,
+      "message": "КирюхаПодПлюхой died 18 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-14T15:45:50Z",
+      "stats": {
+        "kills": 12,
+        "deaths": 18,
+        "assists": 31
+      }
+    },
+    {
+      "type": "lowlight",
+      "severity": "high",
+      "accountId": 818003286,
+      "player": "markwood1976",
+      "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
+      "matchId": 8896574312,
+      "message": "markwood1976 died 21 times and still called it space creation",
+      "icon": "skull",
+      "createdAt": "2026-07-14T15:45:50Z",
+      "stats": {
+        "kills": 14,
+        "deaths": 21,
+        "assists": 38
       }
     },
     {
@@ -9559,110 +9917,14 @@
       "accountId": 785591295,
       "player": "⁶⁷маленький⁶⁷",
       "avatar": "https://avatars.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg",
-      "matchId": 8895175518,
-      "message": "⁶⁷маленький⁶⁷ dropped 43 kills on Sniper",
+      "matchId": 8896480184,
+      "message": "⁶⁷маленький⁶⁷ dropped 19 kills on Sniper",
       "icon": "crown",
-      "createdAt": "2026-07-13T17:45:43Z",
+      "createdAt": "2026-07-14T14:47:30Z",
       "stats": {
-        "kills": 43,
-        "deaths": 9,
-        "assists": 24
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 167745528,
-      "player": "Пьер да Нул",
-      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
-      "matchId": 8895175518,
-      "message": "Пьер да Нул died 22 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-13T17:45:43Z",
-      "stats": {
-        "kills": 9,
-        "deaths": 22,
-        "assists": 26
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 970583237,
-      "player": "КАЛОПРИЕМНИК",
-      "avatar": "https://avatars.steamstatic.com/72f29cf0d4647e99040aa9684538cbd3f831c2ca_full.jpg",
-      "matchId": 8895175518,
-      "message": "КАЛОПРИЕМНИК died 14 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-13T17:45:43Z",
-      "stats": {
-        "kills": 8,
-        "deaths": 14,
-        "assists": 30
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "medium",
-      "accountId": 818003286,
-      "player": "markwood1976",
-      "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-      "matchId": 8895024751,
-      "message": "markwood1976 died 10 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-13T15:41:59Z",
-      "stats": {
-        "kills": 6,
-        "deaths": 10,
-        "assists": 5
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 167745528,
-      "player": "Пьер да Нул",
-      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
-      "matchId": 8894957798,
-      "message": "Пьер да Нул died 12 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-13T15:01:34Z",
-      "stats": {
-        "kills": 4,
-        "deaths": 12,
-        "assists": 18
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "high",
-      "accountId": 818003286,
-      "player": "markwood1976",
-      "avatar": "https://avatars.steamstatic.com/c26c19b0c1d0c6cb8bf88cd0fb245c67d19249d4_full.jpg",
-      "matchId": 8894957798,
-      "message": "markwood1976 died 15 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-13T15:01:34Z",
-      "stats": {
-        "kills": 5,
-        "deaths": 15,
-        "assists": 8
-      }
-    },
-    {
-      "type": "lowlight",
-      "severity": "medium",
-      "accountId": 167745528,
-      "player": "Пьер да Нул",
-      "avatar": "https://avatars.steamstatic.com/13615ac89ac02487051882fa7093fc93b1253c90_full.jpg",
-      "matchId": 8894649019,
-      "message": "Пьер да Нул died 10 times and still called it space creation",
-      "icon": "skull",
-      "createdAt": "2026-07-13T11:50:22Z",
-      "stats": {
-        "kills": 1,
-        "deaths": 10,
-        "assists": 25
+        "kills": 19,
+        "deaths": 4,
+        "assists": 19
       }
     }
   ]
